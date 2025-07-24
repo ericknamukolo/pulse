@@ -1,4 +1,4 @@
-package com.example.pulse
+package com.sleepingpanda.pulse
 
 import io.flutter.embedding.android.FlutterActivity
 
