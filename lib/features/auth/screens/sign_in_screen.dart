@@ -1,4 +1,5 @@
 import 'package:icons_plus/icons_plus.dart';
+import 'package:pulse/features/auth/repo/auth_repo.dart';
 import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:pulse/widgets/custom_button.dart';
@@ -112,6 +113,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     CustomButton(
                       btnText: 'SIGN IN',
                       click: () {
+                        AuthRepo().signIn();
                         // FocusScope.of(context).requestFocus(FocusNode());
                         // bool isValid = formKey.currentState!.validate();
                         // if (isValid) {
