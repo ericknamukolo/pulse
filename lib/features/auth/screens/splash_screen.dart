@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pulse/utils/navigation.dart';
 import '../../../utils/text.dart';
 import '../../../widgets/loading_indicator.dart';
+import 'sign_in_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,11 +15,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: 2)).then((_) async {
-      // Navigation.go(
-      //   screen: isSignedIn ? const NavBar() : const SignInScreen(),
-      //   context: context,
-      //   replace: true,
-      // );
+      Navigation.go(
+        screen: SignInScreen(),
+        context: context,
+        replace: true,
+      );
     });
     super.initState();
   }
