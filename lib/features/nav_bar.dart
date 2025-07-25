@@ -39,10 +39,10 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
         controller: tabController,
         physics: const NeverScrollableScrollPhysics(),
         children: const [
-          Center(child: Text('Hello World')),
-          Center(child: Text('Hello World')),
-          Center(child: Text('Hello World')),
-          Center(child: Text('Hello World')),
+          Center(child: Text('Overview')),
+          Center(child: Text('Events')),
+          Center(child: Text('Sessions')),
+          Center(child: Text('Reports')),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
