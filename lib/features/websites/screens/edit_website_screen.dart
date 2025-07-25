@@ -8,6 +8,7 @@ import 'package:pulse/widgets/action_dialog.dart';
 import 'package:pulse/widgets/custom_appbar.dart';
 import 'package:pulse/widgets/custom_text_field.dart';
 import 'package:pulse/widgets/icon_btn.dart';
+import 'package:pulse/widgets/mordern_btn.dart';
 
 import '../../../widgets/custom_button.dart';
 
@@ -112,6 +113,12 @@ class _EditWebsiteScreenState extends State<EditWebsiteScreen> {
                       }
                       return null;
                     },
+                  ),
+                  MordernBtn(
+                    icon: Icons.edit_document,
+                    btnColor: kPrimaryColor.withOpacity(.6),
+                    title: 'Analytics Setup Documentation',
+                    click: () => Links.goToLink('https://umami.is/docs'),
                   ),
                   const Spacer(),
                   CustomButton(

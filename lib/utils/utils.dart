@@ -36,7 +36,7 @@ class Toast {
 
 class Links {
   static void goToLink(String url,
-      {LaunchMode mode = LaunchMode.externalApplication}) async {
+      {LaunchMode mode = LaunchMode.inAppBrowserView}) async {
     await launchUrl(Uri.parse(url), mode: mode);
   }
 }

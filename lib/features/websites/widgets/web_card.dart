@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:pulse/features/nav_bar.dart';
 import 'package:pulse/features/websites/models/website.dart';
 import 'package:pulse/features/websites/screens/edit_website_screen.dart';
 import 'package:pulse/utils/navigation.dart';
@@ -16,7 +17,8 @@ class WebCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () =>
+          Navigation.go(screen: NavBar(web: website), context: context),
       child: Container(
         padding: EdgeInsets.all(15.0),
         decoration: BoxDecoration(
