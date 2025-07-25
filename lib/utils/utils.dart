@@ -40,3 +40,11 @@ class Links {
     await launchUrl(Uri.parse(url), mode: mode);
   }
 }
+
+List<BoxShadow> shadows = [
+  BoxShadow(
+    color: const Color(0xff000000).withOpacity(0.005),
+    blurRadius: 4.0,
+    offset: const Offset(0.0, 3.0),
+  )
+];

@@ -1,5 +1,6 @@
 import 'package:icons_plus/icons_plus.dart';
 import 'package:pulse/features/auth/repo/auth_repo.dart';
+import 'package:pulse/features/websites/screens/websites_screen.dart';
 import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:pulse/widgets/custom_button.dart';
@@ -8,6 +9,7 @@ import 'package:pulse/widgets/mordern_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../utils/navigation.dart';
 import '../../../utils/utils.dart';
 import '../cubit/auth_cubit.dart';
 
@@ -38,9 +40,10 @@ class _SignInScreenState extends State<SignInScreen> {
           if (state is AuthError) {
             Toast.showToast(message: state.message, context: context);
           }
-          // if (state is AuthAuthenticated) {
-          //   Navigation.go(screen: NavBar(), context: context, replace: true);
-          // }
+          if (state is AuthLoaded) {
+            Navigation.go(
+                screen: WebsitesScreen(), context: context, replace: true);
+          }
         },
         builder: (context, state) {
           return SingleChildScrollView(

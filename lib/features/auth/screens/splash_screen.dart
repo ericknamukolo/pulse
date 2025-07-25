@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pulse/features/websites/screens/websites_screen.dart';
+import 'package:pulse/utils/local_storage.dart';
 import 'package:pulse/utils/navigation.dart';
 import '../../../utils/text.dart';
+import '../../../utils/utils.dart';
 import '../../../widgets/loading_indicator.dart';
 import 'sign_in_screen.dart';
 
@@ -15,8 +18,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: 2)).then((_) async {
+      String? token = prefs.getString(LocalStorage.jwt);
       Navigation.go(
-        screen: SignInScreen(),
+        screen: token != null ? WebsitesScreen() : SignInScreen(),
         context: context,
         replace: true,
       );
