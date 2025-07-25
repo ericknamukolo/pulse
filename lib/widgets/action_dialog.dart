@@ -94,9 +94,13 @@ class _ActionDialogState extends State<ActionDialog> {
                 Expanded(
                   child: Container(
                     margin: const EdgeInsets.only(top: 10),
-                    child: CustomButton(
-                      btnText: 'Cancel',
-                      click: () => Navigator.of(context).pop(),
+                    child: TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text(
+                        'Cancel',
+                        style: kBodyTextStyle.copyWith(
+                            color: kErrorColor, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ),
@@ -104,8 +108,11 @@ class _ActionDialogState extends State<ActionDialog> {
                 Expanded(
                   child: Container(
                     margin: const EdgeInsets.only(top: 10),
-                    child: TextButton(
-                      onPressed: () async {
+                    child: CustomButton(
+                      isLoading: _isLoading,
+                      btnText: widget.btnText ??
+                          'Yes, ${widget.title.split(' ').first}',
+                      click: () async {
                         setState(() => _isLoading = true);
                         try {
                           await widget.fn();
@@ -113,15 +120,6 @@ class _ActionDialogState extends State<ActionDialog> {
                           setState(() => _isLoading = false);
                         }
                       },
-                      child: _isLoading
-                          ? LoadingIndicator()
-                          : Text(
-                              widget.btnText ??
-                                  'Yes, ${widget.title.split(' ').first}',
-                              style: kBodyTextStyle.copyWith(
-                                  color: kErrorColor,
-                                  fontWeight: FontWeight.bold),
-                            ),
                     ),
                   ),
                 ),

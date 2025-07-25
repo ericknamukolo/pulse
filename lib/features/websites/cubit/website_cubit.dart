@@ -43,7 +43,21 @@ class WebsiteCubit extends Cubit<WebsiteState> {
     emit(WebsiteAdding(websites: state.websites));
     try {
       await WebsiteRepo().editWebsite(domain: domain, name: name, id: id);
-      Toast.showToast(message: '$name edited successfully', context: context);
+      Toast.showToast(message: '$name updated successfully', context: context);
+      emit(WebsiteLoaded(websites: state.websites));
+      getWebsites();
+      Navigator.of(context).pop();
+    } catch (e) {
+      emit(WebsiteError(message: e.toString(), websites: state.websites));
+    }
+  }
+
+  Future<void> deleteWebsite(
+      {required String name, required String id, context}) async {
+    emit(WebsiteAdding(websites: state.websites));
+    try {
+      await WebsiteRepo().deleteWebsite(id: id);
+      Toast.showToast(message: '$name deleted successfully', context: context);
       emit(WebsiteLoaded(websites: state.websites));
       getWebsites();
       Navigator.of(context).pop();

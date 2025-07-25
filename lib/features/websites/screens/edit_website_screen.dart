@@ -4,6 +4,7 @@ import 'package:pulse/features/websites/cubit/website_cubit.dart';
 import 'package:pulse/features/websites/models/website.dart';
 import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/utils.dart';
+import 'package:pulse/widgets/action_dialog.dart';
 import 'package:pulse/widgets/custom_appbar.dart';
 import 'package:pulse/widgets/custom_text_field.dart';
 import 'package:pulse/widgets/icon_btn.dart';
@@ -32,7 +33,26 @@ class _EditWebsiteScreenState extends State<EditWebsiteScreen> {
         title: widget.web.name,
         actions: [
           IconBtn(
-              icon: Icons.delete_rounded, click: () {}, iconColor: kErrorColor),
+              icon: Icons.delete_rounded,
+              click: () {
+                showDialog(
+                  context: context,
+                  builder: (_) => ActionDialog(
+                    fn: () async {
+                      await context.read<WebsiteCubit>().deleteWebsite(
+                          name: widget.web.name,
+                          id: widget.web.id,
+                          context: context);
+                    },
+                    title: 'Delete Website?',
+                    des:
+                        'Are you sure you want to delete this website and all it\'s analytics data',
+                    color: kErrorColor,
+                    icon: Icons.delete_rounded,
+                  ),
+                );
+              },
+              iconColor: kErrorColor),
           SizedBox(width: 15)
         ],
       ),
@@ -42,6 +62,9 @@ class _EditWebsiteScreenState extends State<EditWebsiteScreen> {
           listener: (context, state) {
             if (state is WebsiteError) {
               Toast.showToast(message: state.message, context: context);
+            }
+            if (state is WebsiteLoaded) {
+              Navigator.of(context).pop();
             }
           },
           builder: (context, state) {
@@ -67,6 +90,7 @@ class _EditWebsiteScreenState extends State<EditWebsiteScreen> {
                     ),
                   ),
                   CustomTextField(
+                    title: 'Website Name',
                     hint: 'Website Name',
                     data: name,
                     validator: (val) {
@@ -78,6 +102,7 @@ class _EditWebsiteScreenState extends State<EditWebsiteScreen> {
                   ),
                   CustomTextField(
                     hint: 'Website Domain',
+                    title: 'Website Domain',
                     data: domain,
                     validator: (val) {
                       if (val!.isEmpty) {

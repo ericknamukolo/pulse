@@ -25,13 +25,17 @@ class WebsiteRepo {
       {required String name,
       required String domain,
       required String id}) async {
-    var res = await Requests.post(
+    await Requests.post(
       endpoint: '${Endpoints.websites}/$id',
       body: {
         'name': name.trim(),
         'domain': domain.trim(),
       },
     );
+  }
+
+  Future<void> deleteWebsite({required String id}) async {
+    var res = await Requests.delete(endpoint: '${Endpoints.websites}/$id');
     logger.i(res);
   }
 }
