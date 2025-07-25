@@ -8,6 +8,7 @@ import 'package:pulse/widgets/mordern_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../utils/utils.dart';
 import '../cubit/auth_cubit.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -34,10 +35,9 @@ class _SignInScreenState extends State<SignInScreen> {
     return Scaffold(
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
-          // if (state is AuthError) {
-          //   logger.e(state.message);
-          //   Toast.showToast(message: state.message, context: context);
-          // }
+          if (state is AuthError) {
+            Toast.showToast(message: state.message, context: context);
+          }
           // if (state is AuthAuthenticated) {
           //   Navigation.go(screen: NavBar(), context: context, replace: true);
           // }
@@ -87,8 +87,6 @@ class _SignInScreenState extends State<SignInScreen> {
                       validator: (val) {
                         if (val!.isEmpty) {
                           return 'This field is required';
-                        } else if (val.length < 6) {
-                          return 'Password should be 6 or more characters';
                         }
                         return null;
                       },
@@ -113,17 +111,16 @@ class _SignInScreenState extends State<SignInScreen> {
                     CustomButton(
                       btnText: 'SIGN IN',
                       click: () {
-                        AuthRepo().signIn();
-                        // FocusScope.of(context).requestFocus(FocusNode());
-                        // bool isValid = formKey.currentState!.validate();
-                        // if (isValid) {
-                        //   context.read<AuthCubit>().signIn(
-                        //       email: email.text.trim(), pwd: pwd.text.trim());
-                        // } else {
-                        //   setState(() => isAutoValidate = true);
-                        // }
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        bool isValid = formKey.currentState!.validate();
+                        if (isValid) {
+                          context.read<AuthCubit>().signIn(
+                              email: email.text.trim(), pwd: pwd.text.trim());
+                        } else {
+                          setState(() => isAutoValidate = true);
+                        }
                       },
-                      //   isLoading: state is AuthLoading,
+                      isLoading: state is AuthLoading,
                     ),
                     TextButton(
                       onPressed: () {},

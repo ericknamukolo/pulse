@@ -131,7 +131,8 @@ class Requests {
       res = await fn.timeout(const Duration(seconds: 10));
 
       if (res.statusCode != okStatusCode) {
-        return throw Exception('Error occurred');
+        return throw Exception(
+            json.decode(res.body)?['error'] ?? 'Error occurred');
       }
       return json.decode(res.body);
     } on TimeoutException {

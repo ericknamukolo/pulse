@@ -4,7 +4,6 @@ import 'package:pulse/utils/text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-String baseUrl = 'https://cloud.umami.is';
 late SharedPreferences prefs;
 
 var logger = Logger(
@@ -17,11 +16,15 @@ var logger = Logger(
 class Toast {
   static void showToast(
       {required String message, required BuildContext context}) {
+    String errMessage = message;
+    if (message.contains(':')) {
+      errMessage = message.split(':').last;
+    }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
         content: Text(
-          message,
+          errMessage.trim(),
           style: kBodyTextStyle.copyWith(color: Colors.white),
         ),
         showCloseIcon: true,

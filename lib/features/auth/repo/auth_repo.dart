@@ -1,25 +1,23 @@
-import 'dart:convert';
-
+import 'package:pulse/utils/endpoints.dart';
+import 'package:pulse/utils/local_storage.dart';
+import 'package:pulse/utils/requests.dart';
 import 'package:pulse/utils/utils.dart';
-import 'package:http/http.dart' as http;
 
 class AuthRepo {
-  signIn() async {
-    try {
-      var res = await http.post(
-        Uri.parse('https://cloud.umami.is/api/auth/login'),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-      );
-      logger.i(res.statusCode);
-      logger.i(res.body);
-      logger.i(res.reasonPhrase);
-
-      logger.i('SignIn Response: ${res.body}');
-    } catch (e) {
-      logger.e(e);
+  Future<Map<String, dynamic>?> signIn(
+      {required String email, required String pwd}) async {
+    var res = await Requests.post(
+      endpoint: Endpoints.authLogin,
+      body: {
+        'email': email,
+        'password': pwd,
+      },
+      noAuth: true,
+    );
+    if (res == null) {
+      throw Exception('Failed to sign in');
     }
+    prefs.setString(LocalStorage.jwt, res['token']);
+    return res;
   }
 }
