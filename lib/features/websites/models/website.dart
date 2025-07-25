@@ -19,15 +19,13 @@ class Website {
       _$WebsiteFromJson(json);
   Map<String, dynamic> toJson() => _$WebsiteToJson(this);
 
-  // static List<Website> toList(List<QueryDocumentSnapshot> dataList) {
-  //   List<Website> loadedMessages = [];
-  //   for (var message in dataList) {
-  //     Website mess = Website.fromJson(message.data() as Map<String, dynamic>);
-  //     mess.id = message.id;
+  static List<Website> toList(List<dynamic> dataList) {
+    List<Website> loadedWebsites = [];
+    for (var website in dataList) {
+      Website web = Website.fromJson(website);
 
-  //     mess.date = (message['time'] as Timestamp?)?.toDate();
-  //     loadedMessages.add(mess);
-  //   }
-  //   return loadedMessages;
-  // }
+      loadedWebsites.add(web);
+    }
+    return loadedWebsites;
+  }
 }

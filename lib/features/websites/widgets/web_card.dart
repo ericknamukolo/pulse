@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:pulse/features/websites/models/website.dart';
 
 import '../../../utils/colors.dart';
 import '../../../utils/text.dart';
 import '../../../utils/utils.dart';
 
 class WebCard extends StatelessWidget {
-  const WebCard({
-    super.key,
-  });
+  final Website website;
+  const WebCard({super.key, required this.website});
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +33,11 @@ class WebCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Website',
+                    website.name,
                     style: kBodyTitleTextStyle,
                   ),
                   Text(
-                    'erick-website.com',
+                    website.domain,
                     style: kBodyTextStyle,
                   ),
                 ],

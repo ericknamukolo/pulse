@@ -1,23 +1,21 @@
 part of 'website_cubit.dart';
 
 sealed class WebsiteState extends Equatable {
-  const WebsiteState();
+  final List<Website> websites;
+  const WebsiteState({this.websites = const []});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [websites];
 }
 
 final class WebsiteInitial extends WebsiteState {}
 
-final class WebsiteLoading extends WebsiteState {}
+final class WebsiteLoading extends WebsiteState {
+  const WebsiteLoading({super.websites});
+}
 
 final class WebsiteLoaded extends WebsiteState {
-  final List<Website> websites;
-
-  const WebsiteLoaded({this.websites = const []});
-
-  @override
-  List<Object> get props => [websites];
+  const WebsiteLoaded({super.websites});
 }
 
 final class WebsiteError extends WebsiteState {

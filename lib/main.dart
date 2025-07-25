@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulse/features/websites/cubit/website_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/auth/cubit/auth_cubit.dart';
@@ -21,6 +22,7 @@ class Pulse extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => AuthCubit()),
+        BlocProvider(create: (_) => WebsiteCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
