@@ -57,7 +57,7 @@ class _WebsitesScreenState extends State<WebsitesScreen> {
             child: (state is WebsiteLoading)
                 ? LoadingIndicator()
                 : state.websites.isEmpty
-                    ? EmptyState(message: 'Create a website')
+                    ? EmptyState()
                     : ListView.separated(
                         separatorBuilder: (context, index) => Divider(
                           color: kGreyColor.withOpacity(.2),

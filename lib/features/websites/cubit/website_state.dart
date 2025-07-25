@@ -14,6 +14,10 @@ final class WebsiteLoading extends WebsiteState {
   const WebsiteLoading({super.websites});
 }
 
+final class WebsiteAdding extends WebsiteState {
+  const WebsiteAdding({super.websites});
+}
+
 final class WebsiteLoaded extends WebsiteState {
   const WebsiteLoaded({super.websites});
 }
@@ -21,7 +25,7 @@ final class WebsiteLoaded extends WebsiteState {
 final class WebsiteError extends WebsiteState {
   final String message;
 
-  const WebsiteError({required this.message});
+  const WebsiteError({required this.message, super.websites});
 
   @override
   List<Object> get props => [message];
