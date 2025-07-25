@@ -105,7 +105,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       icon: Icons.lock_outline_rounded,
                       title: 'Forgot Password?',
                       textColor: kPrimaryColor,
-                      click: () {},
+                      click: () => Links.goToLink(
+                          'https://cloud.umami.is/forgot-password'),
                     ),
                     SizedBox(height: 0),
                     CustomButton(
@@ -123,10 +124,11 @@ class _SignInScreenState extends State<SignInScreen> {
                       isLoading: state is AuthLoading,
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () =>
+                          Links.goToLink('https://cloud.umami.is/signup'),
                       child: Text('Don\'t have an account? Sign Up',
                           style: kBodyTitleTextStyle.copyWith(
-                              color: Colors.amber)),
+                              color: kPrimaryColor.withOpacity(.6))),
                     )
                   ],
                 ),
