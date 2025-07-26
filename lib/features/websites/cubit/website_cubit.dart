@@ -46,7 +46,6 @@ class WebsiteCubit extends Cubit<WebsiteState> {
       Toast.showToast(message: '$name updated successfully', context: context);
       emit(WebsiteLoaded(websites: state.websites));
       getWebsites();
-      Navigator.of(context).pop();
     } catch (e) {
       emit(WebsiteError(message: e.toString(), websites: state.websites));
     }

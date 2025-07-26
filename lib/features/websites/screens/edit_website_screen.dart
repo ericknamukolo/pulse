@@ -9,7 +9,7 @@ import 'package:pulse/widgets/custom_appbar.dart';
 import 'package:pulse/widgets/custom_text_field.dart';
 import 'package:pulse/widgets/icon_btn.dart';
 import 'package:pulse/widgets/mordern_btn.dart';
-
+import 'package:flutter/services.dart';
 import '../../../widgets/custom_button.dart';
 
 class EditWebsiteScreen extends StatefulWidget {
@@ -77,7 +77,9 @@ class _EditWebsiteScreenState extends State<EditWebsiteScreen> {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      await Clipboard.setData(
+                          ClipboardData(text: widget.web.id));
                       Toast.showToast(
                           message: 'Website ID copied to clipboard',
                           context: context);
