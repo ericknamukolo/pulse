@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:pulse/features/overview/repo/overview_repo.dart';
 import 'package:pulse/utils/text.dart';
 
 import '../../../utils/colors.dart';
@@ -14,6 +15,8 @@ class StatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double percentage = OverviewRepo().getPercentage(
+        current: stat.value['value'], previous: stat.value['prev']);
     return ContainerWrapper(
       padding: 15.0,
       bRadius: 16,
@@ -28,10 +31,14 @@ class StatCard extends StatelessWidget {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 4),
             decoration: BoxDecoration(
-              color: kSuccessColor.withOpacity(.2),
+              color: percentage.isNegative
+                  ? kErrorColor.withOpacity(.2)
+                  : kSuccessColor.withOpacity(.2),
               borderRadius: BorderRadius.circular(20.0),
               border: Border.all(
-                color: kSuccessColor.withOpacity(.5),
+                color: percentage.isNegative
+                    ? kErrorColor.withOpacity(.5)
+                    : kSuccessColor.withOpacity(.5),
                 width: 2.0,
               ),
             ),
@@ -39,15 +46,20 @@ class StatCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               spacing: 10,
               children: [
-                Icon(
-                  Bootstrap.arrow_up_right_circle_fill,
-                  color: kSuccessColor,
-                  size: 18,
+                Visibility(
+                  visible: percentage != 0,
+                  child: Icon(
+                    percentage.isNegative
+                        ? Bootstrap.arrow_down_left_circle_fill
+                        : Bootstrap.arrow_up_right_circle_fill,
+                    color: percentage.isNegative ? kErrorColor : kSuccessColor,
+                    size: 18,
+                  ),
                 ),
                 Text(
-                  '25%',
+                  '${percentage.toStringAsFixed(1).replaceAll('-', '')} %',
                   style: kBodyTextStyle.copyWith(
-                    color: kSuccessColor,
+                    color: percentage.isNegative ? kErrorColor : kSuccessColor,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

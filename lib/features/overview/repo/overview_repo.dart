@@ -1,6 +1,5 @@
 import 'package:pulse/utils/endpoints.dart';
 import 'package:pulse/utils/requests.dart';
-import 'package:pulse/utils/utils.dart';
 
 class OverviewRepo {
   Future<Map<String, dynamic>?> getSummaryStats(
@@ -15,5 +14,10 @@ class OverviewRepo {
             '${Endpoints.websites}/$id/stats?startAt=$startAt&endAt=$endAt');
 
     return res;
+  }
+
+  double getPercentage({required int current, required int previous}) {
+    if (previous == 0) return 0.0;
+    return ((current - previous) / previous) * 100;
   }
 }
