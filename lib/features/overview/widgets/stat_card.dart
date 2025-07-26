@@ -13,7 +13,7 @@ class StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ContainerWrapper(
-      padding: 10.0,
+      padding: 15.0,
       bRadius: 16,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
