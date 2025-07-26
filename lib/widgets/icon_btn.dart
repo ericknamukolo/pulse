@@ -8,6 +8,7 @@ class IconBtn extends StatelessWidget {
   final bool isLoading;
   final Color? iconColor;
   final double? size;
+  final double? bRadius;
   const IconBtn({
     super.key,
     required this.icon,
@@ -15,6 +16,7 @@ class IconBtn extends StatelessWidget {
     this.isLoading = false,
     this.iconColor,
     this.size,
+    this.bRadius,
   });
 
   @override
@@ -26,9 +28,9 @@ class IconBtn extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
             // shape: BoxShape.circle,
-            borderRadius: BorderRadius.circular(14),
-            border:
-                Border.all(color: (iconColor ?? kGreyColor).withOpacity(.25))),
+            borderRadius: BorderRadius.circular(bRadius ?? 14),
+            border: Border.all(
+                color: (iconColor ?? kGreyColor).withOpacity(.25), width: 2.0)),
         child: isLoading
             ? const SizedBox(width: 23, height: 23, child: LoadingIndicator())
             : Icon(icon, color: iconColor ?? kGreyColor, size: size),

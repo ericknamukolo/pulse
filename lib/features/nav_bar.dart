@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:pulse/features/overview/overview_screen.dart';
 import 'package:pulse/features/websites/models/website.dart';
 import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/text.dart';
@@ -35,15 +36,18 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
       appBar: CustomAppBar(
         title: widget.web.name,
       ),
-      body: TabBarView(
-        controller: tabController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: const [
-          Center(child: Text('Overview')),
-          Center(child: Text('Events')),
-          Center(child: Text('Sessions')),
-          Center(child: Text('Reports')),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: TabBarView(
+          controller: tabController,
+          physics: const NeverScrollableScrollPhysics(),
+          children: const [
+            OverviewScreen(),
+            Center(child: Text('Events')),
+            Center(child: Text('Sessions')),
+            Center(child: Text('Reports')),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 10.0,

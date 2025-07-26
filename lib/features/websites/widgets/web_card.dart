@@ -48,6 +48,14 @@ class WebCard extends StatelessWidget {
               ),
             ),
             IconBtn(
+              bRadius: 100,
+              icon: Icons.remove_red_eye_rounded,
+              click: () =>
+                  Navigation.go(screen: NavBar(web: website), context: context),
+              iconColor: kPrimaryColor,
+            ),
+            IconBtn(
+              bRadius: 100,
               icon: Icons.edit_rounded,
               click: () => Navigation.go(
                   screen: EditWebsiteScreen(web: website), context: context),
