@@ -41,8 +41,8 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
         child: TabBarView(
           controller: tabController,
           physics: const NeverScrollableScrollPhysics(),
-          children: const [
-            OverviewScreen(),
+          children: [
+            OverviewScreen(web: widget.web),
             Center(child: Text('Events')),
             Center(child: Text('Sessions')),
             Center(child: Text('Reports')),

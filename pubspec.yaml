@@ -30,6 +30,7 @@ dependencies:
   timeago: ^3.2.2
   package_info_plus: ^8.3.0
   shared_preferences: ^2.5.3
+  fade_shimmer: ^2.4.0
 
 dev_dependencies:
   flutter_test:

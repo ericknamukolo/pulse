@@ -6,6 +6,16 @@ import 'package:url_launcher/url_launcher.dart';
 
 late SharedPreferences prefs;
 
+enum AppState {
+  initial,
+  loading,
+  secondaryLoading,
+  complete,
+  success,
+  error,
+  secondaryError,
+}
+
 var logger = Logger(
   printer: PrettyPrinter(
     colors: true,

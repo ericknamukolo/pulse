@@ -6,8 +6,10 @@ import '../../../utils/colors.dart';
 import '../../../widgets/container_wrapper.dart';
 
 class StatCard extends StatelessWidget {
+  final MapEntry<String, dynamic> stat;
   const StatCard({
     super.key,
+    required this.stat,
   });
 
   @override
@@ -18,9 +20,9 @@ class StatCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text('Visitors',
+          Text(stat.key.toUpperCase(),
               style: kBodyTitleTextStyle.copyWith(color: kGreyColor)),
-          Text('3052',
+          Text((stat.value as Map)['value'].toString(),
               style: kTitleTextStyle.copyWith(
                   fontSize: kTitleTextStyle.fontSize! + 8)),
           Container(
