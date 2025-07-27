@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pulse/features/auth/repo/auth_repo.dart';
 import 'package:pulse/features/settings/screens/model/btn.dart';
 import 'package:pulse/utils/colors.dart';
 import 'package:pulse/widgets/title_card.dart';
@@ -102,7 +103,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         des: 'Logout of your account',
         type: 'setting',
         icon: Icons.logout_rounded,
-        click: () {},
+        click: () => AuthRepo().signOut(context),
       ),
     ];
     return SingleChildScrollView(
