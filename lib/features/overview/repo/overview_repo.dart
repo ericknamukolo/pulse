@@ -1,5 +1,6 @@
 import 'package:pulse/utils/endpoints.dart';
 import 'package:pulse/utils/requests.dart';
+import 'package:pulse/utils/utils.dart';
 
 class OverviewRepo {
   Future<Map<String, dynamic>?> getSummaryStats(
@@ -12,7 +13,7 @@ class OverviewRepo {
     var res = await Requests.get(
         endpoint:
             '${Endpoints.websites}/$id/stats?startAt=$startAt&endAt=$endAt');
-
+    logger.i(res);
     return res;
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:intl/intl.dart';
 import 'package:pulse/features/websites/models/website.dart';
 import 'package:pulse/widgets/drop_down_btn.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
@@ -17,6 +18,7 @@ class OverviewScreen extends StatefulWidget {
 }
 
 class _OverviewScreenState extends State<OverviewScreen> {
+  DateTimeRange? range;
   @override
   void initState() {
     context.read<OverviewCubit>().getStats(id: widget.web.id);
@@ -39,11 +41,28 @@ class _OverviewScreenState extends State<OverviewScreen> {
           spacing: 15,
           children: [
             DropDownBtn(
-              click: () {},
+              click: () async {
+                DateTimeRange? picked = await showDateRangePicker(
+                  initialDateRange: range ??
+                      DateTimeRange(
+                          start: DateTime.now().subtract(Duration(days: 3)),
+                          end: DateTime.now()),
+                  context: context,
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime.now(),
+                  saveText: 'Done',
+                );
+                if (picked == null) return;
+                setState(() => range = picked);
+                context.read<OverviewCubit>().getStats(
+                    id: widget.web.id, start: picked.start, end: picked.end);
+              },
               icon: Iconsax.timer_1_bold,
-              title: 'Last 24 hours',
+              title: range == null
+                  ? 'Last 24 hours'
+                  : 'From ${DateFormat('EEE, MMM dd, yyyy').format(range!.start)} - ${DateFormat('EEE, MMM dd, yyyy').format(range!.end)}',
             ),
-            state.stats == null
+            state.stats == null || state.appState == AppState.loading
                 ? FadeShimmer(
                     height: 100,
                     width: double.infinity,
@@ -58,19 +77,20 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 mainAxisSpacing: 15,
                 childAspectRatio: 1.3,
               ),
-              itemBuilder: (_, i) => state.stats == null
-                  ? FadeShimmer(
-                      height: 8,
-                      width: 150,
-                      radius: 16,
-                      fadeTheme: FadeTheme.light,
-                    )
-                  : StatCard(
-                      stat: state.stats!.entries
-                          .toList()
-                          .getRange(1, state.stats!.length)
-                          .toList()[i],
-                    ),
+              itemBuilder: (_, i) =>
+                  state.stats == null || state.appState == AppState.loading
+                      ? FadeShimmer(
+                          height: 8,
+                          width: 150,
+                          radius: 16,
+                          fadeTheme: FadeTheme.light,
+                        )
+                      : StatCard(
+                          stat: state.stats!.entries
+                              .toList()
+                              .getRange(1, state.stats!.length)
+                              .toList()[i],
+                        ),
               itemCount: (state.stats?.length ?? 5) - 1,
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
