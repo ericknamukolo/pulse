@@ -36,7 +36,7 @@ class DropDownBtn extends StatelessWidget {
             const SizedBox(width: 10),
             Expanded(
               child: Text(
-                title ?? hint ?? 'Choose Province/State',
+                title ?? hint ?? '',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: kBodyTextStyle.copyWith(

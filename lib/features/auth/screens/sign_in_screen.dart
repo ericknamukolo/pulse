@@ -9,6 +9,7 @@ import 'package:pulse/widgets/mordern_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../utils/endpoints.dart';
 import '../../../utils/navigation.dart';
 import '../../../utils/utils.dart';
 import '../cubit/auth_cubit.dart';
@@ -66,6 +67,21 @@ class _SignInScreenState extends State<SignInScreen> {
                         style: kTitleTextStyle.copyWith(fontSize: 30)),
                     Text('Please sign in to continue',
                         style: kBodyTitleTextStyle),
+                    CustomTextField(
+                      preIcon: Icons.link_rounded,
+                      hint: Endpoints.baseUrl,
+                      title: 'Host URL',
+                      type: TextInputType.emailAddress,
+                      disabled: true,
+                      // validator: (val) {
+                      //   if (val!.isEmpty) {
+                      //     return 'This field is required';
+                      //   } else if (!isValidEmail(val)) {
+                      //     return 'Enter a valid email address';
+                      //   }
+                      //   return null;
+                      // },
+                    ),
                     CustomTextField(
                       data: email,
                       preIcon: Icons.email_rounded,

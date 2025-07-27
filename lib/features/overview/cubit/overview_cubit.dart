@@ -20,4 +20,23 @@ class OverviewCubit extends Cubit<OverviewState> {
           state.copyWith(errorMessage: e.toString(), appState: AppState.error));
     }
   }
+
+  Future<void> getMetrics(
+      {required String id,
+      String? metric,
+      DateTime? start,
+      DateTime? end}) async {
+    emit(state.copyWith(
+        appState: AppState.secondaryLoading, metric: metric ?? state.metric));
+    try {
+      await OverviewRepo()
+          .getMetrics(id: id, metric: state.metric, start: start, end: end);
+      emit(state.copyWith(appState: AppState.secondaryComplete));
+    } catch (e, st) {
+      logger.e('Error fetching metrics: $e');
+      logger.e(st);
+      emit(
+          state.copyWith(errorMessage: e.toString(), appState: AppState.error));
+    }
+  }
 }

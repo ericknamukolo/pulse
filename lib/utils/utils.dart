@@ -10,6 +10,7 @@ enum AppState {
   initial,
   loading,
   secondaryLoading,
+  secondaryComplete,
   complete,
   success,
   error,

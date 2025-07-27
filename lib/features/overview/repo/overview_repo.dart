@@ -13,12 +13,29 @@ class OverviewRepo {
     var res = await Requests.get(
         endpoint:
             '${Endpoints.websites}/$id/stats?startAt=$startAt&endAt=$endAt');
-    logger.i(res);
+
     return res;
   }
 
   double getPercentage({required int current, required int previous}) {
     if (previous == 0) return 0.0;
     return ((current - previous) / previous) * 100;
+  }
+
+  Future<List<dynamic>> getMetrics(
+      {required String metric,
+      required String id,
+      DateTime? start,
+      DateTime? end}) async {
+    var now = DateTime.now();
+    int startAt = (start ?? now.subtract(const Duration(hours: 24)))
+        .millisecondsSinceEpoch;
+    int endAt = (end ?? now).millisecondsSinceEpoch;
+
+    var res = await Requests.get(
+        endpoint:
+            '${Endpoints.websites}/$id/metrics?startAt=$startAt&endAt=$endAt&type=${metric.toLowerCase()}');
+    logger.i(res);
+    return [];
   }
 }

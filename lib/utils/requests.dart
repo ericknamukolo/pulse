@@ -84,7 +84,7 @@ class Requests {
     );
   }
 
-  static Future<Map<String, dynamic>?> get({
+  static Future<dynamic> get({
     required String endpoint,
     int okStatusCode = 200,
   }) async {
@@ -119,7 +119,7 @@ class Requests {
     );
   }
 
-  static Future<Map<String, dynamic>?> requestWrapper({
+  static Future<dynamic> requestWrapper({
     required Future<http.Response> fn,
     required int okStatusCode,
     required String endpoint,
@@ -129,7 +129,7 @@ class Requests {
     try {
       http.Response res;
       res = await fn.timeout(const Duration(seconds: 10));
-
+      logger.i(res.body);
       if (res.statusCode != okStatusCode) {
         return throw Exception(
             json.decode(res.body)?['error'] ?? 'Error occurred');
