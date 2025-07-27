@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:pulse/features/overview/repo/overview_repo.dart';
 import 'package:pulse/utils/text.dart';
-
+import 'package:intl/intl.dart';
 import '../../../utils/colors.dart';
 import '../../../widgets/container_wrapper.dart';
 
@@ -25,7 +25,7 @@ class StatCard extends StatelessWidget {
         children: [
           Text(stat.key.toUpperCase(),
               style: kBodyTitleTextStyle.copyWith(color: kGreyColor)),
-          Text((stat.value as Map)['value'].toString(),
+          Text(NumberFormat.compact().format((stat.value as Map)['value']),
               style: kTitleTextStyle.copyWith(
                   fontSize: kTitleTextStyle.fontSize! + 8)),
           Container(

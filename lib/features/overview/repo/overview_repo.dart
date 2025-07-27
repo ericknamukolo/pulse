@@ -36,7 +36,11 @@ class OverviewRepo {
     var res = await Requests.get(
         endpoint:
             '${Endpoints.websites}/$id/metrics?startAt=$startAt&endAt=$endAt&type=${metric.toLowerCase()}');
-
     return Metric.toList(res);
+  }
+
+  double getMetricPercentage(int val, List<int> total) {
+    if (total.isEmpty) return 0.0;
+    return (val / total.reduce((a, b) => a + b)) * 100;
   }
 }

@@ -5,26 +5,30 @@ class OverviewState extends Equatable {
   final Map<String, dynamic>? stats;
   final String? errorMessage;
   final String metric;
+  final List<Metric> metrics;
   const OverviewState(
       {this.appState = AppState.initial,
       this.metric = 'Url',
       this.stats,
-      this.errorMessage});
+      this.errorMessage,
+      this.metrics = const []});
 
   @override
-  List<Object?> get props => [appState, stats, errorMessage, metric];
+  List<Object?> get props => [appState, stats, errorMessage, metric, metrics];
 
   OverviewState copyWith({
     AppState? appState,
     Map<String, dynamic>? stats,
     String? errorMessage,
     String? metric,
+    List<Metric>? metrics,
   }) {
     return OverviewState(
       appState: appState ?? this.appState,
       stats: stats ?? this.stats,
       errorMessage: errorMessage ?? this.errorMessage,
       metric: metric ?? this.metric,
+      metrics: metrics ?? this.metrics,
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -58,4 +59,15 @@ List<BoxShadow> shadows = [
     blurRadius: 4.0,
     offset: const Offset(0.0, 3.0),
   )
+];
+
+List<Color> colors = [
+  kPrimaryColor,
+  Color(0xffC21BDC),
+  Color(0xff3C80EA),
+  Colors.amber,
+  Colors.indigoAccent,
+  Colors.tealAccent,
+  kErrorColor,
+  kSuccessColor,
 ];
