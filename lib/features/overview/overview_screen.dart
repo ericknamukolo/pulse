@@ -7,6 +7,7 @@ import 'package:pulse/features/overview/repo/overview_repo.dart';
 import 'package:pulse/features/websites/models/website.dart';
 import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/text.dart';
+import 'package:pulse/widgets/container_wrapper.dart';
 import 'package:pulse/widgets/drop_down.dart';
 import 'package:pulse/widgets/drop_down_btn.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
@@ -133,58 +134,66 @@ class _OverviewScreenState extends State<OverviewScreen> {
                         );
                   },
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: state.metrics
+                SizedBox(
+                  height: 250,
+                  child: PieChart(
+                    curve: Curves.easeInOutSine,
+                    duration: Duration(seconds: 1),
+                    PieChartData(
+                      sections: state.metrics
                           .mapIndexed(
-                            (i, e) => Row(
-                              children: [
-                                Icon(
-                                  Icons.circle_rounded,
-                                  color: colors[i],
-                                  size: 15,
-                                ),
-                                SizedBox(width: 8),
-                                Text(
-                                    '${e.x} (${NumberFormat.compact().format(e.y)})',
-                                    style: kBodyTextStyle.copyWith(
-                                        fontWeight: FontWeight.w600)),
-                              ],
+                            (i, e) => PieChartSectionData(
+                              value: (e.y).toDouble(),
+                              color: colors[i],
+                              title:
+                                  '${OverviewRepo().getMetricPercentage(e.y, state.metrics.map((e) => e.y).toList()).toStringAsFixed(1)} %',
+                              radius: 50,
+                              showTitle: true,
+                              titleStyle: kBodyTextStyle.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           )
                           .toList(),
                     ),
-                    Expanded(
-                      child: SizedBox(
-                        height: 250,
-                        child: PieChart(
-                          curve: Curves.easeInOutSine,
-                          duration: Duration(seconds: 1),
-                          PieChartData(
-                            sections: state.metrics
-                                .mapIndexed(
-                                  (i, e) => PieChartSectionData(
-                                    value: (e.y).toDouble(),
-                                    color: colors[i],
-                                    title:
-                                        '${OverviewRepo().getMetricPercentage(e.y, state.metrics.map((e) => e.y).toList()).toStringAsFixed(1)} %',
-                                    radius: 50,
-                                    showTitle: true,
-                                    titleStyle: kBodyTextStyle.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                )
-                                .toList(),
+                  ),
+                ),
+                Column(
+                  spacing: 10,
+                  children: state.metrics
+                      .mapIndexed(
+                        (i, e) => ContainerWrapper(
+                          child: Row(
+                            spacing: 10,
+                            children: [
+                              Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                  color: colors[i],
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                              ),
+                              Text(
+                                '${e.x} (${NumberFormat.compact().format(e.y)})',
+                                style: kBodyTextStyle.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              const Spacer(),
+                              Text(
+                                '${OverviewRepo().getMetricPercentage(e.y, state.metrics.map((e) => e.y).toList()).toStringAsFixed(1)} %',
+                                style: kBodyTextStyle.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: kPrimaryColor.withOpacity(.6),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                    ),
-                  ],
+                      )
+                      .toList(),
                 ),
               ],
             ),
