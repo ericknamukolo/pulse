@@ -61,13 +61,8 @@ List<BoxShadow> shadows = [
   )
 ];
 
-List<Color> colors = [
-  kPrimaryColor,
-  Color(0xffC21BDC),
-  Color(0xff3C80EA),
-  Colors.amber,
-  Colors.indigoAccent,
-  Colors.tealAccent,
-  kErrorColor,
-  kSuccessColor,
-];
+Color getColorFromIndex(int index) {
+  final hue = (index * 40) % 360; // 40° step for visual distinction
+  final hslColor = HSLColor.fromAHSL(1.0, hue.toDouble(), 0.6, 0.5);
+  return hslColor.toColor();
+}

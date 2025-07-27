@@ -1,3 +1,4 @@
+import 'package:country_flags/country_flags.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:pulse/widgets/container_wrapper.dart';
 import 'package:pulse/widgets/drop_down.dart';
 import 'package:pulse/widgets/drop_down_btn.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
+import 'package:pulse/widgets/loading_indicator.dart';
 import 'package:pulse/widgets/title_card.dart';
 import '../../utils/utils.dart';
 import 'cubit/overview_cubit.dart';
@@ -29,8 +31,20 @@ class _OverviewScreenState extends State<OverviewScreen> {
   DateTimeRange? range;
   @override
   void initState() {
-    context.read<OverviewCubit>().getStats(id: widget.web.id);
+    getStats();
     super.initState();
+  }
+
+  Future<void> getStats() async {
+    context
+        .read<OverviewCubit>()
+        .getStats(id: widget.web.id, end: range?.end, start: range?.start)
+        .then((_) => context.read<OverviewCubit>().getMetrics(
+              id: widget.web.id,
+              metric: context.read<OverviewCubit>().state.metric,
+              start: range?.start,
+              end: range?.end,
+            ));
   }
 
   @override
@@ -47,7 +61,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
       builder: (context, state) {
         return RefreshIndicator(
           onRefresh: () async {
-            context.read<OverviewCubit>().getStats(id: widget.web.id);
+            getStats();
           },
           child: SingleChildScrollView(
             child: Column(
@@ -67,10 +81,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                     );
                     if (picked == null) return;
                     setState(() => range = picked);
-                    context.read<OverviewCubit>().getStats(
-                        id: widget.web.id,
-                        start: picked.start,
-                        end: picked.end);
+                    getStats();
                   },
                   icon: Iconsax.timer_1_bold,
                   title: range == null
@@ -136,64 +147,100 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 ),
                 SizedBox(
                   height: 250,
-                  child: PieChart(
-                    curve: Curves.easeInOutSine,
-                    duration: Duration(seconds: 1),
-                    PieChartData(
-                      sections: state.metrics
+                  child: state.appState == AppState.secondaryLoading
+                      ? LoadingIndicator()
+                      : PieChart(
+                          curve: Curves.easeInOutSine,
+                          duration: Duration(seconds: 1),
+                          PieChartData(
+                            sections: state.metrics
+                                .mapIndexed(
+                                  (i, e) => PieChartSectionData(
+                                    value: (e.y).toDouble(),
+                                    color: getColorFromIndex(i),
+                                    title:
+                                        '${OverviewRepo().getMetricPercentage(e.y, state.metrics.map((e) => e.y).toList()).toStringAsFixed(1)} %',
+                                    radius: 50,
+                                    showTitle: true,
+                                    titleStyle: kBodyTextStyle.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                ),
+                Column(
+                  spacing: 10,
+                  children: state.appState == AppState.secondaryLoading
+                      ? [
+                          FadeShimmer(
+                            height: 50,
+                            width: double.infinity,
+                            radius: 8,
+                            fadeTheme: FadeTheme.light,
+                          ),
+                          FadeShimmer(
+                            height: 50,
+                            width: double.infinity,
+                            radius: 8,
+                            fadeTheme: FadeTheme.light,
+                          ),
+                        ]
+                      : state.metrics
                           .mapIndexed(
-                            (i, e) => PieChartSectionData(
-                              value: (e.y).toDouble(),
-                              color: colors[i],
-                              title:
-                                  '${OverviewRepo().getMetricPercentage(e.y, state.metrics.map((e) => e.y).toList()).toStringAsFixed(1)} %',
-                              radius: 50,
-                              showTitle: true,
-                              titleStyle: kBodyTextStyle.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                            (i, e) => ContainerWrapper(
+                              child: Row(
+                                spacing: 10,
+                                children: [
+                                  Container(
+                                    height: 20,
+                                    width: 20,
+                                    decoration: BoxDecoration(
+                                      color: getColorFromIndex(i),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                  ),
+                                  if (state.metric == 'Country')
+                                    Row(
+                                      spacing: 10,
+                                      children: [
+                                        CountryFlag.fromCountryCode(
+                                          e.x,
+                                          width: 30,
+                                          height: 20,
+                                          shape: const RoundedRectangle(2),
+                                        ),
+                                        Text(
+                                          '(${NumberFormat.compact().format(e.y)})',
+                                          style: kBodyTextStyle.copyWith(
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  else
+                                    Text(
+                                      '${e.x} (${NumberFormat.compact().format(e.y)})',
+                                      style: kBodyTextStyle.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  const Spacer(),
+                                  Text(
+                                    '${OverviewRepo().getMetricPercentage(e.y, state.metrics.map((e) => e.y).toList()).toStringAsFixed(1)} %',
+                                    style: kBodyTextStyle.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: kPrimaryColor.withOpacity(.6),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           )
                           .toList(),
-                    ),
-                  ),
-                ),
-                Column(
-                  spacing: 10,
-                  children: state.metrics
-                      .mapIndexed(
-                        (i, e) => ContainerWrapper(
-                          child: Row(
-                            spacing: 10,
-                            children: [
-                              Container(
-                                height: 20,
-                                width: 20,
-                                decoration: BoxDecoration(
-                                  color: colors[i],
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                              ),
-                              Text(
-                                '${e.x} (${NumberFormat.compact().format(e.y)})',
-                                style: kBodyTextStyle.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              const Spacer(),
-                              Text(
-                                '${OverviewRepo().getMetricPercentage(e.y, state.metrics.map((e) => e.y).toList()).toStringAsFixed(1)} %',
-                                style: kBodyTextStyle.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: kPrimaryColor.withOpacity(.6),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                      .toList(),
                 ),
               ],
             ),
