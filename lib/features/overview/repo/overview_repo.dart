@@ -1,3 +1,4 @@
+import 'package:pulse/features/overview/models/metric.dart';
 import 'package:pulse/utils/endpoints.dart';
 import 'package:pulse/utils/requests.dart';
 import 'package:pulse/utils/utils.dart';
@@ -22,7 +23,7 @@ class OverviewRepo {
     return ((current - previous) / previous) * 100;
   }
 
-  Future<List<dynamic>> getMetrics(
+  Future<List<Metric>> getMetrics(
       {required String metric,
       required String id,
       DateTime? start,
@@ -35,7 +36,7 @@ class OverviewRepo {
     var res = await Requests.get(
         endpoint:
             '${Endpoints.websites}/$id/metrics?startAt=$startAt&endAt=$endAt&type=${metric.toLowerCase()}');
-    logger.i(res);
-    return [];
+
+    return Metric.toList(res);
   }
 }

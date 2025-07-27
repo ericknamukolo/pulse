@@ -29,7 +29,7 @@ class OverviewCubit extends Cubit<OverviewState> {
     emit(state.copyWith(
         appState: AppState.secondaryLoading, metric: metric ?? state.metric));
     try {
-      await OverviewRepo()
+      var res = await OverviewRepo()
           .getMetrics(id: id, metric: state.metric, start: start, end: end);
       emit(state.copyWith(appState: AppState.secondaryComplete));
     } catch (e, st) {
