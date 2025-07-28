@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:pulse/features/events/screens/events_screen.dart';
 import 'package:pulse/features/overview/screens/overview_screen.dart';
 import 'package:pulse/features/sessions/screens/sessions_screen.dart';
 import 'package:pulse/features/settings/screens/settings_screen.dart';
@@ -46,7 +47,7 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
           physics: const NeverScrollableScrollPhysics(),
           children: [
             OverviewScreen(web: widget.web),
-            Center(child: Text('Events')),
+            EventsScreen(web: widget.web),
             SessionsScreen(web: widget.web),
             SettingsScreen(),
           ],

@@ -2,8 +2,8 @@ import 'package:pulse/utils/endpoints.dart';
 import 'package:pulse/utils/requests.dart';
 import 'package:pulse/utils/utils.dart';
 
-class SessionsRepo {
-  Future<void> getSessions(
+class EventsRepo {
+  Future<void> getEvents(
       {required String id, DateTime? start, DateTime? end}) async {
     var now = DateTime.now();
     int startAt = (start ?? now.subtract(const Duration(hours: 24)))
@@ -12,6 +12,7 @@ class SessionsRepo {
 
     var res = await Requests.get(
         endpoint:
-            '${Endpoints.websites}/$id/sessions?startAt=$startAt&endAt=$endAt');
+            '${Endpoints.websites}/$id/events?startAt=$startAt&endAt=$endAt');
+    logger.i(res);
   }
 }

@@ -129,7 +129,7 @@ class Requests {
     try {
       http.Response res;
       res = await fn.timeout(const Duration(seconds: 10));
-      logger.i(res.body);
+
       if (res.statusCode != okStatusCode) {
         return throw Exception(
             json.decode(res.body)?['error'] ?? 'Error occurred');
