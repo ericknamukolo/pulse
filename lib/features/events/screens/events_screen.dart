@@ -1,3 +1,4 @@
+import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -82,8 +83,17 @@ class _SessionsScreenState extends State<EventsScreen> {
                     endIndent: 20,
                     indent: 20,
                   ),
-                  itemBuilder: (_, i) => EventCard(event: state.events[i]),
-                  itemCount: state.events.length,
+                  itemBuilder: (_, i) => state.appState == AppState.loading
+                      ? FadeShimmer(
+                          height: 80,
+                          width: double.infinity,
+                          radius: 8,
+                          fadeTheme: FadeTheme.light,
+                        )
+                      : EventCard(event: state.events[i]),
+                  itemCount: state.appState == AppState.loading
+                      ? 6
+                      : state.events.length,
                   shrinkWrap: true,
                 ),
               ],
