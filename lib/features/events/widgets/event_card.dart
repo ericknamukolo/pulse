@@ -5,6 +5,7 @@ import 'package:pulse/features/events/models/event.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/text.dart';
+import 'package:pulse/widgets/icon_btn.dart';
 import '../../../widgets/container_wrapper.dart';
 
 class EventCard extends StatelessWidget {
@@ -17,7 +18,7 @@ class EventCard extends StatelessWidget {
     return ContainerWrapper(
       padding: 12.0,
       child: Row(
-        spacing: 15,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             width: 50,
@@ -26,38 +27,62 @@ class EventCard extends StatelessWidget {
               name: event.sessionId,
               type: BoringAvatarType.beam,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6.0)),
+                borderRadius: BorderRadius.circular(6.0),
+              ),
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 4,
-            children: [
-              Row(
-                spacing: 4,
-                children: [
-                  Icon(
-                    isEvent ? Icons.bolt_rounded : Bootstrap.eye_fill,
-                    color: kGreyColor.withOpacity(.5),
-                    size: 20,
-                  ),
-                  Text('${isEvent ? 'Triggered event' : 'Viewed page'} - ',
-                      style: kBodyTitleTextStyle),
-                  Text(
-                    isEvent ? event.eventName : event.urlPath,
-                    style: kBodyTitleTextStyle.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: kPrimaryColor,
+          const SizedBox(width: 15),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      isEvent ? Icons.bolt_rounded : Bootstrap.eye_fill,
+                      color: kGreyColor.withOpacity(.5),
+                      size: 20,
                     ),
-                  ),
-                ],
-              ),
-              Text(
-                '${DateFormat('EEE, MMM d y').format(event.createdAt)} at ${DateFormat('HH:mm').format(event.createdAt)} hrs',
-                style: kBodyTitleTextStyle.copyWith(color: kGreyColor),
-              )
-            ],
-          )
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text:
+                                  '${isEvent ? 'Triggered event' : 'Viewed page'} - ',
+                              style: kBodyTitleTextStyle,
+                            ),
+                            TextSpan(
+                              text: isEvent ? event.eventName : event.urlPath,
+                              style: kBodyTitleTextStyle.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: kPrimaryColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  '${DateFormat('EEE, MMM d y').format(event.createdAt)} at ${DateFormat('HH:mm').format(event.createdAt)} hrs',
+                  style: kBodyTitleTextStyle.copyWith(color: kGreyColor),
+                ),
+              ],
+            ),
+          ),
+          IconBtn(
+            bRadius: 100,
+            icon: Icons.remove_red_eye_rounded,
+            click: () {},
+            iconColor: kPrimaryColor,
+          ),
         ],
       ),
     );
