@@ -13,5 +13,6 @@ class SessionsRepo {
     var res = await Requests.get(
         endpoint:
             '${Endpoints.websites}/$id/sessions?startAt=$startAt&endAt=$endAt');
+    logger.i(res);
   }
 }

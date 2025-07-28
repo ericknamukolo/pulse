@@ -1,5 +1,4 @@
 import 'package:pulse/utils/text.dart';
-import 'package:pulse/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import '../utils/colors.dart';
 import 'custom_button.dart';

@@ -8,7 +8,6 @@ import 'package:pulse/features/websites/models/website.dart';
 import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:pulse/widgets/custom_appbar.dart';
-import 'package:pulse/widgets/icon_btn.dart';
 
 class NavBar extends StatefulWidget {
   final Website web;

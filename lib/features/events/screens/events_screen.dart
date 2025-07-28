@@ -4,8 +4,12 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse/features/events/cubit/events_cubit.dart';
 import 'package:pulse/features/websites/models/website.dart';
+import 'package:pulse/widgets/container_wrapper.dart';
+import '../../../utils/colors.dart';
+import '../../../utils/utils.dart';
 import '../../../widgets/drop_down_btn.dart';
 import '../../../widgets/title_card.dart';
+import '../widgets/event_card.dart';
 
 class EventsScreen extends StatefulWidget {
   final Website web;
@@ -25,43 +29,68 @@ class _SessionsScreenState extends State<EventsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      triggerMode: RefreshIndicatorTriggerMode.anywhere,
-      onRefresh: () async {
-        context
-            .read<EventsCubit>()
-            .getEvents(id: widget.web.id, end: range?.end, start: range?.start);
+    return BlocConsumer<EventsCubit, EventsState>(
+      listener: (context, state) {
+        if (state.appState == AppState.error) {
+          Toast.showToast(
+            message: state.errorMessage ?? 'An error occurred',
+            context: context,
+          );
+        }
       },
-      child: SingleChildScrollView(
-        child: Column(
-          spacing: 15,
-          children: [
-            DropDownBtn(
-              click: () async {
-                DateTimeRange? picked = await showDateRangePicker(
-                  initialDateRange: range ??
-                      DateTimeRange(
-                          start: DateTime.now().subtract(Duration(days: 3)),
-                          end: DateTime.now()),
-                  context: context,
-                  firstDate: DateTime(2000),
-                  lastDate: DateTime.now(),
-                  saveText: 'Done',
-                );
-                if (picked == null) return;
-                setState(() => range = picked);
-                context.read<EventsCubit>().getEvents(
-                    id: widget.web.id, end: range?.end, start: range?.start);
-              },
-              icon: Iconsax.timer_1_bold,
-              title: range == null
-                  ? 'Last 24 hours'
-                  : 'From ${DateFormat('EEE, MMM dd, yyyy').format(range!.start)} - ${DateFormat('EEE, MMM dd, yyyy').format(range!.end)}',
+      builder: (context, state) {
+        return RefreshIndicator(
+          triggerMode: RefreshIndicatorTriggerMode.anywhere,
+          onRefresh: () async {
+            context.read<EventsCubit>().getEvents(
+                id: widget.web.id, end: range?.end, start: range?.start);
+          },
+          child: SingleChildScrollView(
+            child: Column(
+              spacing: 15,
+              children: [
+                DropDownBtn(
+                  click: () async {
+                    DateTimeRange? picked = await showDateRangePicker(
+                      initialDateRange: range ??
+                          DateTimeRange(
+                              start: DateTime.now().subtract(Duration(days: 3)),
+                              end: DateTime.now()),
+                      context: context,
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime.now(),
+                      saveText: 'Done',
+                    );
+                    if (picked == null) return;
+                    setState(() => range = picked);
+                    context.read<EventsCubit>().getEvents(
+                        id: widget.web.id,
+                        end: range?.end,
+                        start: range?.start);
+                  },
+                  icon: Iconsax.timer_1_bold,
+                  title: range == null
+                      ? 'Last 24 hours'
+                      : 'From ${DateFormat('EEE, MMM dd, yyyy').format(range!.start)} - ${DateFormat('EEE, MMM dd, yyyy').format(range!.end)}',
+                ),
+                TitleCard(title: 'Events'),
+                ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  separatorBuilder: (context, index) => Divider(
+                    color: kGreyColor.withOpacity(.2),
+                    height: 20,
+                    endIndent: 20,
+                    indent: 20,
+                  ),
+                  itemBuilder: (_, i) => EventCard(event: state.events[i]),
+                  itemCount: state.events.length,
+                  shrinkWrap: true,
+                ),
+              ],
             ),
-            TitleCard(title: 'Events'),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
