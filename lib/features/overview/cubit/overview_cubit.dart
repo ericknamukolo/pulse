@@ -3,6 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:pulse/features/overview/repo/overview_repo.dart';
 import 'package:pulse/utils/utils.dart';
 
+import '../models/metric.dart';
+
 part 'overview_state.dart';
 
 class OverviewCubit extends Cubit<OverviewState> {
@@ -31,10 +33,8 @@ class OverviewCubit extends Cubit<OverviewState> {
     try {
       var res = await OverviewRepo()
           .getMetrics(id: id, metric: state.metric, start: start, end: end);
-      emit(state.copyWith(appState: AppState.secondaryComplete));
-    } catch (e, st) {
-      logger.e('Error fetching metrics: $e');
-      logger.e(st);
+      emit(state.copyWith(appState: AppState.secondaryComplete, metrics: res));
+    } catch (e) {
       emit(
           state.copyWith(errorMessage: e.toString(), appState: AppState.error));
     }

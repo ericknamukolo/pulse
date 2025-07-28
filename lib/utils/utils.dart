@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -59,3 +60,9 @@ List<BoxShadow> shadows = [
     offset: const Offset(0.0, 3.0),
   )
 ];
+
+Color getColorFromIndex(int index) {
+  final hue = (index * 40) % 360; // 40° step for visual distinction
+  final hslColor = HSLColor.fromAHSL(1.0, hue.toDouble(), 0.6, 0.5);
+  return hslColor.toColor();
+}

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:pulse/features/overview/overview_screen.dart';
+import 'package:pulse/features/settings/screens/settings_screen.dart';
 import 'package:pulse/features/websites/models/website.dart';
 import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:pulse/widgets/custom_appbar.dart';
+import 'package:pulse/widgets/icon_btn.dart';
 
 class NavBar extends StatefulWidget {
   final Website web;
@@ -45,7 +47,7 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
             OverviewScreen(web: widget.web),
             Center(child: Text('Events')),
             Center(child: Text('Sessions')),
-            Center(child: Text('Reports')),
+            SettingsScreen(),
           ],
         ),
       ),
@@ -85,9 +87,9 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
             label: 'Sessions',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.pie_chart_outline),
-            activeIcon: Icon(Icons.pie_chart_rounded),
-            label: 'Reports',
+            icon: Icon(Icons.settings_outlined),
+            activeIcon: Icon(Icons.settings),
+            label: 'Settings',
           ),
         ],
       ),

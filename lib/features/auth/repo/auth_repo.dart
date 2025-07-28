@@ -1,5 +1,7 @@
+import 'package:pulse/features/auth/screens/sign_in_screen.dart';
 import 'package:pulse/utils/endpoints.dart';
 import 'package:pulse/utils/local_storage.dart';
+import 'package:pulse/utils/navigation.dart';
 import 'package:pulse/utils/requests.dart';
 import 'package:pulse/utils/utils.dart';
 
@@ -19,5 +21,10 @@ class AuthRepo {
     }
     prefs.setString(LocalStorage.jwt, res['token']);
     return res;
+  }
+
+  Future<void> signOut(context) async {
+    await prefs.clear();
+    Navigation.go(screen: SignInScreen(), context: context, replace: true);
   }
 }
