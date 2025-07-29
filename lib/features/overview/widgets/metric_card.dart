@@ -47,11 +47,17 @@ class MetricCard extends StatelessWidget {
                       shape: const RoundedRectangle(2),
                     ),
                     Text(
+                      met.x,
+                      style: kBodyTextStyle.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Text(
                       '(${NumberFormat.compact().format(met.y)})',
                       style: kBodyTextStyle.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
-                    )
+                    ),
                   ],
                 )
               else
