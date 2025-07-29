@@ -57,7 +57,7 @@ class EventCard extends StatelessWidget {
                             TextSpan(
                               text: isEvent ? event.eventName : event.urlPath,
                               style: kBodyTitleTextStyle.copyWith(
-                                fontWeight: FontWeight.bold,
+                              
                                 color: kPrimaryColor,
                               ),
                             ),
@@ -72,7 +72,7 @@ class EventCard extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   '${DateFormat('EEE, MMM d y').format(event.createdAt)} at ${DateFormat('HH:mm').format(event.createdAt)} hrs',
-                  style: kBodyTitleTextStyle.copyWith(color: kGreyColor),
+                  style: kBodyTextStyle,
                 ),
               ],
             ),
