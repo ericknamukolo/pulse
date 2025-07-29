@@ -12,7 +12,7 @@ This app allows you to securely view your website stats — visitors, pageviews,
 
 ## 📸 Screenshots
 
-| ![Websites](screenshots/websites.png) | ![Home](screenshots/home.png) | ![Metrics](screenshots/metrics.png) | ![Events](screenshots/events.png) |
+<div align="center"> <table> <tr> <td><img src="screenshots/websites.png" alt="Websites" width="200"/></td> <td><img src="screenshots/home.png" alt="Home" width="200"/></td> </tr> <tr> <td><img src="screenshots/metrics.png" alt="Metrics" width="200"/></td> <td><img src="screenshots/events.png" alt="Events" width="200"/></td> </tr> </table> </div>
 
 ---
 
