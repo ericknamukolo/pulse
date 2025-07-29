@@ -1,7 +1,6 @@
 import 'package:pulse/features/overview/models/metric.dart';
 import 'package:pulse/utils/endpoints.dart';
 import 'package:pulse/utils/requests.dart';
-import 'package:pulse/utils/utils.dart';
 
 class OverviewRepo {
   Future<Map<String, dynamic>?> getSummaryStats(
