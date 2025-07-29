@@ -1,7 +1,6 @@
 import 'package:pulse/features/events/models/event.dart';
 import 'package:pulse/utils/endpoints.dart';
 import 'package:pulse/utils/requests.dart';
-import 'package:pulse/utils/utils.dart';
 
 class EventsRepo {
   Future<List<Event>> getEvents(
@@ -13,7 +12,7 @@ class EventsRepo {
 
     var res = await Requests.get(
         endpoint:
-            '${Endpoints.websites}/$id/events?startAt=$startAt&endAt=$endAt');
+            '${Endpoints.websites}/$id/events?startAt=$startAt&endAt=$endAt&pageSize=100');
 
     return Event.toList(res['data']);
   }

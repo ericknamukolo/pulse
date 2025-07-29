@@ -5,7 +5,6 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse/features/events/cubit/events_cubit.dart';
 import 'package:pulse/features/websites/models/website.dart';
-import 'package:pulse/widgets/container_wrapper.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/drop_down_btn.dart';

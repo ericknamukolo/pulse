@@ -5,7 +5,6 @@ import 'package:pulse/features/events/models/event.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/text.dart';
-import 'package:pulse/widgets/icon_btn.dart';
 import '../../../widgets/container_wrapper.dart';
 
 class EventCard extends StatelessWidget {
@@ -18,7 +17,8 @@ class EventCard extends StatelessWidget {
     return ContainerWrapper(
       padding: 12.0,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 15,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
             width: 50,
@@ -31,7 +31,6 @@ class EventCard extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 15),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +41,7 @@ class EventCard extends StatelessWidget {
                     Icon(
                       isEvent ? Icons.bolt_rounded : Bootstrap.eye_fill,
                       color: kGreyColor.withOpacity(.5),
-                      size: 20,
+                      size: 18,
                     ),
                     const SizedBox(width: 4),
                     Expanded(
@@ -50,15 +49,17 @@ class EventCard extends StatelessWidget {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text:
-                                  '${isEvent ? 'Event' : 'View'} - ',
-                              style: kBodyTextStyle.copyWith(color: Colors.black),
+                              text: '${isEvent ? 'event' : 'view'} - ',
+                              style: kBodyTextStyle.copyWith(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             TextSpan(
                               text: isEvent ? event.eventName : event.urlPath,
                               style: kBodyTextStyle.copyWith(
-                              
                                 color: kPrimaryColor,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
@@ -77,12 +78,12 @@ class EventCard extends StatelessWidget {
               ],
             ),
           ),
-          IconBtn(
-            bRadius: 100,
-            icon: Icons.remove_red_eye_rounded,
-            click: () {},
-            iconColor: kPrimaryColor,
-          ),
+          // IconBtn(
+          //   bRadius: 100,
+          //   icon: Icons.remove_red_eye_rounded,
+          //   click: () {},
+          //   iconColor: kPrimaryColor,
+          // ),
         ],
       ),
     );

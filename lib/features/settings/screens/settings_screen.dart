@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pulse/features/auth/repo/auth_repo.dart';
 import 'package:pulse/features/settings/screens/model/btn.dart';
 import 'package:pulse/utils/colors.dart';
+import 'package:pulse/widgets/custom_appbar.dart';
 import 'package:pulse/widgets/title_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../utils/utils.dart';
@@ -10,7 +11,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:in_app_update/in_app_update.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+  final bool fromWebsitesScreen;
+  const SettingsScreen({super.key, this.fromWebsitesScreen = false});
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -67,12 +69,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         },
       ),
       Btn(
-        title: 'Donate',
-        des: 'Support the app',
+        title: 'Developer',
+        des: 'information about the dev',
         type: 'app',
-        icon: Icons.coffee_rounded,
+        icon: Icons.laptop_rounded,
         click: () {
-          Links.goToLink('https://github.com/ericknamukolo/pulse');
+          Links.goToLink('https://ericknamukolo.com');
         },
       ),
       // contact
@@ -82,7 +84,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         type: 'contact',
         icon: Icons.contact_support_rounded,
         click: () {
-          Links.goToLink('https://ericknamukolo.com');
+          Links.goToLink(
+              'https://api.whatsapp.com/send/?phone=260962885743&text=Hello');
         },
       ),
 
@@ -103,20 +106,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
         click: () => AuthRepo().signOut(context),
       ),
     ];
-    return SingleChildScrollView(
-        child: Column(
-      children: [
-        _buildSettings(
-          title: 'App',
-          btns: btns.where((e) => e.type == 'app').toList(),
-        ),
-        _buildSettings(
-          title: 'Contact',
-          btns: btns.where((e) => e.type == 'contact').toList(),
-        ),
-        _buildSettings(btns: btns.where((e) => e.type == 'setting').toList()),
-      ],
-    ));
+    return Scaffold(
+      appBar:
+          widget.fromWebsitesScreen ? CustomAppBar(title: 'Settings') : null,
+      body: Padding(
+        padding: EdgeInsets.all(widget.fromWebsitesScreen ? 15.0 : 0.0),
+        child: SingleChildScrollView(
+            child: Column(
+          children: [
+            _buildSettings(
+              title: 'App',
+              btns: btns.where((e) => e.type == 'app').toList(),
+            ),
+            _buildSettings(
+              title: 'Contact',
+              btns: btns.where((e) => e.type == 'contact').toList(),
+            ),
+            _buildSettings(
+                btns: btns.where((e) => e.type == 'setting').toList()),
+          ],
+        )),
+      ),
+    );
   }
 
   Column _buildSettings({required List<Btn> btns, String? title}) {
