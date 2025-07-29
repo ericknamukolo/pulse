@@ -24,7 +24,7 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
   @override
   void initState() {
     tabController = TabController(
-      length: 4,
+      length: 3,
       vsync: this,
       initialIndex: 0,
       animationDuration: const Duration(milliseconds: 500),
@@ -47,7 +47,7 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
           children: [
             OverviewScreen(web: widget.web),
             EventsScreen(web: widget.web),
-            SessionsScreen(web: widget.web),
+            // SessionsScreen(web: widget.web),
             SettingsScreen(),
           ],
         ),
@@ -82,11 +82,11 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
             activeIcon: Icon(Icons.bolt_rounded),
             label: 'Events',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Iconsax.user_outline),
-            activeIcon: Icon(Iconsax.user_bold),
-            label: 'Sessions',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Iconsax.user_outline),
+          //   activeIcon: Icon(Iconsax.user_bold),
+          //   label: 'Sessions',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings_outlined),
             activeIcon: Icon(Icons.settings),

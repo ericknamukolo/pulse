@@ -42,7 +42,7 @@ class EventCard extends StatelessWidget {
                     Icon(
                       isEvent ? Icons.bolt_rounded : Bootstrap.eye_fill,
                       color: kGreyColor.withOpacity(.5),
-                      size: 20,
+                      size: 18,
                     ),
                     const SizedBox(width: 4),
                     Expanded(
@@ -50,15 +50,17 @@ class EventCard extends StatelessWidget {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text:
-                                  '${isEvent ? 'Event' : 'View'} - ',
-                              style: kBodyTextStyle.copyWith(color: Colors.black),
+                              text: '${isEvent ? 'event' : 'view'} - ',
+                              style: kBodyTextStyle.copyWith(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             TextSpan(
                               text: isEvent ? event.eventName : event.urlPath,
                               style: kBodyTextStyle.copyWith(
-                              
                                 color: kPrimaryColor,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
@@ -77,12 +79,12 @@ class EventCard extends StatelessWidget {
               ],
             ),
           ),
-          IconBtn(
-            bRadius: 100,
-            icon: Icons.remove_red_eye_rounded,
-            click: () {},
-            iconColor: kPrimaryColor,
-          ),
+          // IconBtn(
+          //   bRadius: 100,
+          //   icon: Icons.remove_red_eye_rounded,
+          //   click: () {},
+          //   iconColor: kPrimaryColor,
+          // ),
         ],
       ),
     );

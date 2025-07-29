@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulse/features/settings/screens/settings_screen.dart';
 import 'package:pulse/features/websites/cubit/website_cubit.dart';
 import 'package:pulse/features/websites/screens/add_website_screen.dart';
 import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/utils.dart';
 import 'package:pulse/widgets/custom_appbar.dart';
 import 'package:pulse/widgets/empty_state.dart';
+import 'package:pulse/widgets/icon_btn.dart';
 import 'package:pulse/widgets/loading_indicator.dart';
+import 'package:pulse/widgets/mordern_btn.dart';
 
 import '../../../utils/navigation.dart';
 import '../widgets/web_card.dart';
@@ -44,6 +47,14 @@ class _WebsitesScreenState extends State<WebsitesScreen> {
       appBar: CustomAppBar(
         title: 'Websites',
         showLeading: false,
+        actions: [
+          IconBtn(
+              icon: Icons.settings_rounded,
+              click: () => Navigation.go(
+                  screen: SettingsScreen(fromWebsitesScreen: true),
+                  context: context)),
+          SizedBox(width: 15),
+        ],
       ),
       body: BlocConsumer<WebsiteCubit, WebsiteState>(
         listener: (context, state) {
@@ -57,7 +68,18 @@ class _WebsitesScreenState extends State<WebsitesScreen> {
             child: (state is WebsiteLoading)
                 ? LoadingIndicator()
                 : state.websites.isEmpty
-                    ? EmptyState()
+                    ? Column(
+                        spacing: 10,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          EmptyState(),
+                          MordernBtn(
+                            icon: Icons.replay_outlined,
+                            title: 'Refresh',
+                            click: context.read<WebsiteCubit>().getWebsites,
+                          )
+                        ],
+                      )
                     : ListView.separated(
                         separatorBuilder: (context, index) => Divider(
                           color: kGreyColor.withOpacity(.2),
