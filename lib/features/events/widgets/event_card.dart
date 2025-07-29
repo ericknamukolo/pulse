@@ -52,7 +52,7 @@ class EventCard extends StatelessWidget {
                             TextSpan(
                               text:
                                   '${isEvent ? 'Event' : 'View'} - ',
-                              style: kBodyTextStyle.copyWith(color: Colors.black, fontWeight: FontWeight.bold),
+                              style: kBodyTextStyle.copyWith(color: Colors.black),
                             ),
                             TextSpan(
                               text: isEvent ? event.eventName : event.urlPath,
