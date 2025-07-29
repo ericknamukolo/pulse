@@ -52,7 +52,7 @@ jobs:
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
-          packageName: com.lassod.oyoyoevents
+          packageName: com.sleepingpanda.pulse
           releaseFiles: build/app/outputs/bundle/release/app-release.aab
           track: production # Options: internal, alpha, beta, production
           status: completed # Options: draft, completed
