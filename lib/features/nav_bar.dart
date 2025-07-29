@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:pulse/features/events/screens/events_screen.dart';
 import 'package:pulse/features/overview/screens/overview_screen.dart';
-import 'package:pulse/features/sessions/screens/sessions_screen.dart';
 import 'package:pulse/features/settings/screens/settings_screen.dart';
 import 'package:pulse/features/websites/models/website.dart';
 import 'package:pulse/utils/colors.dart';
