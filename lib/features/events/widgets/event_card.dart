@@ -51,7 +51,7 @@ class EventCard extends StatelessWidget {
                           children: [
                             TextSpan(
                               text:
-                                  '${isEvent ? 'Triggered event' : 'Viewed page'} - ',
+                                  '${isEvent ? 'Event' : 'View'} - ',
                               style: kBodyTitleTextStyle,
                             ),
                             TextSpan(
