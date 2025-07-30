@@ -33,6 +33,7 @@ dependencies:
   fade_shimmer: ^2.4.0
   fl_chart: ^0.71.0
   flutter_timezone: ^4.1.1
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +57,7 @@ flutter:
   assets:
     - assets/images/
     - assets/fonts/
+    - .env
 
   fonts:
     - family: Montserrat

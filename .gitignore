@@ -47,3 +47,6 @@ app.*.map.json
 #Key.properties
 **/android/key.properties
 **/android/app/upload-keystore.jks
+
+#API Key
+*.env
