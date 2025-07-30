@@ -120,6 +120,26 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                 ),
+                TitleCard(title: 'Stats'),
+                CustomDropDown(
+                  removePadding: true,
+                  selectedItem: state.unit,
+                  items: [
+                    'Year',
+                    'Month',
+                    'Hour',
+                    'Day',
+                  ],
+                  hint: 'Select unit',
+                  onChanged: (val) {
+                    context.read<OverviewCubit>().getPageviewStats(
+                          id: widget.web.id,
+                          unit: val,
+                          start: range?.start,
+                          end: range?.end,
+                        );
+                  },
+                ),
                 TitleCard(title: 'Metrics'),
                 CustomDropDown(
                   removePadding: true,

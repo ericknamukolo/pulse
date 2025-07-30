@@ -5,7 +5,7 @@ import 'package:pulse/features/overview/cubit/overview_cubit.dart';
 import 'package:pulse/features/sessions/cubit/sessions_cubit.dart';
 import 'package:pulse/features/websites/cubit/website_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'features/auth/cubit/auth_cubit.dart';
 import 'features/auth/screens/splash_screen.dart';
 import 'utils/colors.dart';
@@ -14,6 +14,7 @@ import 'utils/utils.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
+  userTimeZone = await FlutterTimezone.getLocalTimezone();
   runApp(const Pulse());
 }
 

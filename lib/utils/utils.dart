@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 late SharedPreferences prefs;
+String? userTimeZone;
 
 enum AppState {
   initial,

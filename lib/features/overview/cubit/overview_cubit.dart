@@ -39,4 +39,20 @@ class OverviewCubit extends Cubit<OverviewState> {
           state.copyWith(errorMessage: e.toString(), appState: AppState.error));
     }
   }
+
+  Future<void> getPageviewStats({
+    String? unit,
+    required String id,
+    DateTime? start,
+    DateTime? end,
+  }) async {
+    try {
+      emit(state.copyWith(unit: unit ?? state.unit));
+      var res = await OverviewRepo().getPageviewStats(
+          id: id, unit: unit ?? state.unit, start: start, end: end);
+    } catch (e) {
+      emit(
+          state.copyWith(errorMessage: e.toString(), appState: AppState.error));
+    }
+  }
 }
