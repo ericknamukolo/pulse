@@ -19,43 +19,82 @@ class PageviewChart extends StatelessWidget {
 
     return ContainerWrapper(
       padding: 5.0,
-      height: 420,
-      child: BarChart(
-        BarChartData(
-          barGroups: barGroups,
-          titlesData: FlTitlesData(
-            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            leftTitles: AxisTitles(
-              sideTitles: SideTitles(showTitles: false),
+      height: 450,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0, top: 10.0),
+            child: Column(
+              spacing: 5,
+              children: [
+                getIndicator(title: 'Pageviews', color: Colors.orange),
+                getIndicator(title: 'Sessions', color: Colors.blue),
+              ],
             ),
-            bottomTitles: AxisTitles(
-              sideTitles: SideTitles(
-                showTitles: true,
-                getTitlesWidget: (value, _) {
-                  int index = value.toInt();
-                  if (index >= 0 && index < labels.length) {
-                    return SideTitleWidget(
-                      meta: _,
-                      child: Text(
-                        labels[index],
-                        style: kBodyTextStyle.copyWith(fontSize: 10),
-                      ),
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-                reservedSize: 42,
-                interval: 1,
+          ),
+          Expanded(
+            child: BarChart(
+              BarChartData(
+                barGroups: barGroups,
+                titlesData: FlTitlesData(
+                  topTitles:
+                      AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  rightTitles:
+                      AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: (value, _) {
+                        int index = value.toInt();
+                        if (index >= 0 && index < labels.length) {
+                          return SideTitleWidget(
+                            meta: _,
+                            child: Text(
+                              labels[index],
+                              style: kBodyTextStyle.copyWith(fontSize: 10),
+                            ),
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      },
+                      reservedSize: 42,
+                      interval: 1,
+                    ),
+                  ),
+                ),
+                gridData: FlGridData(show: false),
+                borderData: FlBorderData(show: false),
+                barTouchData: BarTouchData(enabled: true),
+                maxY: _getMaxY(mergedData),
               ),
             ),
           ),
-          gridData: FlGridData(show: false),
-          borderData: FlBorderData(show: false),
-          barTouchData: BarTouchData(enabled: true),
-          maxY: _getMaxY(mergedData),
-        ),
+        ],
       ),
+    );
+  }
+
+  Row getIndicator({required Color color, required String title}) {
+    return Row(
+      spacing: 8,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          width: 15,
+          height: 15,
+        ),
+        Text(
+          title,
+          style: kBodyTextStyle.copyWith(
+              fontWeight: FontWeight.bold, color: Colors.black),
+        ),
+      ],
     );
   }
 
