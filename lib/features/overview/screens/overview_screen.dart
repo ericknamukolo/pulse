@@ -39,6 +39,11 @@ class _OverviewScreenState extends State<OverviewScreen> {
     context
         .read<OverviewCubit>()
         .getStats(id: widget.web.id, end: range?.end, start: range?.start)
+        .then((_) => context.read<OverviewCubit>().getPageviewStats(
+              id: widget.web.id,
+              start: range?.start,
+              end: range?.end,
+            ))
         .then((_) => context.read<OverviewCubit>().getMetrics(
               id: widget.web.id,
               metric: context.read<OverviewCubit>().state.metric,
