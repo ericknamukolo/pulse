@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pulse/features/overview/models/pageview.dart';
 import 'package:pulse/features/overview/repo/overview_repo.dart';
 import 'package:pulse/utils/utils.dart';
 
@@ -50,6 +51,7 @@ class OverviewCubit extends Cubit<OverviewState> {
       emit(state.copyWith(unit: unit ?? state.unit));
       var res = await OverviewRepo().getPageviewStats(
           id: id, unit: unit ?? state.unit, start: start, end: end);
+      emit(state.copyWith(pageview: res));
     } catch (e) {
       emit(
           state.copyWith(errorMessage: e.toString(), appState: AppState.error));

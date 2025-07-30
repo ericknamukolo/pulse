@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:pulse/features/overview/repo/overview_repo.dart';
 import 'package:pulse/features/websites/models/website.dart';
 import 'package:pulse/utils/text.dart';
+import 'package:pulse/widgets/container_wrapper.dart';
 import 'package:pulse/widgets/drop_down.dart';
 import 'package:pulse/widgets/drop_down_btn.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
@@ -14,6 +15,7 @@ import 'package:pulse/widgets/title_card.dart';
 import '../../../utils/utils.dart';
 import '../cubit/overview_cubit.dart';
 import '../widgets/metric_card.dart';
+import '../widgets/pageview_chart.dart';
 import '../widgets/stat_card.dart';
 import 'package:collection/collection.dart';
 
@@ -120,7 +122,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                 ),
-                TitleCard(title: 'Stats'),
+                TitleCard(title: 'Pageviews & sessions'),
                 CustomDropDown(
                   removePadding: true,
                   selectedItem: state.unit,
@@ -140,6 +142,9 @@ class _OverviewScreenState extends State<OverviewScreen> {
                         );
                   },
                 ),
+                if (state.pageview != null)
+                  PageviewChart(
+                      data: state.pageview!, unit: state.unit.toLowerCase()),
                 TitleCard(title: 'Metrics'),
                 CustomDropDown(
                   removePadding: true,

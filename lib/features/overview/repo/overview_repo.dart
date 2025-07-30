@@ -45,7 +45,7 @@ class OverviewRepo {
     return (val / total.reduce((a, b) => a + b)) * 100;
   }
 
-  Future<void> getPageviewStats({
+  Future<Pageview> getPageviewStats({
     required String unit,
     required String id,
     DateTime? start,
@@ -59,6 +59,7 @@ class OverviewRepo {
     var res = await Requests.get(
         endpoint:
             '${Endpoints.websites}/$id/pageviews?startAt=$startAt&endAt=$endAt&unit=${unit.toLowerCase()}&timezone=$userTimeZone');
-    logger.i(Pageview.fromJson(res).toJson());
+
+    return Pageview.fromJson(res);
   }
 }
