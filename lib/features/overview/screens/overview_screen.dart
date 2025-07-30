@@ -144,7 +144,14 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 ),
                 if (state.pageview != null)
                   PageviewChart(
-                      data: state.pageview!, unit: state.unit.toLowerCase()),
+                      data: state.pageview!, unit: state.unit.toLowerCase())
+                else
+                  FadeShimmer(
+                    height: 250,
+                    width: double.infinity,
+                    radius: 16,
+                    fadeTheme: FadeTheme.light,
+                  ),
                 TitleCard(title: 'Metrics'),
                 CustomDropDown(
                   removePadding: true,
