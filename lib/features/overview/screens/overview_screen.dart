@@ -14,6 +14,7 @@ import 'package:pulse/widgets/title_card.dart';
 import '../../../utils/utils.dart';
 import '../cubit/overview_cubit.dart';
 import '../widgets/metric_card.dart';
+import '../widgets/pageview_chart.dart';
 import '../widgets/stat_card.dart';
 import 'package:collection/collection.dart';
 
@@ -37,6 +38,11 @@ class _OverviewScreenState extends State<OverviewScreen> {
     context
         .read<OverviewCubit>()
         .getStats(id: widget.web.id, end: range?.end, start: range?.start)
+        .then((_) => context.read<OverviewCubit>().getPageviewStats(
+              id: widget.web.id,
+              start: range?.start,
+              end: range?.end,
+            ))
         .then((_) => context.read<OverviewCubit>().getMetrics(
               id: widget.web.id,
               metric: context.read<OverviewCubit>().state.metric,
@@ -120,6 +126,36 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                 ),
+                TitleCard(title: 'Pageviews & sessions'),
+                CustomDropDown(
+                  removePadding: true,
+                  selectedItem: state.unit,
+                  items: [
+                    'Year',
+                    'Month',
+                    'Hour',
+                    'Day',
+                  ],
+                  hint: 'Select unit',
+                  onChanged: (val) {
+                    context.read<OverviewCubit>().getPageviewStats(
+                          id: widget.web.id,
+                          unit: val,
+                          start: range?.start,
+                          end: range?.end,
+                        );
+                  },
+                ),
+                if (state.pageview != null)
+                  PageviewChart(
+                      data: state.pageview!, unit: state.unit.toLowerCase())
+                else
+                  FadeShimmer(
+                    height: 250,
+                    width: double.infinity,
+                    radius: 16,
+                    fadeTheme: FadeTheme.light,
+                  ),
                 TitleCard(title: 'Metrics'),
                 CustomDropDown(
                   removePadding: true,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:pulse/features/events/screens/events_screen.dart';
 import 'package:pulse/features/overview/screens/overview_screen.dart';
 import 'package:pulse/features/settings/screens/settings_screen.dart';
@@ -6,6 +7,8 @@ import 'package:pulse/features/websites/models/website.dart';
 import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:pulse/widgets/custom_appbar.dart';
+
+import 'sessions/screens/sessions_screen.dart';
 
 class NavBar extends StatefulWidget {
   final Website web;
@@ -22,7 +25,7 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
   @override
   void initState() {
     tabController = TabController(
-      length: 3,
+      length: 4,
       vsync: this,
       initialIndex: 0,
       animationDuration: const Duration(milliseconds: 500),
@@ -45,7 +48,7 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
           children: [
             OverviewScreen(web: widget.web),
             EventsScreen(web: widget.web),
-            // SessionsScreen(web: widget.web),
+            SessionsScreen(web: widget.web),
             SettingsScreen(),
           ],
         ),
@@ -80,11 +83,11 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
             activeIcon: Icon(Icons.bolt_rounded),
             label: 'Events',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Iconsax.user_outline),
-          //   activeIcon: Icon(Iconsax.user_bold),
-          //   label: 'Sessions',
-          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Iconsax.user_outline),
+            activeIcon: Icon(Iconsax.user_bold),
+            label: 'Sessions',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings_outlined),
             activeIcon: Icon(Icons.settings),
