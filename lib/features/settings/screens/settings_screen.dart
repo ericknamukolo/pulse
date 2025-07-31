@@ -55,7 +55,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         type: 'app',
         icon: Icons.shield_rounded,
         click: () {
-          Links.goToLink('https://adcash-zm.vercel.app/privacy-policy',
+          Links.goToLink(
+              'https://doc-hosting.flycricket.io/pulse-privacy-policy/76342146-9ec1-4f25-8c7a-62109aefc65e/privacy',
               mode: LaunchMode.inAppBrowserView);
         },
       ),

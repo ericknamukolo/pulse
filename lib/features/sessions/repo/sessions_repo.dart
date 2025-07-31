@@ -1,6 +1,7 @@
 import 'package:pulse/features/sessions/model/session.dart';
 import 'package:pulse/utils/endpoints.dart';
 import 'package:pulse/utils/requests.dart';
+import 'package:pulse/utils/utils.dart';
 
 class SessionsRepo {
   Future<List<Session>> getSessions({
@@ -19,5 +20,14 @@ class SessionsRepo {
         endpoint:
             '${Endpoints.websites.replaceAll(Endpoints.baseUrl, 'https://api.umami.is/v1')}/$id/sessions?startAt=$startAt&endAt=$endAt&pageSize=20&page=${pageNumber ?? 1}');
     return Session.toList(res['data']);
+  }
+
+  Future<Session?> getSession(String websiteId, String id) async {
+    var res = await Requests.get(
+        useKey: true,
+        endpoint:
+            '${Endpoints.websites.replaceAll(Endpoints.baseUrl, 'https://api.umami.is/v1')}/$websiteId/sessions/$id');
+
+    return Session.fromJson(res);
   }
 }
