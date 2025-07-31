@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:pulse/utils/utils.dart';
 
@@ -87,13 +88,21 @@ class Requests {
   static Future<dynamic> get({
     required String endpoint,
     int okStatusCode = 200,
+    bool useKey = false,
   }) async {
     return await requestWrapper(
-      fn: http.get(Uri.parse(endpoint), headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ${prefs.getString(LocalStorage.jwt)}'
-      }),
+      fn: http.get(Uri.parse(endpoint),
+          headers: useKey
+              ? {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json',
+                  'x-umami-api-key': '${dotenv.env['API_KEY']}'
+                }
+              : {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json',
+                  'Authorization': 'Bearer ${prefs.getString(LocalStorage.jwt)}'
+                }),
       okStatusCode: okStatusCode,
       endpoint: endpoint,
       reqestType: RequestType.get,

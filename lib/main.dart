@@ -10,9 +10,11 @@ import 'features/auth/cubit/auth_cubit.dart';
 import 'features/auth/screens/splash_screen.dart';
 import 'utils/colors.dart';
 import 'utils/utils.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   prefs = await SharedPreferences.getInstance();
   userTimeZone = await FlutterTimezone.getLocalTimezone();
   runApp(const Pulse());

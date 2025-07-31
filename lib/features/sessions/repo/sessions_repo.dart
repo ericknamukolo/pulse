@@ -11,8 +11,9 @@ class SessionsRepo {
     int endAt = (end ?? now).millisecondsSinceEpoch;
 
     var res = await Requests.get(
+        useKey: true,
         endpoint:
-            '${Endpoints.websites}/$id/sessions?startAt=$startAt&endAt=$endAt');
+            '${Endpoints.websites.replaceAll(Endpoints.baseUrl, 'https://api.umami.is/v1')}/$id/sessions?startAt=$startAt&endAt=$endAt');
     logger.i(res);
   }
 }
