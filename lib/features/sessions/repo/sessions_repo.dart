@@ -17,7 +17,7 @@ class SessionsRepo {
     var res = await Requests.get(
         useKey: true,
         endpoint:
-            '${Endpoints.websites.replaceAll(Endpoints.baseUrl, 'https://api.umami.is/v1')}/$id/sessions?startAt=$startAt&endAt=$endAt&pageSize=10&page=${pageNumber ?? 1}');
+            '${Endpoints.websites.replaceAll(Endpoints.baseUrl, 'https://api.umami.is/v1')}/$id/sessions?startAt=$startAt&endAt=$endAt&pageSize=20&page=${pageNumber ?? 1}');
     return Session.toList(res['data']);
   }
 }

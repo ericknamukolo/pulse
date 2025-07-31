@@ -26,7 +26,9 @@ class SessionsCubit extends Cubit<SessionsState> {
 
       List<Session> sessions = [...state.sessions];
       sessions.addAll(res);
-      emit(state.copyWith(appState: AppState.complete, sessions: sessions));
+      emit(state.copyWith(
+          appState: isRefresh ? AppState.complete : AppState.secondaryComplete,
+          sessions: sessions));
     } catch (e) {
       emit(
           state.copyWith(appState: AppState.error, errorMessage: e.toString()));

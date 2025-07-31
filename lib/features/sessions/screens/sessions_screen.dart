@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:pulse/features/sessions/cubit/sessions_cubit.dart';
 import 'package:pulse/features/sessions/widget/session_card.dart';
 import 'package:pulse/features/websites/models/website.dart';
+import 'package:pulse/widgets/loading_indicator.dart';
 
 import '../../../utils/colors.dart';
 import '../../../utils/utils.dart';
@@ -21,12 +22,21 @@ class SessionsScreen extends StatefulWidget {
 }
 
 class _SessionsScreenState extends State<SessionsScreen> {
-  int pageNumber = 1;
+  int pageNumber = 2;
   DateTimeRange? range;
   @override
   void initState() {
     context.read<SessionsCubit>().getSessions(id: widget.web.id);
     super.initState();
+  }
+
+  void loadMore() {
+    context.read<SessionsCubit>().getSessions(
+          id: widget.web.id,
+          end: range?.end,
+          start: range?.start,
+          pageNumber: pageNumber,
+        );
   }
 
   @override
@@ -39,66 +49,97 @@ class _SessionsScreenState extends State<SessionsScreen> {
             context: context,
           );
         }
+        if (state.appState == AppState.secondaryComplete) {
+          setState(() {
+            pageNumber++;
+          });
+        }
       },
       builder: (context, state) {
-        return RefreshIndicator(
-          triggerMode: RefreshIndicatorTriggerMode.anywhere,
-          onRefresh: () async {
-            context.read<SessionsCubit>().getSessions(
-                id: widget.web.id, end: range?.end, start: range?.start);
-          },
-          child: SingleChildScrollView(
-            child: Column(
-              spacing: 15,
-              children: [
-                DropDownBtn(
-                  click: () async {
-                    DateTimeRange? picked = await showDateRangePicker(
-                      initialDateRange: range ??
-                          DateTimeRange(
-                              start: DateTime.now().subtract(Duration(days: 3)),
-                              end: DateTime.now()),
-                      context: context,
-                      firstDate: DateTime(2000),
-                      lastDate: DateTime.now(),
-                      saveText: 'Done',
-                    );
-                    if (picked == null) return;
-                    setState(() => range = picked);
-                    context.read<SessionsCubit>().getSessions(
-                          id: widget.web.id,
-                          end: range?.end,
-                          start: range?.start,
+        return Scaffold(
+          floatingActionButton: state.appState == AppState.secondaryLoading
+              ? FloatingActionButton(
+                  shape: CircleBorder(),
+                  onPressed: () {},
+                  child: LoadingIndicator(),
+                )
+              : null,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          body: NotificationListener<ScrollEndNotification>(
+            onNotification: (scrollEnd) {
+              final currentScroll = scrollEnd.metrics.pixels;
+              double maxScroll = scrollEnd.metrics.maxScrollExtent;
+              double threshold = maxScroll * 0.96;
+
+              if (currentScroll >= threshold) {
+                if (state.appState != AppState.secondaryLoading) {
+                  loadMore();
+                }
+              }
+              return true;
+            },
+            child: RefreshIndicator(
+              triggerMode: RefreshIndicatorTriggerMode.anywhere,
+              onRefresh: () async {
+                context.read<SessionsCubit>().getSessions(
+                    id: widget.web.id, end: range?.end, start: range?.start);
+              },
+              child: SingleChildScrollView(
+                child: Column(
+                  spacing: 15,
+                  children: [
+                    DropDownBtn(
+                      click: () async {
+                        DateTimeRange? picked = await showDateRangePicker(
+                          initialDateRange: range ??
+                              DateTimeRange(
+                                  start: DateTime.now()
+                                      .subtract(Duration(days: 3)),
+                                  end: DateTime.now()),
+                          context: context,
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime.now(),
+                          saveText: 'Done',
                         );
-                  },
-                  icon: Iconsax.timer_1_bold,
-                  title: range == null
-                      ? 'Last 24 hours'
-                      : 'From ${DateFormat('EEE, MMM dd, yyyy').format(range!.start)} - ${DateFormat('EEE, MMM dd, yyyy').format(range!.end)}',
+                        if (picked == null) return;
+                        setState(() => range = picked);
+                        context.read<SessionsCubit>().getSessions(
+                              id: widget.web.id,
+                              end: range?.end,
+                              start: range?.start,
+                            );
+                      },
+                      icon: Iconsax.timer_1_bold,
+                      title: range == null
+                          ? 'Last 24 hours'
+                          : 'From ${DateFormat('EEE, MMM dd, yyyy').format(range!.start)} - ${DateFormat('EEE, MMM dd, yyyy').format(range!.end)}',
+                    ),
+                    TitleCard(title: 'Sessions'),
+                    ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
+                      separatorBuilder: (context, index) => Divider(
+                        color: kGreyColor.withOpacity(.2),
+                        height: 20,
+                        endIndent: 20,
+                        indent: 20,
+                      ),
+                      itemBuilder: (_, i) => state.appState == AppState.loading
+                          ? FadeShimmer(
+                              height: 80,
+                              width: double.infinity,
+                              radius: 8,
+                              fadeTheme: FadeTheme.light,
+                            )
+                          : SessionCard(session: state.sessions[i]),
+                      itemCount: state.appState == AppState.loading
+                          ? 6
+                          : state.sessions.length,
+                      shrinkWrap: true,
+                    ),
+                  ],
                 ),
-                TitleCard(title: 'Sessions'),
-                ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  separatorBuilder: (context, index) => Divider(
-                    color: kGreyColor.withOpacity(.2),
-                    height: 20,
-                    endIndent: 20,
-                    indent: 20,
-                  ),
-                  itemBuilder: (_, i) => state.appState == AppState.loading
-                      ? FadeShimmer(
-                          height: 80,
-                          width: double.infinity,
-                          radius: 8,
-                          fadeTheme: FadeTheme.light,
-                        )
-                      : SessionCard(session: state.sessions[i]),
-                  itemCount: state.appState == AppState.loading
-                      ? 6
-                      : state.sessions.length,
-                  shrinkWrap: true,
-                ),
-              ],
+              ),
             ),
           ),
         );
