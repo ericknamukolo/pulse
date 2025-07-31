@@ -59,7 +59,7 @@ class SessionCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${DateFormat('EEE, MMM d y').format(session.createdAt)} at ${DateFormat('HH:mm').format(session.createdAt)} hrs',
+                  '${DateFormat('EEE, MMM d y').format(session.createdAt.toLocal())} at ${DateFormat('HH:mm').format(session.createdAt.toLocal())} hrs',
                   style: kBodyTextStyle,
                 ),
               ],
