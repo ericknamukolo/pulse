@@ -72,7 +72,7 @@ class EventCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  '${DateFormat('EEE, MMM d y').format(event.createdAt)} at ${DateFormat('HH:mm').format(event.createdAt)} hrs',
+                  '${DateFormat('EEE, MMM d y').format(event.createdAt.toLocal())} at ${DateFormat('HH:mm').format(event.createdAt.toLocal())} hrs',
                   style: kBodyTextStyle,
                 ),
               ],
