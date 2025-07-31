@@ -21,6 +21,7 @@ class SessionsScreen extends StatefulWidget {
 }
 
 class _SessionsScreenState extends State<SessionsScreen> {
+  int pageNumber = 1;
   DateTimeRange? range;
   @override
   void initState() {
@@ -65,9 +66,10 @@ class _SessionsScreenState extends State<SessionsScreen> {
                     if (picked == null) return;
                     setState(() => range = picked);
                     context.read<SessionsCubit>().getSessions(
-                        id: widget.web.id,
-                        end: range?.end,
-                        start: range?.start);
+                          id: widget.web.id,
+                          end: range?.end,
+                          start: range?.start,
+                        );
                   },
                   icon: Iconsax.timer_1_bold,
                   title: range == null

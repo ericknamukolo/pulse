@@ -40,8 +40,8 @@ class SessionCard extends StatelessWidget {
                 child: CountryFlag.fromCountryCode(
                   session.country,
                   shape: const RoundedRectangle(30),
-                  height: 24,
-                  width: 24,
+                  height: 20,
+                  width: 20,
                 ),
               ),
             ],
