@@ -3,7 +3,6 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:pulse/features/overview/repo/overview_repo.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:intl/intl.dart';
-import 'package:pulse/utils/utils.dart';
 import '../../../utils/colors.dart';
 import '../../../widgets/container_wrapper.dart';
 
@@ -16,7 +15,6 @@ class StatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.i(stat);
     double percentage = OverviewRepo().getPercentage(
         current: stat.value['value'], previous: stat.value['prev']);
     return ContainerWrapper(

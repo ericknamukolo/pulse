@@ -17,7 +17,6 @@ extension StringExtensions on String {
   }
 
   String get toOsIcon {
-    logger.i(this);
     if (contains('ios')) {
       return Brands.apple_logo;
     } else if (contains('mac')) {
@@ -34,6 +33,25 @@ extension StringExtensions on String {
       return Brands.kali_linux;
     } else {
       return Brands.mac_logo;
+    }
+  }
+
+  String get toBrowserIcon {
+    logger.i(this);
+    if (contains('chrome')) {
+      return Brands.chrome;
+    } else if (contains('ios')) {
+      return Brands.safari;
+    } else if (contains('opera')) {
+      return Brands.opera;
+    } else if (contains('chromium')) {
+      return Brands.chromium;
+    } else if (contains('samsung')) {
+      return Brands.samsung;
+    } else if (contains('instagram')) {
+      return Brands.instagram;
+    } else {
+      return Brands.chromium;
     }
   }
 }

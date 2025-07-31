@@ -175,7 +175,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
             getData(
               title: 'Browser',
               icon: Brand(
-                Brands.chrome,
+                widget.session.browser.toLowerCase().toBrowserIcon,
                 size: 18,
               ),
               des: widget.session.browser.capitalize(),
