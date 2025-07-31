@@ -167,7 +167,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
             getData(
               title: 'OS',
               icon: Brand(
-                Brands.android_os,
+                widget.session.os.toLowerCase().toOsIcon,
                 size: 18,
               ),
               des: widget.session.os.capitalize(),
