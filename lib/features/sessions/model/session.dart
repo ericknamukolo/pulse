@@ -5,19 +5,26 @@ part 'session.g.dart';
 class Session {
   String id;
   String browser;
+  String websiteId;
   String os;
   String device;
   String screen;
   String country;
+  String language;
   String region;
   String city;
   int visits;
   int views;
-  DateTime createdAt;
+  int? totaltime;
+  int? events;
+  DateTime? createdAt;
+  DateTime firstAt;
+  DateTime lastAt;
 
   Session({
     required this.browser,
-    required this.createdAt,
+    required this.websiteId,
+    this.createdAt,
     required this.city,
     required this.country,
     required this.device,
@@ -27,6 +34,11 @@ class Session {
     required this.screen,
     required this.visits,
     required this.views,
+    required this.firstAt,
+    required this.lastAt,
+    required this.language,
+    this.events,
+    this.totaltime,
   });
 
   factory Session.fromJson(Map<String, dynamic> json) =>
