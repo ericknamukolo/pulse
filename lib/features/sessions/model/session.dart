@@ -5,6 +5,7 @@ part 'session.g.dart';
 class Session {
   String id;
   String browser;
+  String websiteId;
   String os;
   String device;
   String screen;
@@ -16,13 +17,14 @@ class Session {
   int views;
   int? totaltime;
   int? events;
-  DateTime createdAt;
+  DateTime? createdAt;
   DateTime firstAt;
   DateTime lastAt;
 
   Session({
     required this.browser,
-    required this.createdAt,
+    required this.websiteId,
+    this.createdAt,
     required this.city,
     required this.country,
     required this.device,

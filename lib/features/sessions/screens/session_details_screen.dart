@@ -1,17 +1,48 @@
 import 'package:country_flags/country_flags.dart';
+import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boring_avatars/flutter_boring_avatars.dart';
 import 'package:icons_launcher/cli_commands.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse/features/overview/widgets/stat_card.dart';
 import 'package:pulse/features/sessions/model/session.dart';
+import 'package:pulse/features/sessions/repo/sessions_repo.dart';
+import 'package:pulse/utils/colors.dart';
+import 'package:pulse/utils/extensions.dart';
 import 'package:pulse/utils/text.dart';
+import 'package:pulse/utils/utils.dart';
 import 'package:pulse/widgets/custom_appbar.dart';
 import 'package:country_codes/country_codes.dart';
 
-class SessionDetailsScreen extends StatelessWidget {
+class SessionDetailsScreen extends StatefulWidget {
   final Session session;
   const SessionDetailsScreen({super.key, required this.session});
+
+  @override
+  State<SessionDetailsScreen> createState() => _SessionDetailsScreenState();
+}
+
+class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
+  Session? _session;
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero).then((_) async {
+      try {
+        var res = await SessionsRepo()
+            .getSession(widget.session.websiteId, widget.session.id);
+
+        setState(() {
+          _session = res;
+        });
+      } catch (e, st) {
+        logger.i(st);
+        Toast.showToast(message: e.toString(), context: context);
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +55,7 @@ class SessionDetailsScreen extends StatelessWidget {
           spacing: 15,
           children: [
             Hero(
-              tag: session.id,
+              tag: widget.session.id,
               child: Align(
                 alignment: Alignment.center,
                 child: Stack(
@@ -34,7 +65,7 @@ class SessionDetailsScreen extends StatelessWidget {
                       width: 100,
                       height: 100,
                       child: BoringAvatar(
-                        name: session.id,
+                        name: widget.session.id,
                         type: BoringAvatarType.beam,
                         shape: CircleBorder(),
                       ),
@@ -43,7 +74,7 @@ class SessionDetailsScreen extends StatelessWidget {
                       bottom: 0,
                       right: 0,
                       child: CountryFlag.fromCountryCode(
-                        session.country,
+                        widget.session.country,
                         shape: const RoundedRectangle(30),
                         height: 25,
                         width: 25,
@@ -58,44 +89,96 @@ class SessionDetailsScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: StatCard(
-                    stat:
-                        MapEntry('views', {'value': session.views, 'prev': -1}),
+                    stat: MapEntry(
+                        'views', {'value': widget.session.views, 'prev': -1}),
                   ),
                 ),
                 Expanded(
                   child: StatCard(
                     stat: MapEntry(
-                        'visits', {'value': session.visits, 'prev': -1}),
+                        'visits', {'value': widget.session.visits, 'prev': -1}),
                   ),
                 )
               ],
             ),
+            _session == null
+                ? FadeShimmer(
+                    height: 100,
+                    width: double.infinity,
+                    radius: 16,
+                    fadeTheme: FadeTheme.light,
+                  )
+                : Row(
+                    spacing: 15,
+                    children: [
+                      Expanded(
+                        child: StatCard(
+                          stat: MapEntry('events',
+                              {'value': _session!.events, 'prev': -1}),
+                        ),
+                      ),
+                      Expanded(
+                        child: StatCard(
+                          stat: MapEntry('totaltime',
+                              {'value': _session!.totaltime, 'prev': -1}),
+                        ),
+                      )
+                    ],
+                  ),
             getData(
               title: 'First Seen',
+              icon: Icon(
+                Icons.timer_rounded,
+                color: kPrimaryColor.withOpacity(.8),
+                size: 18,
+              ),
               des:
-                  '${DateFormat('EEE, MMM d y').format(session.firstAt.toLocal())} at ${DateFormat('HH:mm').format(session.firstAt.toLocal())} hrs',
+                  '${DateFormat('EEE, MMM d y').format(widget.session.firstAt.toLocal())} at ${DateFormat('HH:mm').format(widget.session.firstAt.toLocal())} hrs',
             ),
             getData(
               title: 'Last Seen',
+              icon: Icon(
+                Icons.timer_rounded,
+                color: kPrimaryColor.withOpacity(.8),
+                size: 18,
+              ),
               des:
-                  '${DateFormat('EEE, MMM d y').format(session.lastAt.toLocal())} at ${DateFormat('HH:mm').format(session.lastAt.toLocal())} hrs',
+                  '${DateFormat('EEE, MMM d y').format(widget.session.lastAt.toLocal())} at ${DateFormat('HH:mm').format(widget.session.lastAt.toLocal())} hrs',
             ),
             getData(
               title: 'Region',
+              icon: Icon(
+                Icons.pin_drop_rounded,
+                color: kPrimaryColor.withOpacity(.8),
+                size: 18,
+              ),
               des:
-                  '${CountryCodes.name(locale: Locale(session.language, session.country))}, ${session.city}',
+                  '${CountryCodes.name(locale: Locale(widget.session.language, widget.session.country))}, ${widget.session.city}',
             ),
             getData(
               title: 'Device',
-              des: session.device.capitalize(),
+              icon: Icon(
+                widget.session.device.toDeviceIcon,
+                color: kPrimaryColor.withOpacity(.8),
+                size: 18,
+              ),
+              des: widget.session.device.capitalize(),
             ),
             getData(
               title: 'OS',
-              des: session.os.capitalize(),
+              icon: Brand(
+                Brands.android_os,
+                size: 18,
+              ),
+              des: widget.session.os.capitalize(),
             ),
             getData(
               title: 'Browser',
-              des: session.browser.capitalize(),
+              icon: Brand(
+                Brands.chrome,
+                size: 18,
+              ),
+              des: widget.session.browser.capitalize(),
             ),
           ],
         ),
@@ -106,15 +189,23 @@ class SessionDetailsScreen extends StatelessWidget {
   Column getData({
     required String title,
     required String des,
+    Widget? icon,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title,
             style: kBodyTitleTextStyle.copyWith(fontWeight: FontWeight.bold)),
-        Text(
-          des,
-          style: kBodyTextStyle,
+        Row(
+          spacing: 5,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (icon != null) icon,
+            Text(
+              des,
+              style: kBodyTextStyle,
+            ),
+          ],
         ),
       ],
     );

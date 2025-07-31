@@ -8,7 +8,10 @@ part of 'session.dart';
 
 Session _$SessionFromJson(Map<String, dynamic> json) => Session(
       browser: json['browser'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
+      websiteId: json['websiteId'] as String,
+      createdAt: json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
       city: json['city'] as String,
       country: json['country'] as String,
       device: json['device'] as String,
@@ -28,6 +31,7 @@ Session _$SessionFromJson(Map<String, dynamic> json) => Session(
 Map<String, dynamic> _$SessionToJson(Session instance) => <String, dynamic>{
       'id': instance.id,
       'browser': instance.browser,
+      'websiteId': instance.websiteId,
       'os': instance.os,
       'device': instance.device,
       'screen': instance.screen,
@@ -39,7 +43,7 @@ Map<String, dynamic> _$SessionToJson(Session instance) => <String, dynamic>{
       'views': instance.views,
       'totaltime': instance.totaltime,
       'events': instance.events,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'createdAt': instance.createdAt?.toIso8601String(),
       'firstAt': instance.firstAt.toIso8601String(),
       'lastAt': instance.lastAt.toIso8601String(),
     };
