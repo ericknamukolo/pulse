@@ -9,11 +9,16 @@ class Session {
   String device;
   String screen;
   String country;
+  String language;
   String region;
   String city;
   int visits;
   int views;
+  int? totaltime;
+  int? events;
   DateTime createdAt;
+  DateTime firstAt;
+  DateTime lastAt;
 
   Session({
     required this.browser,
@@ -27,6 +32,11 @@ class Session {
     required this.screen,
     required this.visits,
     required this.views,
+    required this.firstAt,
+    required this.lastAt,
+    required this.language,
+    this.events,
+    this.totaltime,
   });
 
   factory Session.fromJson(Map<String, dynamic> json) =>

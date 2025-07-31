@@ -1,9 +1,12 @@
+import 'package:country_codes/country_codes.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boring_avatars/flutter_boring_avatars.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse/features/sessions/model/session.dart';
+import 'package:pulse/features/sessions/screens/session_details_screen.dart';
 import 'package:pulse/utils/colors.dart';
+import 'package:pulse/utils/navigation.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:pulse/utils/utils.dart';
 import 'package:pulse/widgets/container_wrapper.dart';
@@ -20,31 +23,34 @@ class SessionCard extends StatelessWidget {
       child: Row(
         spacing: 15,
         children: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              SizedBox(
-                width: 50,
-                height: 50,
-                child: BoringAvatar(
-                  name: session.id,
-                  type: BoringAvatarType.beam,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6.0),
+          Hero(
+            tag: session.id,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: BoringAvatar(
+                    name: session.id,
+                    type: BoringAvatarType.beam,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6.0),
+                    ),
                   ),
                 ),
-              ),
-              Positioned(
-                bottom: -5,
-                right: -5,
-                child: CountryFlag.fromCountryCode(
-                  session.country,
-                  shape: const RoundedRectangle(30),
-                  height: 20,
-                  width: 20,
+                Positioned(
+                  bottom: -5,
+                  right: -5,
+                  child: CountryFlag.fromCountryCode(
+                    session.country,
+                    shape: const RoundedRectangle(30),
+                    height: 20,
+                    width: 20,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Expanded(
             child: Column(
@@ -52,7 +58,7 @@ class SessionCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '${session.country}, ${session.city} -- ${session.os}',
+                  '${CountryCodes.name(locale: Locale(session.language, session.country))}, ${session.city} -- ${session.os}',
                   style: kBodyTextStyle.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -69,7 +75,9 @@ class SessionCard extends StatelessWidget {
             bRadius: 100,
             icon: Icons.remove_red_eye_rounded,
             click: () {
-              Toast.showToast(message: 'Coming Soon', context: context);
+              Navigation.go(
+                  screen: SessionDetailsScreen(session: session),
+                  context: context);
             },
             iconColor: kPrimaryColor,
           ),
