@@ -1,3 +1,4 @@
+import 'package:country_codes/country_codes.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,7 +48,7 @@ class MetricCard extends StatelessWidget {
                       shape: const RoundedRectangle(2),
                     ),
                     Text(
-                      met.x,
+                      '${CountryCodes.name(locale: Locale('en-GB', met.x))}',
                       style: kBodyTextStyle.copyWith(
                         fontWeight: FontWeight.w700,
                       ),

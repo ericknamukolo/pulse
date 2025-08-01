@@ -3,6 +3,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:pulse/features/overview/repo/overview_repo.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:intl/intl.dart';
+import 'package:pulse/utils/utils.dart';
 import '../../../utils/colors.dart';
 import '../../../widgets/container_wrapper.dart';
 
@@ -25,9 +26,16 @@ class StatCard extends StatelessWidget {
         children: [
           Text(stat.key.toUpperCase(),
               style: kBodyTitleTextStyle.copyWith(color: kGreyColor)),
-          Text(NumberFormat.compact().format((stat.value as Map)['value']),
-              style: kTitleTextStyle.copyWith(
-                  fontSize: kTitleTextStyle.fontSize! + 8)),
+          if (stat.key.toLowerCase() == 'totaltime')
+            FittedBox(
+              child: Text(formatDuration((stat.value as Map)['value']),
+                  style: kTitleTextStyle.copyWith(
+                      fontSize: kTitleTextStyle.fontSize! + 8)),
+            )
+          else
+            Text(NumberFormat.compact().format((stat.value as Map)['value']),
+                style: kTitleTextStyle.copyWith(
+                    fontSize: kTitleTextStyle.fontSize! + 8)),
           if (stat.value['prev'] != -1)
             Container(
               padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 4),
