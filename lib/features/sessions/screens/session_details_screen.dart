@@ -192,7 +192,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 ),
                 des: widget.session.browser.capitalize(),
               ),
-              TitleCard(title: 'Activity'),
+              TitleCard(title: 'Recent Activity'),
               DropDownBtn(
                 click: () async {
                   DateTimeRange? picked = await showDateRangePicker(
