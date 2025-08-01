@@ -37,7 +37,6 @@ extension StringExtensions on String {
   }
 
   String get toBrowserIcon {
-    logger.i(this);
     if (contains('chrome')) {
       return Brands.chrome;
     } else if (contains('ios')) {

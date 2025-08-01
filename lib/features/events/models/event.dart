@@ -3,8 +3,8 @@ part 'event.g.dart';
 
 @JsonSerializable()
 class Event {
-  String id;
-  String sessionId;
+  String? id;
+  String? sessionId;
   DateTime createdAt;
   String eventName;
   String urlPath;
@@ -12,8 +12,8 @@ class Event {
 
   Event({
     required this.createdAt,
-    required this.id,
-    required this.sessionId,
+    this.id,
+    this.sessionId,
     required this.eventName,
     required this.urlPath,
     required this.referrerDomain,

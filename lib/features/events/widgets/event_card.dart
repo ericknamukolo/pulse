@@ -20,17 +20,18 @@ class EventCard extends StatelessWidget {
         spacing: 15,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            width: 50,
-            height: 50,
-            child: BoringAvatar(
-              name: event.sessionId,
-              type: BoringAvatarType.beam,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6.0),
+          if (event.sessionId != null)
+            SizedBox(
+              width: 50,
+              height: 50,
+              child: BoringAvatar(
+                name: event.sessionId!,
+                type: BoringAvatarType.beam,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6.0),
+                ),
               ),
             ),
-          ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
