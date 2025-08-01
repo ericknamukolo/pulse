@@ -8,8 +8,8 @@ part of 'event.dart';
 
 Event _$EventFromJson(Map<String, dynamic> json) => Event(
       createdAt: DateTime.parse(json['createdAt'] as String),
-      id: json['id'] as String,
-      sessionId: json['sessionId'] as String,
+      id: json['id'] as String?,
+      sessionId: json['sessionId'] as String?,
       eventName: json['eventName'] as String,
       urlPath: json['urlPath'] as String,
       referrerDomain: json['referrerDomain'] as String,

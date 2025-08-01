@@ -66,3 +66,20 @@ Color getColorFromIndex(int index) {
   final hslColor = HSLColor.fromAHSL(1.0, hue.toDouble(), 0.6, 0.5);
   return hslColor.toColor();
 }
+
+String formatDuration(int seconds) {
+  final duration = Duration(seconds: seconds);
+  final hours = duration.inHours;
+  final minutes = duration.inMinutes.remainder(60);
+  final secs = duration.inSeconds.remainder(60);
+
+  if (hours > 0) {
+    return '${_twoDigits(hours)}h ${_twoDigits(minutes)}m ${_twoDigits(secs)}s';
+  } else if (minutes > 0) {
+    return '${_twoDigits(minutes)}m ${_twoDigits(secs)}s';
+  } else {
+    return '${secs}s';
+  }
+}
+
+String _twoDigits(int n) => n.toString().padLeft(2, '0');
