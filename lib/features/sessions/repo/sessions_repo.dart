@@ -35,18 +35,15 @@ class SessionsRepo {
   Future<List<Event>> getSessionEvents({
     required String websiteId,
     required String id,
-    DateTime? start,
-    DateTime? end,
+    required DateTime start,
+    required DateTime end,
   }) async {
-    var now = DateTime.now();
-    int startAt = (start ?? now.subtract(const Duration(hours: 24)))
-        .millisecondsSinceEpoch;
-    int endAt = (end ?? now).millisecondsSinceEpoch;
+    int startAt = (start).millisecondsSinceEpoch;
+    int endAt = (end).millisecondsSinceEpoch;
     var res = await Requests.get(
         useKey: true,
         endpoint:
             '${Endpoints.websites.replaceAll(Endpoints.baseUrl, 'https://api.umami.is/v1')}/$websiteId/sessions/$id/activity?startAt=$startAt&endAt=$endAt');
-    logger.i(res);
     return Event.toList(res);
   }
 }

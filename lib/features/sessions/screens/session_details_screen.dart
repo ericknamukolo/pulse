@@ -31,13 +31,20 @@ class SessionDetailsScreen extends StatefulWidget {
 
 class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
   Session? _session;
-  DateTimeRange? range;
+
+  late DateTimeRange range;
 
   @override
   void initState() {
+    range = DateTimeRange(
+      start: widget.session.lastAt.subtract(const Duration(days: 5)),
+      end: widget.session.lastAt,
+    );
     context.read<SessionsCubit>().getSessionEvents(
           websiteId: widget.session.websiteId,
           id: widget.session.id,
+          end: range.end,
+          start: range.start,
         );
     Future.delayed(Duration.zero).then((_) async {
       try {
@@ -196,10 +203,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
               DropDownBtn(
                 click: () async {
                   DateTimeRange? picked = await showDateRangePicker(
-                    initialDateRange: range ??
-                        DateTimeRange(
-                            start: DateTime.now().subtract(Duration(days: 3)),
-                            end: DateTime.now()),
+                    initialDateRange: range,
                     context: context,
                     firstDate: DateTime(2000),
                     lastDate: DateTime.now(),
@@ -210,14 +214,13 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                   context.read<SessionsCubit>().getSessionEvents(
                         websiteId: widget.session.websiteId,
                         id: widget.session.id,
-                        end: range?.end,
-                        start: range?.start,
+                        end: range.end,
+                        start: range.start,
                       );
                 },
                 icon: Iconsax.timer_1_bold,
-                title: range == null
-                    ? 'Last 24 hours'
-                    : 'From ${DateFormat('EEE, MMM dd, yyyy').format(range!.start)} - ${DateFormat('EEE, MMM dd, yyyy').format(range!.end)}',
+                title:
+                    'From ${DateFormat('EEE, MMM dd, yyyy').format(range.start)} - ${DateFormat('EEE, MMM dd, yyyy').format(range.end)}',
               ),
               BlocConsumer<SessionsCubit, SessionsState>(
                 listener: (context, state) {
@@ -271,12 +274,14 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
             style: kBodyTitleTextStyle.copyWith(fontWeight: FontWeight.bold)),
         Row(
           spacing: 5,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (icon != null) icon,
-            Text(
-              des,
-              style: kBodyTextStyle,
+            Expanded(
+              child: Text(
+                des,
+                style: kBodyTextStyle,
+              ),
             ),
           ],
         ),

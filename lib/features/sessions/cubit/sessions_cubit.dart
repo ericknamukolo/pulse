@@ -39,8 +39,8 @@ class SessionsCubit extends Cubit<SessionsState> {
   Future<void> getSessionEvents({
     required String websiteId,
     required String id,
-    DateTime? start,
-    DateTime? end,
+    required DateTime start,
+    required DateTime end,
   }) async {
     emit(state.copyWith(appState: AppState.loading, events: []));
     try {
