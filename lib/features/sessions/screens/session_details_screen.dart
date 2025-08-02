@@ -37,7 +37,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
   @override
   void initState() {
     range = DateTimeRange(
-      start: widget.session.lastAt.subtract(const Duration(days: 3)),
+      start: widget.session.lastAt.subtract(const Duration(days: 5)),
       end: widget.session.lastAt,
     );
     context.read<SessionsCubit>().getSessionEvents(

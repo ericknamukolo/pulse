@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:pulse/features/websites/screens/websites_screen.dart';
 import 'package:pulse/utils/local_storage.dart';
 import 'package:pulse/utils/navigation.dart';
@@ -18,7 +19,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: 2)).then((_) async {
+      checkForUpdate();
+
       String? token = prefs.getString(LocalStorage.jwt);
+
       Navigation.go(
         screen: token != null ? WebsitesScreen() : SignInScreen(),
         context: context,
@@ -26,6 +30,18 @@ class _SplashScreenState extends State<SplashScreen> {
       );
     });
     super.initState();
+  }
+
+  Future<void> checkForUpdate() async {
+    InAppUpdate.checkForUpdate().then((info) {
+      if (info.updateAvailability == UpdateAvailability.updateAvailable) {
+        Toast.showToast(
+            message: 'New App Update Available! 🎉', context: context);
+      }
+    }).catchError((e) {
+      logger.e(e);
+      Toast.showToast(message: e.toString(), context: context);
+    });
   }
 
   @override

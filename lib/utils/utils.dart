@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:logger/logger.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,6 +35,13 @@ class Toast {
     }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        action: message.contains('App Update')
+            ? SnackBarAction(
+                label: 'Update!',
+                onPressed: () async {
+                  await InAppUpdate.performImmediateUpdate();
+                })
+            : null,
         behavior: SnackBarBehavior.floating,
         content: Text(
           errMessage.trim(),
