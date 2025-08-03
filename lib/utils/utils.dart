@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:logger/logger.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,6 +35,13 @@ class Toast {
     }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        action: message.contains('App Update')
+            ? SnackBarAction(
+                label: 'Update!',
+                onPressed: () async {
+                  await InAppUpdate.performImmediateUpdate();
+                })
+            : null,
         behavior: SnackBarBehavior.floating,
         content: Text(
           errMessage.trim(),
@@ -66,3 +74,20 @@ Color getColorFromIndex(int index) {
   final hslColor = HSLColor.fromAHSL(1.0, hue.toDouble(), 0.6, 0.5);
   return hslColor.toColor();
 }
+
+String formatDuration(int seconds) {
+  final duration = Duration(seconds: seconds);
+  final hours = duration.inHours;
+  final minutes = duration.inMinutes.remainder(60);
+  final secs = duration.inSeconds.remainder(60);
+
+  if (hours > 0) {
+    return '${_twoDigits(hours)}h ${_twoDigits(minutes)}m ${_twoDigits(secs)}s';
+  } else if (minutes > 0) {
+    return '${_twoDigits(minutes)}m ${_twoDigits(secs)}s';
+  } else {
+    return '${secs}s';
+  }
+}
+
+String _twoDigits(int n) => n.toString().padLeft(2, '0');

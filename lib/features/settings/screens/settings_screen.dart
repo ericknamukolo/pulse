@@ -93,10 +93,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
       //setting
       Btn(
         title: 'App version',
-        des: '${packageInfo?.version} (#${packageInfo?.buildNumber})',
+        des: _updateInfo?.updateAvailability ==
+                UpdateAvailability.updateAvailable
+            ? 'Click to update the app 🚀'
+            : '${packageInfo?.version} (#${packageInfo?.buildNumber})',
         type: 'setting',
         icon: Icons.info_rounded,
-        click: () {},
+        click: () async {
+          if (_updateInfo?.updateAvailability ==
+              UpdateAvailability.updateAvailable) {
+            await InAppUpdate.performImmediateUpdate();
+          } else {
+            Toast.showToast(
+                message: 'You are using the latest version!', context: context);
+          }
+        },
       ),
 
       Btn(
