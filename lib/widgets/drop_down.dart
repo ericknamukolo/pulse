@@ -47,7 +47,7 @@ class CustomDropDown extends StatelessWidget {
           ),
         Container(
           margin: EdgeInsets.only(
-              bottom: removePadding ? 0 : 15.0, top: title == null ? 0.0 : 8.0),
+              bottom: removePadding ? 0 : 15.0, top: title == null ? 0.0 : 0.0),
           padding: const EdgeInsets.symmetric(horizontal: 10),
           height: maxHeight,
           decoration: BoxDecoration(

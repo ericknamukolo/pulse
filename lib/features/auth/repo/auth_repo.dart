@@ -7,11 +7,12 @@ import 'package:pulse/utils/utils.dart';
 
 class AuthRepo {
   Future<Map<String, dynamic>?> signIn(
-      {required String email, required String pwd}) async {
+      {required String email, required String pwd, required String url}) async {
+    String userKey = url == umamiUrl ? 'email' : 'username';
     var res = await Requests.post(
-      endpoint: Endpoints.authLogin,
+      endpoint: '$url/auth/login',
       body: {
-        'email': email,
+        userKey: email,
         'password': pwd,
       },
       noAuth: true,
@@ -19,7 +20,9 @@ class AuthRepo {
     if (res == null) {
       throw Exception('Failed to sign in');
     }
+    baseUrl = url;
     prefs.setString(LocalStorage.jwt, res['token']);
+    prefs.setString(LocalStorage.host, url);
     return res;
   }
 
