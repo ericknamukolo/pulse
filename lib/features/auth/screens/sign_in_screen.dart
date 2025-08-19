@@ -4,6 +4,7 @@ import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:pulse/widgets/custom_button.dart';
 import 'package:pulse/widgets/custom_text_field.dart';
+import 'package:pulse/widgets/drop_down.dart';
 import 'package:pulse/widgets/mordern_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,8 +25,10 @@ class _SignInScreenState extends State<SignInScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController email = TextEditingController();
   TextEditingController pwd = TextEditingController();
+  TextEditingController hostUrl = TextEditingController(text: umamiUrl);
   bool isAutoValidate = false;
   bool isHidden = true;
+  String hostType = 'Umami Cloud';
 
   bool isValidEmail(String email) {
     RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
@@ -66,35 +69,59 @@ class _SignInScreenState extends State<SignInScreen> {
                         style: kTitleTextStyle.copyWith(fontSize: 30)),
                     Text('Please sign in to continue',
                         style: kBodyTitleTextStyle),
-                    CustomTextField(
-                      preIcon: Icons.link_rounded,
-                      hint: Endpoints.baseUrl,
-                      title: 'Host URL',
-                      type: TextInputType.emailAddress,
-                      disabled: true,
-                      // validator: (val) {
-                      //   if (val!.isEmpty) {
-                      //     return 'This field is required';
-                      //   } else if (!isValidEmail(val)) {
-                      //     return 'Enter a valid email address';
-                      //   }
-                      //   return null;
-                      // },
+                    CustomDropDown(
+                      removePadding: true,
+                      selectedItem: hostType,
+                      items: [
+                        'Umami Cloud',
+                        'Self Hosting',
+                      ],
+                      hint: 'Select host type',
+                      title: 'Host Type',
+                      onChanged: (val) {
+                        setState(() {
+                          hostType = val!;
+                          hostUrl = TextEditingController(
+                              text: hostType == 'Umami Cloud' ? umamiUrl : '');
+                        });
+                      },
                     ),
                     CustomTextField(
-                      data: email,
-                      preIcon: Icons.email_rounded,
-                      hint: 'Email',
-                      title: 'Email Address',
+                      data: hostUrl,
+                      preIcon: Icons.link_rounded,
+                      hint: 'Self-hosted url',
+                      title: 'Host URL',
                       type: TextInputType.emailAddress,
+                      disabled: hostType == 'Umami Cloud',
                       validator: (val) {
-                        if (val!.isEmpty) {
-                          return 'This field is required';
-                        } else if (!isValidEmail(val)) {
-                          return 'Enter a valid email address';
+                        if (!(val!.startsWith('https://'))) {
+                          return 'The url should start with https://';
                         }
                         return null;
                       },
+                    ),
+                    CustomTextField(
+                      data: email,
+                      preIcon: hostType == 'Umami Cloud'
+                          ? Icons.email_rounded
+                          : Icons.person_2_rounded,
+                      hint: hostType == 'Umami Cloud' ? 'Email' : 'Username',
+                      title: hostType == 'Umami Cloud'
+                          ? 'Email Address'
+                          : 'Username',
+                      type: hostType == 'Umami Cloud'
+                          ? TextInputType.emailAddress
+                          : TextInputType.name,
+                      validator: hostType == 'Umami Cloud'
+                          ? (val) {
+                              if (val!.isEmpty) {
+                                return 'This field is required';
+                              } else if (!isValidEmail(val)) {
+                                return 'Enter a valid email address';
+                              }
+                              return null;
+                            }
+                          : null,
                     ),
                     CustomTextField(
                       data: pwd,
@@ -134,7 +161,10 @@ class _SignInScreenState extends State<SignInScreen> {
                         bool isValid = formKey.currentState!.validate();
                         if (isValid) {
                           context.read<AuthCubit>().signIn(
-                              email: email.text.trim(), pwd: pwd.text.trim());
+                                email: email.text.trim(),
+                                pwd: pwd.text.trim(),
+                                url: hostUrl.text.trim(),
+                              );
                         } else {
                           setState(() => isAutoValidate = true);
                         }
