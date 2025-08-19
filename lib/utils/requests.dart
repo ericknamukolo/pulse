@@ -138,7 +138,10 @@ class Requests {
     try {
       http.Response res;
       res = await fn.timeout(const Duration(seconds: 10));
-
+      logger.i(endpoint);
+      if (endpoint.contains('auth/login') && res.statusCode == 404) {
+        return throw Exception('Invalid host url');
+      }
       if (res.statusCode != okStatusCode) {
         return throw Exception(
             json.decode(res.body)?['error'] ?? 'Error occurred');

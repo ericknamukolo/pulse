@@ -39,7 +39,7 @@ extension StringExtensions on String {
   String get toBrowserIcon {
     if (contains('chrome')) {
       return Brands.chrome;
-    } else if (contains('ios')) {
+    } else if (contains('ios') || contains('safari')) {
       return Brands.safari;
     } else if (contains('opera')) {
       return Brands.opera;

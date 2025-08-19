@@ -1,5 +1,7 @@
+late String baseUrl;
+String umamiUrl = 'https://cloud.umami.is/api';
+
 class Endpoints {
-  static const String baseUrl = 'https://cloud.umami.is/api';
-  static const String authLogin = '$baseUrl/auth/login';
-  static const String websites = '$baseUrl/websites';
+  static final String authLogin = '$baseUrl/auth/login';
+  static final String websites = '$baseUrl/websites';
 }
