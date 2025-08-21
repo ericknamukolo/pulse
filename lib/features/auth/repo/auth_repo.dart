@@ -10,7 +10,7 @@ class AuthRepo {
       {required String email, required String pwd, required String url}) async {
     String userKey = url == umamiUrl ? 'email' : 'username';
     var res = await Requests.post(
-      endpoint: '$url/auth/login',
+      endpoint: '$url/api/auth/login',
       body: {
         userKey: email,
         'password': pwd,
