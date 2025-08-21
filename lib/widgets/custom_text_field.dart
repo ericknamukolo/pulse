@@ -84,7 +84,7 @@ class CustomTextField extends StatelessWidget {
               errorStyle:
                   kBodyTextStyle.copyWith(fontSize: 10, color: kErrorColor),
               contentPadding: EdgeInsets.symmetric(
-                  vertical: 20.0, horizontal: preIcon == null ? 10 : 0.0),
+                  vertical: 15.0, horizontal: preIcon == null ? 10 : 0.0),
               prefixStyle: kBodyTextStyle,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
