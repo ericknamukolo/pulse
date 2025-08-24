@@ -1,4 +1,3 @@
-import 'package:pulse/features/auth/screens/sign_in_screen.dart';
 import 'package:pulse/features/auth/screens/splash_screen.dart';
 import 'package:pulse/utils/endpoints.dart';
 import 'package:pulse/utils/local_storage.dart';
