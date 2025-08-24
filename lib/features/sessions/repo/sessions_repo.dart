@@ -2,7 +2,6 @@ import 'package:pulse/features/events/models/event.dart';
 import 'package:pulse/features/sessions/model/session.dart';
 import 'package:pulse/utils/endpoints.dart';
 import 'package:pulse/utils/requests.dart';
-import 'package:pulse/utils/utils.dart';
 
 class SessionsRepo {
   Future<List<Session>> getSessions({
@@ -19,7 +18,7 @@ class SessionsRepo {
     var res = await Requests.get(
         useKey: true,
         endpoint:
-            '${Endpoints.websites.replaceAll(umamiUrl, 'https://api.umami.is/v1')}/$id/sessions?startAt=$startAt&endAt=$endAt&pageSize=20&page=${pageNumber ?? 1}');
+            '${Endpoints.websites.replaceAll(umamiUrl, 'https://api.umami.is/v1').replaceAll('api/', '')}/$id/sessions?startAt=$startAt&endAt=$endAt&pageSize=20&page=${pageNumber ?? 1}');
     return Session.toList(res['data']);
   }
 
@@ -27,7 +26,7 @@ class SessionsRepo {
     var res = await Requests.get(
         useKey: true,
         endpoint:
-            '${Endpoints.websites.replaceAll(umamiUrl, 'https://api.umami.is/v1')}/$websiteId/sessions/$id');
+            '${Endpoints.websites.replaceAll(umamiUrl, 'https://api.umami.is/v1').replaceAll('api/', '')}/$websiteId/sessions/$id');
 
     return Session.fromJson(res);
   }
@@ -43,7 +42,7 @@ class SessionsRepo {
     var res = await Requests.get(
         useKey: true,
         endpoint:
-            '${Endpoints.websites.replaceAll(umamiUrl, 'https://api.umami.is/v1')}/$websiteId/sessions/$id/activity?startAt=$startAt&endAt=$endAt');
+            '${Endpoints.websites.replaceAll(umamiUrl, 'https://api.umami.is/v1').replaceAll('api/', '')}/$websiteId/sessions/$id/activity?startAt=$startAt&endAt=$endAt');
     return Event.toList(res);
   }
 }

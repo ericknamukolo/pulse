@@ -1,4 +1,4 @@
-import 'package:pulse/features/auth/screens/sign_in_screen.dart';
+import 'package:pulse/features/auth/screens/splash_screen.dart';
 import 'package:pulse/utils/endpoints.dart';
 import 'package:pulse/utils/local_storage.dart';
 import 'package:pulse/utils/navigation.dart';
@@ -10,7 +10,7 @@ class AuthRepo {
       {required String email, required String pwd, required String url}) async {
     String userKey = url == umamiUrl ? 'email' : 'username';
     var res = await Requests.post(
-      endpoint: '$url/auth/login',
+      endpoint: '$url/api/auth/login',
       body: {
         userKey: email,
         'password': pwd,
@@ -28,6 +28,6 @@ class AuthRepo {
 
   Future<void> signOut(context) async {
     await prefs.clear();
-    Navigation.go(screen: SignInScreen(), context: context, replace: true);
+    Navigation.go(screen: SplashScreen(), context: context, replace: true);
   }
 }

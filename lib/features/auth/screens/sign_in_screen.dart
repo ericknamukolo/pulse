@@ -89,13 +89,17 @@ class _SignInScreenState extends State<SignInScreen> {
                     CustomTextField(
                       data: hostUrl,
                       preIcon: Icons.link_rounded,
-                      hint: 'Self-hosted url',
-                      title: 'Host URL',
+                      hint: 'e.g https://your-domain.com',
+                      title: 'Host Domain',
                       type: TextInputType.emailAddress,
                       disabled: hostType == 'Umami Cloud',
                       validator: (val) {
-                        if (!(val!.startsWith('https://'))) {
-                          return 'The url should start with https://';
+                        if (!(val!.startsWith('https://')) &&
+                            !(val.startsWith('http://'))) {
+                          return 'The url should start with https:// or http://';
+                        }
+                        if (val.endsWith('/')) {
+                          return 'Remove the trailing / at the end of the url';
                         }
                         return null;
                       },
