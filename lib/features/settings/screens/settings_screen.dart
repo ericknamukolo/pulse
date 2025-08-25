@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:pulse/features/auth/repo/auth_repo.dart';
 import 'package:pulse/features/settings/screens/model/btn.dart';
 import 'package:pulse/utils/colors.dart';
@@ -78,9 +79,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Links.goToLink('https://ericknamukolo.com');
         },
       ),
+      Btn(
+        title: 'Coffee',
+        des: 'Buy me a coffe 🍵',
+        type: 'app',
+        icon: Bootstrap.cup_hot_fill,
+        click: () {
+          Links.goToLink('https://www.sonka.io/creator/erick');
+        },
+      ),
       // contact
       Btn(
-        title: 'Help & Support',
+        title: 'Help & Support/Feature Suggestions',
         des: 'Contact Me',
         type: 'contact',
         icon: Icons.contact_support_rounded,
@@ -109,7 +119,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           }
         },
       ),
-
       Btn(
         title: 'Logout',
         des: 'Logout of your account',
