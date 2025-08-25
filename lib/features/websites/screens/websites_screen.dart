@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pulse/features/auth/repo/auth_repo.dart';
 import 'package:pulse/features/settings/screens/settings_screen.dart';
 import 'package:pulse/features/websites/cubit/website_cubit.dart';
 import 'package:pulse/features/websites/screens/add_website_screen.dart';
@@ -77,7 +78,12 @@ class _WebsitesScreenState extends State<WebsitesScreen> {
                             icon: Icons.replay_outlined,
                             title: 'Refresh',
                             click: context.read<WebsiteCubit>().getWebsites,
-                          )
+                          ),
+                          MordernBtn(
+                            icon: Icons.logout_rounded,
+                            title: 'Logout',
+                            click: () => AuthRepo().signOut(context),
+                          ),
                         ],
                       )
                     : ListView.separated(
