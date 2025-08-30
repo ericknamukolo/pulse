@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pulse/features/events/cubit/events_cubit.dart';
 import 'package:pulse/features/overview/cubit/overview_cubit.dart';
 import 'package:pulse/features/sessions/cubit/sessions_cubit.dart';
+import 'package:pulse/features/theme/cubit/theme_cubit.dart';
 import 'package:pulse/features/websites/cubit/website_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -34,6 +35,7 @@ class Pulse extends StatelessWidget {
         BlocProvider(create: (_) => OverviewCubit()),
         BlocProvider(create: (_) => EventsCubit()),
         BlocProvider(create: (_) => SessionsCubit()),
+        BlocProvider(create: (_) => ThemeCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
