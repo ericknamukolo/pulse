@@ -8,7 +8,6 @@ import 'package:pulse/features/sessions/screens/session_details_screen.dart';
 import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/navigation.dart';
 import 'package:pulse/utils/text.dart';
-import 'package:pulse/utils/utils.dart';
 import 'package:pulse/widgets/container_wrapper.dart';
 
 import '../../../widgets/icon_btn.dart';
