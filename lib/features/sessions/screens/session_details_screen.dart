@@ -108,16 +108,14 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 children: [
                   Expanded(
                     child: StatCard(
-                      comp: MapEntry('', ''),
-                      stat: MapEntry(
-                          'views', {'value': widget.session.views, 'prev': -1}),
+                      comp: MapEntry('pageviews', -1),
+                      stat: MapEntry('pageviews', widget.session.views),
                     ),
                   ),
                   Expanded(
                     child: StatCard(
-                      comp: MapEntry('', ''),
-                      stat: MapEntry('visits',
-                          {'value': widget.session.visits, 'prev': -1}),
+                      comp: MapEntry('visits', -1),
+                      stat: MapEntry('visits', widget.session.visits),
                     ),
                   )
                 ],
@@ -134,16 +132,14 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                       children: [
                         Expanded(
                           child: StatCard(
-                            comp: MapEntry('', ''),
-                            stat: MapEntry('events',
-                                {'value': _session!.events, 'prev': -1}),
+                            comp: MapEntry('events', -1),
+                            stat: MapEntry('events', _session!.events),
                           ),
                         ),
                         Expanded(
                           child: StatCard(
-                            comp: MapEntry('', ''),
-                            stat: MapEntry('totaltime',
-                                {'value': _session!.totaltime, 'prev': -1}),
+                            comp: MapEntry('totaltime', -1),
+                            stat: MapEntry('totaltime', _session!.totaltime),
                           ),
                         )
                       ],
