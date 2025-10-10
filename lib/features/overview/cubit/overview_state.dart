@@ -10,7 +10,7 @@ class OverviewState extends Equatable {
   final Pageview? pageview;
   const OverviewState(
       {this.appState = AppState.initial,
-      this.metric = 'Url',
+      this.metric = 'Path',
       this.unit = 'Day',
       this.stats,
       this.errorMessage,

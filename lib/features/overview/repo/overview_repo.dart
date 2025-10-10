@@ -37,6 +37,7 @@ class OverviewRepo {
     var res = await Requests.get(
         endpoint:
             '${Endpoints.websites}/$id/metrics?startAt=$startAt&endAt=$endAt&type=${metric.toLowerCase()}');
+    logger.d(res);
     return Metric.toList(res);
   }
 
