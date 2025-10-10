@@ -115,7 +115,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                     childAspectRatio: 1.3,
                   ),
                   itemBuilder: (_, i) {
-                    Map<String, dynamic> stats = {...state.stats!};
+                    Map<String, dynamic> stats = {...state.stats ?? {}};
                     stats.removeWhere((key, value) => key == "comparison");
 
                     return state.stats == null ||
