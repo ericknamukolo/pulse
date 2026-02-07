@@ -144,7 +144,7 @@ class Requests {
         return throw Exception('Invalid host url');
       }
 
-      if (res.statusCode == 401) {
+      if (res.statusCode == 401 && !endpoint.contains('auth/login')) {
         await AuthRepo.tokenExpired();
         return null;
       }

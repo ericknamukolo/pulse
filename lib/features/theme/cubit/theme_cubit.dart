@@ -17,6 +17,6 @@ class ThemeCubit extends Cubit<ThemeState> {
 
   Future<void> setDarkMode() async {
     bool? mode = prefs.getBool(LocalStorage.darkTheme);
-    emit(state.copyWith(darkMode: mode ?? false));
+    emit(state.copyWith(darkMode: mode ?? true));
   }
 }

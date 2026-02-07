@@ -41,8 +41,6 @@ class _SplashScreenState extends State<SplashScreen> {
         Toast.showToast(
             message: 'New App Update Available! 🎉', context: context);
       }
-    }).catchError((e) {
-      Toast.showToast(message: e.toString(), context: context);
     });
   }
 
