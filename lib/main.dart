@@ -65,7 +65,6 @@ class Pulse extends StatelessWidget {
                 seedColor: kPrimaryColor,
                 brightness: state.darkMode ? Brightness.dark : Brightness.light,
               ).copyWith(
-                // Ensures Material widgets like date pickers use correct contrast in dark mode
                 surface:
                     state.darkMode ? const Color(0xff1A1A1A) : Colors.white,
                 onSurface: state.darkMode ? Colors.white : Colors.black87,
