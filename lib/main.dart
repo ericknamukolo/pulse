@@ -43,6 +43,7 @@ class Pulse extends StatelessWidget {
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
           return MaterialApp(
+            navigatorKey: navigatorKey,
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               scaffoldBackgroundColor:
