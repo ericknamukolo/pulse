@@ -70,8 +70,11 @@ class _ActionDialogState extends State<ActionDialog> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(widget.title,
-                          style: kTitleTextStyle.copyWith(
-                              fontSize: 16, color: Colors.black87)),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  )),
                       SizedBox(height: 5),
                       Text(widget.des,
                           style: kTitleTextStyle.copyWith(
