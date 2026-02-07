@@ -27,8 +27,10 @@ class PageviewChart extends StatelessWidget {
             child: Column(
               spacing: 5,
               children: [
-                getIndicator(title: 'Pageviews', color: Colors.orange),
-                getIndicator(title: 'Sessions', color: Colors.blue),
+                getIndicator(
+                    title: 'Pageviews', color: Colors.orange, context: context),
+                getIndicator(
+                    title: 'Sessions', color: Colors.blue, context: context),
               ],
             ),
           ),
@@ -77,7 +79,7 @@ class PageviewChart extends StatelessWidget {
     );
   }
 
-  Row getIndicator({required Color color, required String title}) {
+  Row getIndicator({required Color color, required String title, context}) {
     return Row(
       spacing: 8,
       children: [
@@ -91,8 +93,10 @@ class PageviewChart extends StatelessWidget {
         ),
         Text(
           title,
-          style: kBodyTextStyle.copyWith(
-              fontWeight: FontWeight.bold, color: Colors.black),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
         ),
       ],
     );

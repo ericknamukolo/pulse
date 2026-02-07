@@ -68,7 +68,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     Text('Sign In',
                         style: kTitleTextStyle.copyWith(fontSize: 30)),
                     Text('Please sign in to continue',
-                        style: kBodyTitleTextStyle),
+                        style: Theme.of(context).textTheme.bodyMedium),
                     CustomDropDown(
                       removePadding: true,
                       selectedItem: hostType,
