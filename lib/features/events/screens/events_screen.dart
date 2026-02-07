@@ -1,10 +1,8 @@
-import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse/features/events/cubit/events_cubit.dart';
-import 'package:pulse/features/theme/cubit/theme_cubit.dart';
 import 'package:pulse/features/websites/models/website.dart';
 import 'package:pulse/widgets/loading_shimmer.dart';
 import '../../../utils/colors.dart';
