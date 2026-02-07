@@ -12,7 +12,7 @@ class CustomDropDown extends StatelessWidget {
     required this.hint,
     required this.onChanged,
     this.preIcon,
-    this.fillColor = Colors.white,
+    this.fillColor,
     this.title,
     this.removePadding = false,
     this.isRequired = false,
@@ -41,7 +41,11 @@ class CustomDropDown extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(title!, style: kBodyTitleTextStyle),
+                child: Text(title!,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        )),
               ),
             ],
           ),
@@ -51,7 +55,7 @@ class CustomDropDown extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           height: maxHeight,
           decoration: BoxDecoration(
-            color: fillColor,
+            color: fillColor ?? Theme.of(context).cardColor,
             border: Border.all(color: kGreyColor.withOpacity(.3), width: 1.5),
             borderRadius: BorderRadius.circular(10.0),
           ),
@@ -69,6 +73,7 @@ class CustomDropDown extends StatelessWidget {
               ),
               Expanded(
                 child: DropdownButton(
+                  dropdownColor: Theme.of(context).appBarTheme.backgroundColor,
                   underline: const SizedBox(),
                   icon: const Icon(
                     Icons.keyboard_arrow_down_rounded,

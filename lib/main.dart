@@ -61,7 +61,39 @@ class Pulse extends StatelessWidget {
                   state.darkMode ? Color(0xff292929) : const Color(0xffF5F9FE),
               fontFamily: 'Montserrat',
               useMaterial3: true,
-              colorScheme: ColorScheme.fromSeed(seedColor: kPrimaryColor),
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: kPrimaryColor,
+                brightness: state.darkMode ? Brightness.dark : Brightness.light,
+              ).copyWith(
+                // Ensures Material widgets like date pickers use correct contrast in dark mode
+                surface:
+                    state.darkMode ? const Color(0xff1A1A1A) : Colors.white,
+                onSurface: state.darkMode ? Colors.white : Colors.black87,
+              ),
+              datePickerTheme: DatePickerThemeData(
+                backgroundColor:
+                    state.darkMode ? const Color(0xff1A1A1A) : Colors.white,
+                headerBackgroundColor:
+                    state.darkMode ? const Color(0xff1A1A1A) : null,
+                headerForegroundColor:
+                    state.darkMode ? Colors.white : Colors.black87,
+                dayForegroundColor: WidgetStateProperty.resolveWith((states) {
+                  if (states.contains(WidgetState.disabled)) {
+                    return state.darkMode
+                        ? Colors.white.withOpacity(.38)
+                        : Colors.black.withOpacity(.38);
+                  }
+                  return state.darkMode ? Colors.white : Colors.black87;
+                }),
+                yearForegroundColor: WidgetStateProperty.resolveWith((states) {
+                  if (states.contains(WidgetState.disabled)) {
+                    return state.darkMode
+                        ? Colors.white.withOpacity(.38)
+                        : Colors.black.withOpacity(.38);
+                  }
+                  return state.darkMode ? Colors.white : Colors.black87;
+                }),
+              ),
             ),
             home: SplashScreen(),
           );
