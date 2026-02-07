@@ -13,6 +13,8 @@ import 'utils/colors.dart';
 import 'utils/utils.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
@@ -36,6 +38,7 @@ class Pulse extends StatelessWidget {
         BlocProvider(create: (_) => SessionsCubit()),
       ],
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           scaffoldBackgroundColor: Color(0xffF5F5F5),
