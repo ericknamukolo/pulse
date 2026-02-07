@@ -25,7 +25,7 @@ class ContainerWrapper extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(bRadius),
           boxShadow: shadows,
           border: Border.all(

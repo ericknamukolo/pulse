@@ -1,4 +1,3 @@
-import 'package:pulse/utils/text.dart';
 import 'package:pulse/widgets/icon_btn.dart';
 import 'package:flutter/material.dart';
 

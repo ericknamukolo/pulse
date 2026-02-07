@@ -19,8 +19,6 @@ class StatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.i(stat);
-    logger.i(comp);
     double percentage =
         OverviewRepo().getPercentage(current: stat.value, previous: comp.value);
     return ContainerWrapper(

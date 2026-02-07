@@ -17,6 +17,7 @@ import 'package:pulse/utils/text.dart';
 import 'package:pulse/utils/utils.dart';
 import 'package:pulse/widgets/custom_appbar.dart';
 import 'package:country_codes/country_codes.dart';
+import 'package:pulse/widgets/loading_shimmer.dart';
 import 'package:pulse/widgets/title_card.dart';
 
 import '../../../widgets/drop_down_btn.dart';
@@ -121,11 +122,9 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 ],
               ),
               _session == null
-                  ? FadeShimmer(
+                  ? LoadingShimmer(
                       height: 100,
-                      width: double.infinity,
                       radius: 16,
-                      fadeTheme: FadeTheme.light,
                     )
                   : Row(
                       spacing: 15,
@@ -271,7 +270,10 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title,
-            style: kBodyTitleTextStyle.copyWith(fontWeight: FontWeight.bold)),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                )),
         Row(
           spacing: 5,
           crossAxisAlignment: CrossAxisAlignment.center,
