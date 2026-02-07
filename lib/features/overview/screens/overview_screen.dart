@@ -11,6 +11,7 @@ import 'package:pulse/widgets/drop_down.dart';
 import 'package:pulse/widgets/drop_down_btn.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:pulse/widgets/loading_indicator.dart';
+import 'package:pulse/widgets/loading_shimmer.dart';
 import 'package:pulse/widgets/title_card.dart';
 import '../../../utils/utils.dart';
 import '../cubit/overview_cubit.dart';
@@ -95,17 +96,9 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 ),
                 TitleCard(title: 'Summary'),
                 state.stats == null || state.appState == AppState.loading
-                    ? BlocBuilder<ThemeCubit, ThemeState>(
-                        builder: (context, state) {
-                          return FadeShimmer(
-                            height: 100,
-                            width: double.infinity,
-                            radius: 16,
-                            fadeTheme: state.darkMode
-                                ? FadeTheme.dark
-                                : FadeTheme.light,
-                          );
-                        },
+                    ? LoadingShimmer(
+                        height: 100,
+                        radius: 16,
                       )
                     : StatCard(
                         stat: state.stats!.entries.first,
@@ -127,17 +120,10 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
                     return state.stats == null ||
                             state.appState == AppState.loading
-                        ? BlocBuilder<ThemeCubit, ThemeState>(
-                            builder: (context, state) {
-                              return FadeShimmer(
-                                height: 8,
-                                width: 150,
-                                radius: 16,
-                                fadeTheme: state.darkMode
-                                    ? FadeTheme.dark
-                                    : FadeTheme.light,
-                              );
-                            },
+                        ? LoadingShimmer(
+                            height: 8,
+                            radius: 16,
+                            width: 150,
                           )
                         : StatCard(
                             stat: stats.entries
@@ -190,11 +176,9 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   PageviewChart(
                       data: state.pageview!, unit: state.unit.toLowerCase())
                 else
-                  FadeShimmer(
+                  LoadingShimmer(
                     height: 250,
-                    width: double.infinity,
                     radius: 16,
-                    fadeTheme: FadeTheme.light,
                   ),
                 TitleCard(title: 'Metrics'),
                 CustomDropDown(
@@ -250,17 +234,13 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   spacing: 10,
                   children: state.appState == AppState.secondaryLoading
                       ? [
-                          FadeShimmer(
+                          LoadingShimmer(
                             height: 50,
-                            width: double.infinity,
                             radius: 8,
-                            fadeTheme: FadeTheme.light,
                           ),
-                          FadeShimmer(
+                          LoadingShimmer(
                             height: 50,
-                            width: double.infinity,
                             radius: 8,
-                            fadeTheme: FadeTheme.light,
                           ),
                         ]
                       : state.metrics

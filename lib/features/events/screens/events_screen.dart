@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse/features/events/cubit/events_cubit.dart';
+import 'package:pulse/features/theme/cubit/theme_cubit.dart';
 import 'package:pulse/features/websites/models/website.dart';
+import 'package:pulse/widgets/loading_shimmer.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/drop_down_btn.dart';
@@ -83,12 +85,7 @@ class _SessionsScreenState extends State<EventsScreen> {
                     indent: 20,
                   ),
                   itemBuilder: (_, i) => state.appState == AppState.loading
-                      ? FadeShimmer(
-                          height: 80,
-                          width: double.infinity,
-                          radius: 8,
-                          fadeTheme: FadeTheme.light,
-                        )
+                      ? LoadingShimmer()
                       : EventCard(event: state.events[i]),
                   itemCount: state.appState == AppState.loading
                       ? 6

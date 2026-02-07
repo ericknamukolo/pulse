@@ -7,6 +7,7 @@ import 'package:pulse/features/sessions/cubit/sessions_cubit.dart';
 import 'package:pulse/features/sessions/widget/session_card.dart';
 import 'package:pulse/features/websites/models/website.dart';
 import 'package:pulse/widgets/loading_indicator.dart';
+import 'package:pulse/widgets/loading_shimmer.dart';
 
 import '../../../utils/colors.dart';
 import '../../../utils/utils.dart';
@@ -125,11 +126,9 @@ class _SessionsScreenState extends State<SessionsScreen> {
                         indent: 20,
                       ),
                       itemBuilder: (_, i) => state.appState == AppState.loading
-                          ? FadeShimmer(
+                          ? LoadingShimmer(
                               height: 80,
-                              width: double.infinity,
                               radius: 8,
-                              fadeTheme: FadeTheme.light,
                             )
                           : SessionCard(session: state.sessions[i]),
                       itemCount: state.appState == AppState.loading
