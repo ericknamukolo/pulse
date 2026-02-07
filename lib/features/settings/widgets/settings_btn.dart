@@ -44,7 +44,7 @@ class SettingsBtn extends StatelessWidget {
                       style: kBodyTitleTextStyle.copyWith(
                         color: getColor() == kErrorColor
                             ? kErrorColor
-                            : Colors.black,
+                            : Theme.of(context).textTheme.bodyMedium?.color,
                       )),
                   Text(btn.des ?? '-',
                       style: kBodyTextStyle.copyWith(color: getColor())),

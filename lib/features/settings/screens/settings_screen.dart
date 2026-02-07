@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:pulse/features/auth/repo/auth_repo.dart';
 import 'package:pulse/features/settings/screens/model/btn.dart';
+import 'package:pulse/features/theme/cubit/theme_cubit.dart';
 import 'package:pulse/utils/colors.dart';
 import 'package:pulse/widgets/custom_appbar.dart';
 import 'package:pulse/widgets/title_card.dart';
@@ -36,8 +38,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     List<Btn> btns = [
-      //account
-
+      //theme
+      Btn(
+        child: BlocBuilder<ThemeCubit, ThemeState>(
+          builder: (context, state) {
+            return SwitchTheme(
+              data: SwitchThemeData(
+                trackOutlineColor: MaterialStateProperty.resolveWith((states) {
+                  if (!states.contains(MaterialState.selected)) {
+                    return kGreyColor;
+                  }
+                  return Colors.transparent;
+                }),
+              ),
+              child: Switch.adaptive(
+                value: state.darkMode,
+                onChanged: (_) {
+                  context.read<ThemeCubit>().setThemeMode();
+                },
+                activeColor: kPrimaryColor,
+              ),
+            );
+          },
+        ),
+        title: 'Dark Theme',
+        des: 'Enable/Disable dark theme',
+        type: 'theme',
+        icon: Iconsax.moon_bold,
+        click: () {},
+      ),
       //app
 
       Btn(
@@ -61,15 +90,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               mode: LaunchMode.inAppBrowserView);
         },
       ),
-      Btn(
-        title: 'Source Code',
-        des: 'Pulse app source code',
-        type: 'app',
-        icon: Icons.code_rounded,
-        click: () {
-          Links.goToLink('https://github.com/ericknamukolo/pulse');
-        },
-      ),
+
       Btn(
         title: 'Developer',
         des: 'information about the dev',
@@ -88,9 +109,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Links.goToLink('https://www.sonka.io/creator/erick');
         },
       ),
-      // contact
+      // github
       Btn(
-        title: 'Help & Support/Feature Suggestions',
+        title: 'Source Code',
+        des: 'Pulse app source code',
+        type: 'github',
+        icon: Icons.code_rounded,
+        click: () {
+          Links.goToLink('https://github.com/ericknamukolo/pulse');
+        },
+      ),
+      Btn(
+        title: 'Issues or Feature suggestions',
+        des: 'Create an issue on github',
+        type: 'github',
+        icon: Bootstrap.github,
+        click: () {
+          Links.goToLink('https://github.com/ericknamukolo/pulse/issues');
+        },
+      ), // contact
+      Btn(
+        title: 'Help & Support',
         des: 'Contact Me',
         type: 'contact',
         icon: Icons.contact_support_rounded,
@@ -136,8 +175,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Column(
           children: [
             _buildSettings(
+              title: 'Theme',
+              btns: btns.where((e) => e.type == 'theme').toList(),
+            ),
+            _buildSettings(
               title: 'App',
               btns: btns.where((e) => e.type == 'app').toList(),
+            ),
+            _buildSettings(
+              title: 'Github',
+              btns: btns.where((e) => e.type == 'github').toList(),
             ),
             _buildSettings(
               title: 'Contact',
