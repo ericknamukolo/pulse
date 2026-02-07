@@ -71,7 +71,7 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
             kBodyTextStyle.copyWith(fontWeight: FontWeight.w600),
         unselectedLabelStyle: kBodyTextStyle.copyWith(color: kGreyColor),
         showSelectedLabels: true,
-        // backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart_outlined),

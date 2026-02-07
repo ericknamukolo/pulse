@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse/features/overview/repo/overview_repo.dart';
+import 'package:pulse/features/theme/cubit/theme_cubit.dart';
 import 'package:pulse/features/websites/models/website.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:pulse/widgets/drop_down.dart';
@@ -94,11 +95,17 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 ),
                 TitleCard(title: 'Summary'),
                 state.stats == null || state.appState == AppState.loading
-                    ? FadeShimmer(
-                        height: 100,
-                        width: double.infinity,
-                        radius: 16,
-                        fadeTheme: FadeTheme.light,
+                    ? BlocBuilder<ThemeCubit, ThemeState>(
+                        builder: (context, state) {
+                          return FadeShimmer(
+                            height: 100,
+                            width: double.infinity,
+                            radius: 16,
+                            fadeTheme: state.darkMode
+                                ? FadeTheme.dark
+                                : FadeTheme.light,
+                          );
+                        },
                       )
                     : StatCard(
                         stat: state.stats!.entries.first,
@@ -120,11 +127,17 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
                     return state.stats == null ||
                             state.appState == AppState.loading
-                        ? FadeShimmer(
-                            height: 8,
-                            width: 150,
-                            radius: 16,
-                            fadeTheme: FadeTheme.light,
+                        ? BlocBuilder<ThemeCubit, ThemeState>(
+                            builder: (context, state) {
+                              return FadeShimmer(
+                                height: 8,
+                                width: 150,
+                                radius: 16,
+                                fadeTheme: state.darkMode
+                                    ? FadeTheme.dark
+                                    : FadeTheme.light,
+                              );
+                            },
                           )
                         : StatCard(
                             stat: stats.entries
