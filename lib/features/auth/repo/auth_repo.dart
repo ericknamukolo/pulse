@@ -1,4 +1,5 @@
 import 'package:pulse/features/auth/screens/splash_screen.dart';
+import 'package:pulse/main.dart';
 import 'package:pulse/utils/endpoints.dart';
 import 'package:pulse/utils/local_storage.dart';
 import 'package:pulse/utils/navigation.dart';
@@ -29,5 +30,15 @@ class AuthRepo {
   Future<void> signOut(context) async {
     await prefs.clear();
     Navigation.go(screen: SplashScreen(), context: context, replace: true);
+  }
+
+  static Future<void> tokenExpired() async {
+    await prefs.clear();
+    Toast.showToast(
+        message: 'Token Expired', context: navigatorKey.currentContext!);
+    Navigation.go(
+        screen: SplashScreen(),
+        context: navigatorKey.currentContext!,
+        replace: true);
   }
 }
