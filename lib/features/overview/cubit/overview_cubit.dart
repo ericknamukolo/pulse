@@ -17,6 +17,7 @@ class OverviewCubit extends Cubit<OverviewState> {
     try {
       var stats =
           await OverviewRepo().getSummaryStats(id: id, start: start, end: end);
+      logger.i(stats);
       emit(state.copyWith(stats: stats, appState: AppState.complete));
     } catch (e) {
       emit(
@@ -52,7 +53,9 @@ class OverviewCubit extends Cubit<OverviewState> {
       var res = await OverviewRepo().getPageviewStats(
           id: id, unit: unit ?? state.unit, start: start, end: end);
       emit(state.copyWith(pageview: res));
-    } catch (e) {
+    } catch (e, st) {
+      logger.i(e);
+      logger.i(st);
       emit(
           state.copyWith(errorMessage: e.toString(), appState: AppState.error));
     }

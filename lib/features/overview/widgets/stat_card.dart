@@ -9,15 +9,20 @@ import '../../../widgets/container_wrapper.dart';
 
 class StatCard extends StatelessWidget {
   final MapEntry<String, dynamic> stat;
+  final MapEntry<String, dynamic> comp;
+
   const StatCard({
     super.key,
     required this.stat,
+    required this.comp,
   });
 
   @override
   Widget build(BuildContext context) {
-    double percentage = OverviewRepo().getPercentage(
-        current: stat.value['value'], previous: stat.value['prev']);
+    logger.i(stat);
+    logger.i(comp);
+    double percentage =
+        OverviewRepo().getPercentage(current: stat.value, previous: comp.value);
     return ContainerWrapper(
       padding: 15.0,
       bRadius: 16,
@@ -28,15 +33,15 @@ class StatCard extends StatelessWidget {
               style: kBodyTitleTextStyle.copyWith(color: kGreyColor)),
           if (stat.key.toLowerCase() == 'totaltime')
             FittedBox(
-              child: Text(formatDuration((stat.value as Map)['value']),
+              child: Text(formatDuration((stat.value)),
                   style: kTitleTextStyle.copyWith(
                       fontSize: kTitleTextStyle.fontSize! + 8)),
             )
           else
-            Text(NumberFormat.compact().format((stat.value as Map)['value']),
+            Text(NumberFormat.compact().format((stat.value)),
                 style: kTitleTextStyle.copyWith(
                     fontSize: kTitleTextStyle.fontSize! + 8)),
-          if (stat.value['prev'] != -1)
+          if (comp.value != -1)
             Container(
               padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 4),
               decoration: BoxDecoration(

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:pulse/features/auth/repo/auth_repo.dart';
 import 'package:pulse/utils/utils.dart';
 
 import 'local_storage.dart';
@@ -138,10 +139,16 @@ class Requests {
     try {
       http.Response res;
       res = await fn.timeout(const Duration(seconds: 10));
-      logger.i(endpoint);
+
       if (endpoint.contains('auth/login') && res.statusCode == 404) {
         return throw Exception('Invalid host url');
       }
+
+      if (res.statusCode == 401) {
+        await AuthRepo.tokenExpired();
+        return null;
+      }
+
       if (res.statusCode != okStatusCode) {
         return throw Exception(
             json.decode(res.body)?['error'] ?? 'Error occurred');

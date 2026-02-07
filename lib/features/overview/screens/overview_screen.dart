@@ -100,7 +100,13 @@ class _OverviewScreenState extends State<OverviewScreen> {
                         radius: 16,
                         fadeTheme: FadeTheme.light,
                       )
-                    : StatCard(stat: state.stats!.entries.toList()[0]),
+                    : StatCard(
+                        stat: state.stats!.entries.first,
+                        comp:
+                            (state.stats!['comparison'] as Map<String, dynamic>)
+                                .entries
+                                .first,
+                      ),
                 GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -108,21 +114,42 @@ class _OverviewScreenState extends State<OverviewScreen> {
                     mainAxisSpacing: 15,
                     childAspectRatio: 1.3,
                   ),
-                  itemBuilder: (_, i) =>
-                      state.stats == null || state.appState == AppState.loading
-                          ? FadeShimmer(
-                              height: 8,
-                              width: 150,
-                              radius: 16,
-                              fadeTheme: FadeTheme.light,
-                            )
-                          : StatCard(
-                              stat: state.stats!.entries
-                                  .toList()
-                                  .getRange(1, state.stats!.length)
-                                  .toList()[i],
-                            ),
-                  itemCount: (state.stats?.length ?? 5) - 1,
+                  itemBuilder: (_, i) {
+                    Map<String, dynamic> stats = {...state.stats ?? {}};
+                    stats.removeWhere((key, value) => key == "comparison");
+
+                    return state.stats == null ||
+                            state.appState == AppState.loading
+                        ? FadeShimmer(
+                            height: 8,
+                            width: 150,
+                            radius: 16,
+                            fadeTheme: FadeTheme.light,
+                          )
+                        : StatCard(
+                            stat: stats.entries
+                                .toList()
+                                .getRange(1, stats.length)
+                                .toList()[i],
+                            comp: (state.stats!['comparison']
+                                    as Map<String, dynamic>)
+                                .entries
+                                .toList()
+                                .getRange(
+                                    1,
+                                    (state.stats!['comparison']
+                                            as Map<String, dynamic>)
+                                        .entries
+                                        .toList()
+                                        .length)
+                                .toList()[i],
+                          );
+                  },
+                  itemCount: (state.stats?.entries
+                              .where((val) => val.key != 'comparison')
+                              .length ??
+                          5) -
+                      1,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                 ),
@@ -161,7 +188,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   removePadding: true,
                   selectedItem: state.metric,
                   items: [
-                    'Url',
+                    'Path',
                     'Referrer',
                     'Browser',
                     'OS',
