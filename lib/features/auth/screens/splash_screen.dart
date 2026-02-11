@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_app_update/in_app_update.dart';
@@ -36,6 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> checkForUpdate() async {
+    if (Platform.isIOS) return;
     InAppUpdate.checkForUpdate().then((info) {
       if (info.updateAvailability == UpdateAvailability.updateAvailable) {
         Toast.showToast(

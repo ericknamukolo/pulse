@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +16,7 @@ import 'features/auth/screens/splash_screen.dart';
 import 'utils/colors.dart';
 import 'utils/utils.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -23,7 +26,13 @@ void main() async {
   await CountryCodes.init();
   prefs = await SharedPreferences.getInstance();
   userTimeZone = await FlutterTimezone.getLocalTimezone();
+  await init();
   runApp(const Pulse());
+}
+
+Future<void> init() async {
+  await Purchases.configure(PurchasesConfiguration(
+      dotenv.env[Platform.isIOS ? 'REV_CATAPI_IOS' : 'REV_CATAPI']!));
 }
 
 class Pulse extends StatelessWidget {

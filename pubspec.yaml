@@ -4,7 +4,7 @@ description: "A new Flutter project."
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.14+15
+version: 1.0.17+18
 
 environment:
   sdk: ^3.6.1
@@ -35,6 +35,7 @@ dependencies:
   flutter_timezone: ^4.1.1
   flutter_dotenv: ^5.2.1
   country_codes: ^3.3.0
+  purchases_flutter: ^9.11.0
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +52,8 @@ icons_launcher:
       enable: true
     ios:
       enable: true
+      adaptive_foreground_image: "assets/images/logo_padded.png"
+      image_path: "assets/images/logo_padded.png"
 
 flutter:
   uses-material-design: true

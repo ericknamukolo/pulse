@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:pulse/utils/colors.dart';
 import '../utils/text.dart';
 
 class EmptyState extends StatelessWidget {
@@ -19,7 +20,8 @@ class EmptyState extends StatelessWidget {
             color: Colors.amber,
             size: 60,
           ),
-          Text(message ?? 'Nothing to show', style: kBodyTitleTextStyle),
+          Text(message ?? 'Nothing to show',
+              style: kBodyTitleTextStyle.copyWith(color: kGreyColor)),
         ],
       ),
     );
