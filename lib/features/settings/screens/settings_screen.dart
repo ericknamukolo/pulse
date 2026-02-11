@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -149,6 +151,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         type: 'setting',
         icon: Icons.info_rounded,
         click: () async {
+          if (Platform.isIOS) return;
           if (_updateInfo?.updateAvailability ==
               UpdateAvailability.updateAvailable) {
             await InAppUpdate.performImmediateUpdate();

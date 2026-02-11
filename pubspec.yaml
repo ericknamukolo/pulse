@@ -51,6 +51,8 @@ icons_launcher:
       enable: true
     ios:
       enable: true
+      adaptive_foreground_image: "assets/images/logo_padded.png"
+      image_path: "assets/images/logo_padded.png"
 
 flutter:
   uses-material-design: true
