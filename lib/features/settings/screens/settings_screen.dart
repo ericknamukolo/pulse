@@ -9,6 +9,7 @@ import 'package:pulse/features/theme/cubit/theme_cubit.dart';
 import 'package:pulse/utils/colors.dart';
 import 'package:pulse/widgets/custom_appbar.dart';
 import 'package:pulse/widgets/title_card.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../utils/utils.dart';
 import '../widgets/settings_btn.dart';
@@ -35,6 +36,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
       setState(() {});
     });
     super.initState();
+  }
+
+  Future<void> buyCoffee() async {
+    try {
+      final offerings = await Purchases.getOfferings();
+
+      await Purchases.purchasePackage(
+          offerings.getOffering('coffee')!.availablePackages.first);
+      Toast.showToast(message: 'Thank you! 🥳🎉', context: context);
+    } catch (e) {
+      Toast.showToast(message: 'Could not process request', context: context);
+    }
   }
 
   @override
@@ -103,12 +116,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         },
       ),
       Btn(
-        title: 'Coffee',
+        title: 'Coffee (Optional)',
         des: 'Buy me a coffe 🍵',
         type: 'app',
         icon: Bootstrap.cup_hot_fill,
         click: () {
-          Links.goToLink('https://www.sonka.io/creator/erick');
+          buyCoffee();
         },
       ),
       // github
