@@ -22,7 +22,7 @@ class WebCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(15.0),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(8),
           boxShadow: shadows,
         ),
@@ -38,7 +38,7 @@ class WebCard extends StatelessWidget {
                 children: [
                   Text(
                     website.name,
-                    style: kBodyTitleTextStyle,
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   Text(
                     website.domain,

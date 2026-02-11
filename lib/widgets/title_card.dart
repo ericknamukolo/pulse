@@ -26,9 +26,10 @@ class TitleCard extends StatelessWidget {
               Text(
                 title.toUpperCase(),
                 style: kBodyTextStyle.copyWith(
-                    letterSpacing: 1.0,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black),
+                  letterSpacing: 1.0,
+                  fontWeight: FontWeight.w700,
+                  color: Theme.of(context).textTheme.bodyMedium?.color,
+                ),
               ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 5),

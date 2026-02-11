@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_app_update/in_app_update.dart';
+import 'package:pulse/features/theme/cubit/theme_cubit.dart';
 import 'package:pulse/features/websites/screens/websites_screen.dart';
 import 'package:pulse/utils/endpoints.dart';
 import 'package:pulse/utils/local_storage.dart';
@@ -23,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
       checkForUpdate();
       baseUrl = prefs.getString(LocalStorage.host) ?? umamiUrl;
       String? token = prefs.getString(LocalStorage.jwt);
-
+      await context.read<ThemeCubit>().setDarkMode();
       Navigation.go(
         screen: token != null ? WebsitesScreen() : SignInScreen(),
         context: context,
@@ -39,8 +41,6 @@ class _SplashScreenState extends State<SplashScreen> {
         Toast.showToast(
             message: 'New App Update Available! 🎉', context: context);
       }
-    }).catchError((e) {
-      Toast.showToast(message: e.toString(), context: context);
     });
   }
 

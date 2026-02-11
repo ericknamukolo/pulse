@@ -8,8 +8,8 @@ import 'package:pulse/features/websites/models/website.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:pulse/widgets/drop_down.dart';
 import 'package:pulse/widgets/drop_down_btn.dart';
-import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:pulse/widgets/loading_indicator.dart';
+import 'package:pulse/widgets/loading_shimmer.dart';
 import 'package:pulse/widgets/title_card.dart';
 import '../../../utils/utils.dart';
 import '../cubit/overview_cubit.dart';
@@ -94,11 +94,9 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 ),
                 TitleCard(title: 'Summary'),
                 state.stats == null || state.appState == AppState.loading
-                    ? FadeShimmer(
+                    ? LoadingShimmer(
                         height: 100,
-                        width: double.infinity,
                         radius: 16,
-                        fadeTheme: FadeTheme.light,
                       )
                     : StatCard(
                         stat: state.stats!.entries.first,
@@ -120,11 +118,10 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
                     return state.stats == null ||
                             state.appState == AppState.loading
-                        ? FadeShimmer(
+                        ? LoadingShimmer(
                             height: 8,
-                            width: 150,
                             radius: 16,
-                            fadeTheme: FadeTheme.light,
+                            width: 150,
                           )
                         : StatCard(
                             stat: stats.entries
@@ -177,11 +174,9 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   PageviewChart(
                       data: state.pageview!, unit: state.unit.toLowerCase())
                 else
-                  FadeShimmer(
+                  LoadingShimmer(
                     height: 250,
-                    width: double.infinity,
                     radius: 16,
-                    fadeTheme: FadeTheme.light,
                   ),
                 TitleCard(title: 'Metrics'),
                 CustomDropDown(
@@ -237,17 +232,13 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   spacing: 10,
                   children: state.appState == AppState.secondaryLoading
                       ? [
-                          FadeShimmer(
+                          LoadingShimmer(
                             height: 50,
-                            width: double.infinity,
                             radius: 8,
-                            fadeTheme: FadeTheme.light,
                           ),
-                          FadeShimmer(
+                          LoadingShimmer(
                             height: 50,
-                            width: double.infinity,
                             radius: 8,
-                            fadeTheme: FadeTheme.light,
                           ),
                         ]
                       : state.metrics

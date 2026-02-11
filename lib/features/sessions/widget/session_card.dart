@@ -58,10 +58,10 @@ class SessionCard extends StatelessWidget {
               children: [
                 Text(
                   '${CountryCodes.name(locale: Locale(session.language, session.country))}, ${session.city} -- ${session.os}',
-                  style: kBodyTextStyle.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
                 Text(
                   '${DateFormat('EEE, MMM d y').format(session.createdAt!.toLocal())} at ${DateFormat('HH:mm').format(session.createdAt!.toLocal())} hrs',

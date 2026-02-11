@@ -1,4 +1,3 @@
-import 'package:pulse/utils/text.dart';
 import 'package:pulse/widgets/icon_btn.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +47,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               padding: const EdgeInsets.only(top: 12.0),
               child: Text(
                 title!.toUpperCase(),
-                style: kTitleTextStyle,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
     );

@@ -57,7 +57,8 @@ class CustomTextField extends StatelessWidget {
             visible: title != null,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 5.0),
-              child: Text(title ?? '', style: kBodyTitleTextStyle),
+              child: Text(title ?? '',
+                  style: Theme.of(context).textTheme.bodyMedium),
             ),
           ),
           TextFormField(
@@ -79,7 +80,8 @@ class CustomTextField extends StatelessWidget {
             decoration: InputDecoration(
               prefixText: prefixText,
               filled: true,
-              fillColor: const Color(0xffF5F9FE),
+              fillColor: Theme.of(context)
+                  .focusColor, //  fillColor: const Color(0xffF5F9FE),
               border: InputBorder.none,
               errorStyle:
                   kBodyTextStyle.copyWith(fontSize: 10, color: kErrorColor),
