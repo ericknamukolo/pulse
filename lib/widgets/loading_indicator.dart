@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/colors.dart';
@@ -15,11 +18,16 @@ class LoadingIndicator extends StatelessWidget {
       child: SizedBox(
         width: 30,
         height: 30,
-        child: CircularProgressIndicator(
-          strokeCap: StrokeCap.round,
-          strokeWidth: 1.8,
-          color: spinnerColor,
-        ),
+        child: Platform.isIOS
+            ? CupertinoActivityIndicator(
+                animating: true,
+                color: spinnerColor,
+              )
+            : CircularProgressIndicator(
+                strokeCap: StrokeCap.round,
+                strokeWidth: 1.8,
+                color: spinnerColor,
+              ),
       ),
     );
   }

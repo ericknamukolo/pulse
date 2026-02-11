@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +31,8 @@ void main() async {
 }
 
 Future<void> init() async {
-  await Purchases.configure(PurchasesConfiguration(dotenv.env['REV_CATAPI']!));
+  await Purchases.configure(PurchasesConfiguration(
+      dotenv.env[Platform.isIOS ? 'REV_CATAPI_IOS' : 'REV_CATAPI']!));
 }
 
 class Pulse extends StatelessWidget {

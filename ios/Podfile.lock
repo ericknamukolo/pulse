@@ -6,6 +6,12 @@ PODS:
     - Flutter
   - package_info_plus (0.4.5):
     - Flutter
+  - purchases_flutter (9.11.0):
+    - Flutter
+    - PurchasesHybridCommon (= 17.31.0)
+  - PurchasesHybridCommon (17.31.0):
+    - RevenueCat (= 5.57.0)
+  - RevenueCat (5.57.0)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -17,8 +23,14 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_timezone (from `.symlinks/plugins/flutter_timezone/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
+  - purchases_flutter (from `.symlinks/plugins/purchases_flutter/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
+
+SPEC REPOS:
+  trunk:
+    - PurchasesHybridCommon
+    - RevenueCat
 
 EXTERNAL SOURCES:
   country_codes:
@@ -29,6 +41,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_timezone/ios"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
+  purchases_flutter:
+    :path: ".symlinks/plugins/purchases_flutter/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   url_launcher_ios:
@@ -39,6 +53,9 @@ SPEC CHECKSUMS:
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_timezone: 7c838e17ffd4645d261e87037e5bebf6d38fe544
   package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
+  purchases_flutter: 10a2283136e2c98ddddb78737da5ab8bed457149
+  PurchasesHybridCommon: 21a11c5d66c8a52cf9aede45cecc2efe1551b98b
+  RevenueCat: 2d8aa56c68fa8e92c0d669e5e797c4a93e284f20
   shared_preferences_foundation: 7036424c3d8ec98dfe75ff1667cb0cd531ec82bb
   url_launcher_ios: 7a95fa5b60cc718a708b8f2966718e93db0cef1b
 
