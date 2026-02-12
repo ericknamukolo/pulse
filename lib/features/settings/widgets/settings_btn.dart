@@ -11,7 +11,8 @@ class SettingsBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color getColor() {
-      if (btn.title.toLowerCase().contains('logout')) {
+      if (btn.title.toLowerCase().contains('logout') ||
+          btn.title.contains('DELETE')) {
         return kErrorColor;
       }
       return kGreyColor;

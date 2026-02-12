@@ -6,7 +6,7 @@ import 'package:pulse/utils/utils.dart';
 class WebsiteRepo {
   Future<List<Website>> getWebsites() async {
     var res = await Requests.get(endpoint: '${Endpoints.websites}?pageSize=20');
-    logger.i(res);
+
     return Website.toList(res?['data'] ?? []);
   }
 

@@ -1,12 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:pulse/features/auth/repo/auth_repo.dart';
 import 'package:pulse/features/settings/screens/model/btn.dart';
+import 'package:pulse/features/settings/widgets/delete_account_dialog.dart';
 import 'package:pulse/features/theme/cubit/theme_cubit.dart';
 import 'package:pulse/utils/colors.dart';
+import 'package:pulse/utils/local_storage.dart';
 import 'package:pulse/widgets/custom_appbar.dart';
 import 'package:pulse/widgets/title_card.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
@@ -41,12 +44,69 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> buyCoffee() async {
     try {
       final offerings = await Purchases.getOfferings();
-
+      logger.i(offerings);
       await Purchases.purchasePackage(
           offerings.getOffering('coffee')!.availablePackages.first);
       Toast.showToast(message: 'Thank you! 🥳🎉', context: context);
-    } catch (e) {
-      Toast.showToast(message: 'Could not process request', context: context);
+    } on PlatformException catch (e) {
+      final errorCode = PurchasesErrorHelper.getErrorCode(e);
+
+      switch (errorCode) {
+        case PurchasesErrorCode.purchaseCancelledError:
+          Toast.showToast(
+            message: 'Purchase cancelled.',
+            context: context,
+          );
+          return;
+
+        case PurchasesErrorCode.purchaseNotAllowedError:
+          Toast.showToast(
+            message:
+                'Purchases are not allowed on this device. Please check your settings.',
+            context: context,
+          );
+          return;
+
+        case PurchasesErrorCode.storeProblemError:
+          Toast.showToast(
+            message:
+                'The store is temporarily unavailable. Please try again shortly.',
+            context: context,
+          );
+          return;
+
+        case PurchasesErrorCode.networkError:
+          Toast.showToast(
+            message:
+                'No internet connection. Please check your connection and try again.',
+            context: context,
+          );
+          return;
+
+        case PurchasesErrorCode.paymentPendingError:
+          Toast.showToast(
+            message:
+                'Your payment is pending approval. You will get access once it is approved.',
+            context: context,
+          );
+          return;
+
+        case PurchasesErrorCode.productAlreadyPurchasedError:
+          await Purchases.restorePurchases();
+
+          Toast.showToast(
+            message: 'You already own this item. Restoring your access…',
+            context: context,
+          );
+          return;
+
+        default:
+          Toast.showToast(
+            message: 'Something went wrong. Please try again.',
+            context: context,
+          );
+          return;
+      }
     }
   }
 
@@ -115,15 +175,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Links.goToLink('https://ericknamukolo.com');
         },
       ),
-      Btn(
-        title: 'Coffee (Optional)',
-        des: 'Buy me a coffe 🍵',
-        type: 'app',
-        icon: Bootstrap.cup_hot_fill,
-        click: () {
-          buyCoffee();
-        },
-      ),
+      if (Platform.isAndroid)
+        Btn(
+          title: 'Coffee (Optional)',
+          des: 'Buy me a coffee 🍵',
+          type: 'app',
+          icon: Bootstrap.cup_hot_fill,
+          click: () {
+            buyCoffee();
+          },
+        ),
       // github
       Btn(
         title: 'Source Code',
@@ -180,6 +241,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
         type: 'setting',
         icon: Icons.logout_rounded,
         click: () => AuthRepo().signOut(context),
+      ),
+      Btn(
+        title: 'DELETE ACCOUNT',
+        des: 'Delete your umami account',
+        type: 'setting',
+        icon: Icons.delete_rounded,
+        click: () {
+          showDeleteAccountSheet(context);
+        },
       ),
     ];
     return Scaffold(
