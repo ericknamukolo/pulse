@@ -64,8 +64,8 @@ Future<void> showDeleteAccountSheet(BuildContext context) {
                     path: 'privacy@umami.is',
                     query: Uri.encodeFull(
                       'subject=Request to Delete My Umami Account'
-                      '&body=Hello,%0D%0A%0D%0APlease delete my Umami Cloud account and all associated data.%0D%0A'
-                      'Account email: ${prefs.getString(LocalStorage.email) ?? ''}%0D%0A%0D%0AThank you.',
+                      '&body=Hello, Please delete my Umami Cloud account and all associated data.'
+                      'Account email: ${prefs.getString(LocalStorage.email) ?? ''}Thank you.',
                     ),
                   );
 

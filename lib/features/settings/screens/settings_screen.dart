@@ -44,11 +44,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> buyCoffee() async {
     try {
       final offerings = await Purchases.getOfferings();
-      logger.i(offerings);
-      await Purchases.purchasePackage(
-          offerings.getOffering('coffee')!.availablePackages.first);
+
+      await Purchases.purchasePackage(offerings
+          .getOffering(Platform.isIOS ? 'coffee_ios' : 'coffee')!
+          .availablePackages
+          .first);
+
       Toast.showToast(message: 'Thank you! 🥳🎉', context: context);
     } on PlatformException catch (e) {
+      logger.i(e);
       final errorCode = PurchasesErrorHelper.getErrorCode(e);
 
       switch (errorCode) {
@@ -175,16 +179,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Links.goToLink('https://ericknamukolo.com');
         },
       ),
-      if (Platform.isAndroid)
-        Btn(
-          title: 'Coffee (Optional)',
-          des: 'Buy me a coffee 🍵',
-          type: 'app',
-          icon: Bootstrap.cup_hot_fill,
-          click: () {
-            buyCoffee();
-          },
-        ),
+
+      Btn(
+        title: 'Coffee (Optional)',
+        des: 'Buy me a coffee 🍵',
+        type: 'app',
+        icon: Bootstrap.cup_hot_fill,
+        click: () {
+          buyCoffee();
+        },
+      ),
       // github
       Btn(
         title: 'Source Code',

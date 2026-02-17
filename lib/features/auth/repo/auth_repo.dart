@@ -24,7 +24,7 @@ class AuthRepo {
     baseUrl = url;
     prefs.setString(LocalStorage.jwt, res['token']);
     prefs.setString(LocalStorage.host, url);
-    prefs.setString(LocalStorage.host, email);
+    prefs.setString(LocalStorage.email, email);
     return res;
   }
 

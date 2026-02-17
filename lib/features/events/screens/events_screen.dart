@@ -4,6 +4,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse/features/events/cubit/events_cubit.dart';
 import 'package:pulse/features/websites/models/website.dart';
+import 'package:pulse/utils/text.dart';
 import 'package:pulse/widgets/loading_shimmer.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/utils.dart';
@@ -74,22 +75,34 @@ class _SessionsScreenState extends State<EventsScreen> {
                       : 'From ${DateFormat('EEE, MMM dd, yyyy').format(range!.start)} - ${DateFormat('EEE, MMM dd, yyyy').format(range!.end)}',
                 ),
                 TitleCard(title: 'Events'),
-                ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  separatorBuilder: (context, index) => Divider(
-                    color: kGreyColor.withOpacity(.2),
-                    height: 20,
-                    endIndent: 20,
-                    indent: 20,
-                  ),
-                  itemBuilder: (_, i) => state.appState == AppState.loading
-                      ? LoadingShimmer()
-                      : EventCard(event: state.events[i]),
-                  itemCount: state.appState == AppState.loading
-                      ? 6
-                      : state.events.length,
-                  shrinkWrap: true,
-                ),
+                state.events.isEmpty
+                    ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 200),
+                          child: Text(
+                            'No Events'.toUpperCase(),
+                            style:
+                                kBodyTitleTextStyle.copyWith(color: kGreyColor),
+                          ),
+                        ),
+                      )
+                    : ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        separatorBuilder: (context, index) => Divider(
+                          color: kGreyColor.withOpacity(.2),
+                          height: 20,
+                          endIndent: 20,
+                          indent: 20,
+                        ),
+                        itemBuilder: (_, i) =>
+                            state.appState == AppState.loading
+                                ? LoadingShimmer()
+                                : EventCard(event: state.events[i]),
+                        itemCount: state.appState == AppState.loading
+                            ? 6
+                            : state.events.length,
+                        shrinkWrap: true,
+                      ),
               ],
             ),
           ),
