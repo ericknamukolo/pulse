@@ -3,7 +3,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse/features/overview/models/pageview.dart';
 import 'package:pulse/utils/text.dart';
-import 'package:pulse/utils/utils.dart';
 import 'package:pulse/widgets/container_wrapper.dart';
 import '../models/metric.dart';
 

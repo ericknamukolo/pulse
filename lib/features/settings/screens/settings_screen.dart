@@ -9,7 +9,6 @@ import 'package:pulse/features/settings/screens/model/btn.dart';
 import 'package:pulse/features/settings/widgets/delete_account_dialog.dart';
 import 'package:pulse/features/theme/cubit/theme_cubit.dart';
 import 'package:pulse/utils/colors.dart';
-import 'package:pulse/utils/local_storage.dart';
 import 'package:pulse/widgets/custom_appbar.dart';
 import 'package:pulse/widgets/title_card.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
