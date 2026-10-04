@@ -4,6 +4,8 @@ PODS:
   - Flutter (1.0.0)
   - flutter_timezone (0.0.1):
     - Flutter
+  - native_glass_navbar (1.2.0):
+    - Flutter
   - package_info_plus (0.4.5):
     - Flutter
   - purchases_flutter (10.14.0):
@@ -22,6 +24,7 @@ DEPENDENCIES:
   - country_codes (from `.symlinks/plugins/country_codes/ios`)
   - Flutter (from `Flutter`)
   - flutter_timezone (from `.symlinks/plugins/flutter_timezone/ios`)
+  - native_glass_navbar (from `.symlinks/plugins/native_glass_navbar/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - purchases_flutter (from `.symlinks/plugins/purchases_flutter/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
@@ -39,6 +42,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_timezone:
     :path: ".symlinks/plugins/flutter_timezone/ios"
+  native_glass_navbar:
+    :path: ".symlinks/plugins/native_glass_navbar/ios"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
   purchases_flutter:
@@ -52,6 +57,7 @@ SPEC CHECKSUMS:
   country_codes: b534fe92b5dd4d4cfd31a720f2bfa223373d162c
   Flutter: 71a624a5bc0c04062bf19101d501e466baf2fb47
   flutter_timezone: 7c838e17ffd4645d261e87037e5bebf6d38fe544
+  native_glass_navbar: 67ecabc3f34b7e560f94077edeae381bb6cd6277
   package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
   purchases_flutter: 1eadc31e9a260b89c3f1e0c7367ca448b2b5d5cf
   PurchasesHybridCommon: da80a28f43fdfbf96dcb04c3aa2c6122b0e315d2
