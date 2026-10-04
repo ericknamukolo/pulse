@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boring_avatars/flutter_boring_avatars.dart';
 import 'package:icons_launcher/cli_commands.dart';
-import 'package:icons_plus/icons_plus.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse/features/events/widgets/event_card.dart';
 import 'package:pulse/features/overview/widgets/stat_card.dart';
@@ -184,17 +185,17 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
               ),
               getData(
                 title: 'OS',
-                icon: Brand(
+                icon: SvgPicture.asset(
                   widget.session.os.toLowerCase().toOsIcon,
-                  size: 18,
+                  height: 18,
                 ),
                 des: widget.session.os.capitalize(),
               ),
               getData(
                 title: 'Browser',
-                icon: Brand(
+                icon: SvgPicture.asset(
                   widget.session.browser.toLowerCase().toBrowserIcon,
-                  size: 18,
+                  height: 18,
                 ),
                 des: widget.session.browser.capitalize(),
               ),
@@ -217,7 +218,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                         start: range.start,
                       );
                 },
-                icon: Iconsax.timer_1_bold,
+                icon: Iconsax.timer_1,
                 title:
                     'From ${DateFormat('EEE, MMM dd, yyyy').format(range.start)} - ${DateFormat('EEE, MMM dd, yyyy').format(range.end)}',
               ),

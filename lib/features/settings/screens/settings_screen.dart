@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:icons_plus/icons_plus.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:pulse/features/auth/repo/auth_repo.dart';
 import 'package:pulse/features/settings/screens/model/btn.dart';
 import 'package:pulse/features/settings/widgets/delete_account_dialog.dart';
@@ -142,7 +143,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title: 'Dark Theme',
         des: 'Enable/Disable dark theme',
         type: 'theme',
-        icon: Iconsax.moon_bold,
+        icon: Iconsax.moon,
         click: () {},
       ),
       //app
@@ -183,7 +184,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title: 'Coffee (Optional)',
         des: 'Buy me a coffee 🍵',
         type: 'app',
-        icon: Bootstrap.cup_hot_fill,
+        icon: BootstrapIcons.cup_hot_fill,
         click: () {
           buyCoffee();
         },
@@ -202,7 +203,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title: 'Issues or Feature suggestions',
         des: 'Create an issue on github',
         type: 'github',
-        icon: Bootstrap.github,
+        icon: BootstrapIcons.github,
         click: () {
           Links.goToLink('https://github.com/ericknamukolo/pulse/issues');
         },

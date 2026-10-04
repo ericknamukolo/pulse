@@ -1,4 +1,4 @@
-import 'package:icons_plus/icons_plus.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:pulse/features/websites/screens/websites_screen.dart';
 import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/text.dart';
@@ -145,7 +145,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           setState(() => isHidden = !isHidden);
                         },
                         icon: Icon(
-                          isHidden ? Iconsax.eye_slash_bold : Iconsax.eye_bold,
+                          isHidden ? Iconsax.eye_slash : Iconsax.eye,
                           color: kGreyColor,
                         ),
                       ),

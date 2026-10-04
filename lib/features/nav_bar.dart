@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:pulse/features/events/screens/events_screen.dart';
 import 'package:pulse/features/overview/screens/overview_screen.dart';
 import 'package:pulse/features/settings/screens/settings_screen.dart';
@@ -84,8 +84,8 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
             label: 'Events',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Iconsax.user_outline),
-            activeIcon: Icon(Iconsax.user_bold),
+            icon: Icon(Iconsax.user_copy),
+            activeIcon: Icon(Iconsax.user),
             label: 'Sessions',
           ),
           BottomNavigationBarItem(

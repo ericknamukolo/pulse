@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:pulse/features/nav_bar.dart';
 import 'package:pulse/features/websites/models/website.dart';
 import 'package:pulse/features/websites/screens/edit_website_screen.dart';
@@ -29,8 +29,7 @@ class WebCard extends StatelessWidget {
         child: Row(
           spacing: 15,
           children: [
-            Icon(Iconsax.global_bold,
-                color: kGreyColor.withOpacity(.5), size: 30),
+            Icon(Iconsax.global, color: kGreyColor.withOpacity(.5), size: 30),
             Expanded(
               child: Column(
                 spacing: 5,

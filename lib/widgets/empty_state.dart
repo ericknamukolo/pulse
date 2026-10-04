@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:pulse/utils/colors.dart';
 import '../utils/text.dart';
 
@@ -16,7 +16,7 @@ class EmptyState extends StatelessWidget {
         spacing: 10,
         children: [
           Icon(
-            icon ?? Iconsax.chart_1_outline,
+            icon ?? Iconsax.chart_1_copy,
             color: Colors.amber,
             size: 60,
           ),

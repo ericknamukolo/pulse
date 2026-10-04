@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
 
 extension StringExtensions on String {
   IconData get toDeviceIcon {
@@ -17,39 +16,39 @@ extension StringExtensions on String {
 
   String get toOsIcon {
     if (contains('ios')) {
-      return Brands.apple_logo;
+      return 'assets/images/brands/apple-logo.svg';
     } else if (contains('mac')) {
-      return Brands.mac_logo;
+      return 'assets/images/brands/mac-logo.svg';
     } else if (contains('android')) {
-      return Brands.android_os;
+      return 'assets/images/brands/android-os.svg';
     } else if (contains('windows 10')) {
-      return Brands.windows_10;
+      return 'assets/images/brands/windows-10.svg';
     } else if (contains('windows 11')) {
-      return Brands.windows_11;
+      return 'assets/images/brands/windows-11.svg';
     } else if (contains('windows 7') || contains('windows')) {
-      return Brands.windows8;
+      return 'assets/images/brands/windows8.svg';
     } else if (contains('linux')) {
-      return Brands.kali_linux;
+      return 'assets/images/brands/kali-linux.svg';
     } else {
-      return Brands.mac_logo;
+      return 'assets/images/brands/mac-logo.svg';
     }
   }
 
   String get toBrowserIcon {
     if (contains('chrome')) {
-      return Brands.chrome;
+      return 'assets/images/brands/chrome.svg';
     } else if (contains('ios') || contains('safari')) {
-      return Brands.safari;
+      return 'assets/images/brands/safari.svg';
     } else if (contains('opera')) {
-      return Brands.opera;
+      return 'assets/images/brands/opera.svg';
     } else if (contains('chromium')) {
-      return Brands.chromium;
+      return 'assets/images/brands/chromium.svg';
     } else if (contains('samsung')) {
-      return Brands.samsung;
+      return 'assets/images/brands/samsung.svg';
     } else if (contains('instagram')) {
-      return Brands.instagram;
+      return 'assets/images/brands/instagram.svg';
     } else {
-      return Brands.chromium;
+      return 'assets/images/brands/chromium.svg';
     }
   }
 }

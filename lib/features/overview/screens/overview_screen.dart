@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:icons_plus/icons_plus.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse/features/overview/repo/overview_repo.dart';
 import 'package:pulse/features/websites/models/website.dart';
@@ -88,7 +88,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                     setState(() => range = picked);
                     getStats();
                   },
-                  icon: Iconsax.timer_1_bold,
+                  icon: Iconsax.timer_1,
                   title: range == null
                       ? 'Last 24 hours'
                       : 'From ${DateFormat('EEE, MMM dd, yyyy').format(range!.start)} - ${DateFormat('EEE, MMM dd, yyyy').format(range!.end)}',

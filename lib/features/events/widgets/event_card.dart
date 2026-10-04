@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boring_avatars/flutter_boring_avatars.dart';
-import 'package:icons_plus/icons_plus.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:pulse/features/events/models/event.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse/utils/colors.dart';
@@ -40,7 +40,7 @@ class EventCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Icon(
-                      isEvent ? Icons.bolt_rounded : Bootstrap.eye_fill,
+                      isEvent ? Icons.bolt_rounded : BootstrapIcons.eye_fill,
                       color: kGreyColor.withOpacity(.5),
                       size: 18,
                     ),
