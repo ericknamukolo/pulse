@@ -8,11 +8,15 @@ class Website {
   String domain;
   DateTime createdAt;
 
+  /// Null for personal websites; set for websites owned by a team.
+  String? teamId;
+
   Website({
     required this.id,
     required this.name,
     required this.domain,
     required this.createdAt,
+    this.teamId,
   });
 
   factory Website.fromJson(Map<String, dynamic> json) =>

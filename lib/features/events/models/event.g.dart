@@ -10,9 +10,9 @@ Event _$EventFromJson(Map<String, dynamic> json) => Event(
       createdAt: DateTime.parse(json['createdAt'] as String),
       id: json['id'] as String?,
       sessionId: json['sessionId'] as String?,
-      eventName: json['eventName'] as String,
+      eventName: json['eventName'] as String?,
       urlPath: json['urlPath'] as String,
-      referrerDomain: json['referrerDomain'] as String,
+      referrerDomain: json['referrerDomain'] as String?,
     );
 
 Map<String, dynamic> _$EventToJson(Event instance) => <String, dynamic>{

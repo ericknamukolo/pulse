@@ -13,7 +13,8 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isEvent = event.eventName.isNotEmpty;
+    final eventName = event.eventName;
+    final bool isEvent = eventName != null && eventName.isNotEmpty;
     return ContainerWrapper(
       padding: 12.0,
       child: Row(
@@ -60,7 +61,7 @@ class EventCard extends StatelessWidget {
                                   ),
                             ),
                             TextSpan(
-                              text: isEvent ? event.eventName : event.urlPath,
+                              text: isEvent ? eventName! : event.urlPath,
                               style: kBodyTextStyle.copyWith(
                                 color: kPrimaryColor,
                                 fontWeight: FontWeight.bold,

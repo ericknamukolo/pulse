@@ -11,6 +11,7 @@ Website _$WebsiteFromJson(Map<String, dynamic> json) => Website(
       name: json['name'] as String,
       domain: json['domain'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
+      teamId: json['teamId'] as String?,
     );
 
 Map<String, dynamic> _$WebsiteToJson(Website instance) => <String, dynamic>{
@@ -18,4 +19,5 @@ Map<String, dynamic> _$WebsiteToJson(Website instance) => <String, dynamic>{
       'name': instance.name,
       'domain': instance.domain,
       'createdAt': instance.createdAt.toIso8601String(),
+      'teamId': instance.teamId,
     };

@@ -12,12 +12,12 @@ Session _$SessionFromJson(Map<String, dynamic> json) => Session(
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
-      city: json['city'] as String,
+      city: json['city'] as String?,
       country: json['country'] as String,
       device: json['device'] as String,
       id: json['id'] as String,
       os: json['os'] as String,
-      region: json['region'] as String,
+      region: json['region'] as String?,
       screen: json['screen'] as String,
       visits: (json['visits'] as num).toInt(),
       views: (json['views'] as num).toInt(),

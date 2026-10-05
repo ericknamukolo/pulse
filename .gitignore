@@ -50,3 +50,4 @@ app.*.map.json
 
 #API Key
 *.env
+android/build/
