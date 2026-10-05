@@ -31,8 +31,15 @@ void main() async {
 }
 
 Future<void> init() async {
-  await Purchases.configure(PurchasesConfiguration(
-      dotenv.env[Platform.isIOS ? 'REV_CATAPI_IOS' : 'REV_CATAPI']!));
+  // RevenueCat only powers the optional "buy me a coffee" tip jar. A missing
+  // or placeholder key (e.g. when self-hosting the app) must not crash
+  // startup — analytics itself works without it.
+  try {
+    await Purchases.configure(PurchasesConfiguration(
+        dotenv.env[Platform.isIOS ? 'REV_CATAPI_IOS' : 'REV_CATAPI']!));
+  } catch (e) {
+    debugPrint('Purchases unavailable: $e');
+  }
 }
 
 class Pulse extends StatelessWidget {
