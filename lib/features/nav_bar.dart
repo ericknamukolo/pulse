@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:native_glass_navbar/native_glass_navbar.dart';
 import 'package:pulse/features/events/screens/events_screen.dart';
 import 'package:pulse/features/overview/screens/overview_screen.dart';
 import 'package:pulse/features/settings/screens/settings_screen.dart';
@@ -53,48 +54,81 @@ class _NavBarState extends State<NavBar> with TickerProviderStateMixin {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 10.0,
+      bottomNavigationBar: NativeGlassNavBar(
         currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-            tabController!.index = _currentIndex;
-          });
-        },
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: kPrimaryColor,
-        showUnselectedLabels: false,
-        unselectedFontSize: 10,
-        unselectedIconTheme: IconThemeData(color: kGreyColor.withOpacity(.35)),
-        selectedLabelStyle:
-            kBodyTextStyle.copyWith(fontWeight: FontWeight.w600),
-        unselectedLabelStyle: kBodyTextStyle.copyWith(color: kGreyColor),
-        showSelectedLabels: true,
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_outlined),
-            activeIcon: Icon(Icons.bar_chart_rounded),
+        onTap: _onTap,
+        tintColor: kPrimaryColor,
+        tabs: const [
+          NativeGlassNavBarItem(
             label: 'Overview',
+            symbol: 'chart.bar',
+            selectedSymbol: 'chart.bar.fill',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bolt_outlined),
-            activeIcon: Icon(Icons.bolt_rounded),
+          NativeGlassNavBarItem(
             label: 'Events',
+            symbol: 'bolt',
+            selectedSymbol: 'bolt.fill',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Iconsax.user_outline),
-            activeIcon: Icon(Iconsax.user_bold),
+          NativeGlassNavBarItem(
             label: 'Sessions',
+            symbol: 'person',
+            selectedSymbol: 'person.fill',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings_outlined),
-            activeIcon: Icon(Icons.settings),
+          NativeGlassNavBarItem(
             label: 'Settings',
+            symbol: 'gearshape',
+            selectedSymbol: 'gearshape.fill',
           ),
         ],
+        // Android and iOS versions without Liquid Glass
+        fallback: _fallbackNavBar(context),
       ),
+    );
+  }
+
+  void _onTap(int index) {
+    setState(() {
+      _currentIndex = index;
+      tabController!.index = _currentIndex;
+    });
+  }
+
+  Widget _fallbackNavBar(BuildContext context) {
+    return BottomNavigationBar(
+      elevation: 10.0,
+      currentIndex: _currentIndex,
+      onTap: _onTap,
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: kPrimaryColor,
+      showUnselectedLabels: false,
+      unselectedFontSize: 10,
+      unselectedIconTheme: IconThemeData(color: kGreyColor.withOpacity(.35)),
+      selectedLabelStyle: kBodyTextStyle.copyWith(fontWeight: FontWeight.w600),
+      unselectedLabelStyle: kBodyTextStyle.copyWith(color: kGreyColor),
+      showSelectedLabels: true,
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.bar_chart_outlined),
+          activeIcon: Icon(Icons.bar_chart_rounded),
+          label: 'Overview',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.bolt_outlined),
+          activeIcon: Icon(Icons.bolt_rounded),
+          label: 'Events',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Iconsax.user_copy),
+          activeIcon: Icon(Iconsax.user),
+          label: 'Sessions',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.settings_outlined),
+          activeIcon: Icon(Icons.settings),
+          label: 'Settings',
+        ),
+      ],
     );
   }
 }

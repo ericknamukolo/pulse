@@ -68,13 +68,17 @@ class MetricCard extends StatelessWidget {
                   ),
                 )
               else
-                Text(
-                  '${met.x} (${NumberFormat.compact().format(met.y)})',
-                  style: kBodyTextStyle.copyWith(
-                    fontWeight: FontWeight.w700,
+                Expanded(
+                  child: Text(
+                    '${met.x} (${NumberFormat.compact().format(met.y)})',
+                    maxLines: 2,
+                    style: kBodyTextStyle.copyWith(
+                      fontWeight: FontWeight.w700,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
-              if (state.metric != 'Country') const Spacer(),
+              // if (state.metric != 'Country') const Spacer(),
               Text(
                 '${OverviewRepo().getMetricPercentage(met.y, state.metrics.map((e) => e.y).toList()).toStringAsFixed(1)} %',
                 style: kBodyTextStyle.copyWith(

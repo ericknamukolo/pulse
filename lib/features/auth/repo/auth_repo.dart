@@ -9,21 +9,27 @@ import 'package:pulse/utils/utils.dart';
 class AuthRepo {
   Future<Map<String, dynamic>?> signIn(
       {required String email, required String pwd, required String url}) async {
-    String userKey = url == umamiUrl ? 'email' : 'username';
+    final isCloud = url == umamiUrl;
+    String? sessionCookie;
     var res = await Requests.post(
-      endpoint: '$url/api/auth/login',
+      endpoint: isCloud ? '$url/api/auth/sign-in/email' : '$url/api/auth/login',
       body: {
-        userKey: email,
+        isCloud ? 'email' : 'username': email,
         'password': pwd,
       },
       noAuth: true,
+      onResponse: (res) => sessionCookie = RegExp('$cloudSessionCookie=[^;,]+')
+          .firstMatch(res.headers['set-cookie'] ?? '')
+          ?.group(0),
     );
-    if (res == null) {
+
+    if (res == null || (isCloud && sessionCookie == null)) {
       throw Exception('Failed to sign in');
     }
     baseUrl = url;
-    prefs.setString(LocalStorage.jwt, res['token']);
+    prefs.setString(LocalStorage.jwt, sessionCookie ?? res['token']);
     prefs.setString(LocalStorage.host, url);
+    prefs.setString(LocalStorage.email, email);
     return res;
   }
 

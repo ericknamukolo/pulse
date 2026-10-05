@@ -70,7 +70,9 @@ class PageviewChart extends StatelessWidget {
                 gridData: FlGridData(show: false),
                 borderData: FlBorderData(show: false),
                 barTouchData: BarTouchData(enabled: true),
-                maxY: _getMaxY(mergedData),
+                maxY: data.pageviews.isEmpty && data.sessions.isEmpty
+                    ? 0
+                    : _getMaxY(mergedData),
               ),
             ),
           ),

@@ -1,10 +1,11 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:icons_plus/icons_plus.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse/features/overview/repo/overview_repo.dart';
 import 'package:pulse/features/websites/models/website.dart';
+import 'package:pulse/utils/colors.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:pulse/widgets/drop_down.dart';
 import 'package:pulse/widgets/drop_down_btn.dart';
@@ -87,7 +88,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                     setState(() => range = picked);
                     getStats();
                   },
-                  icon: Iconsax.timer_1_bold,
+                  icon: Iconsax.timer_1,
                   title: range == null
                       ? 'Last 24 hours'
                       : 'From ${DateFormat('EEE, MMM dd, yyyy').format(range!.start)} - ${DateFormat('EEE, MMM dd, yyyy').format(range!.end)}',
@@ -205,28 +206,36 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   height: 250,
                   child: state.appState == AppState.secondaryLoading
                       ? LoadingIndicator()
-                      : PieChart(
-                          curve: Curves.easeInOutSine,
-                          duration: Duration(seconds: 1),
-                          PieChartData(
-                            sections: state.metrics
-                                .mapIndexed(
-                                  (i, e) => PieChartSectionData(
-                                    value: (e.y).toDouble(),
-                                    color: getColorFromIndex(i),
-                                    title:
-                                        '${OverviewRepo().getMetricPercentage(e.y, state.metrics.map((e) => e.y).toList()).toStringAsFixed(1)} %',
-                                    radius: 50,
-                                    showTitle: true,
-                                    titleStyle: kBodyTextStyle.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ),
+                      : state.metrics.isEmpty
+                          ? Center(
+                              child: Text(
+                                'No Data'.toUpperCase(),
+                                style: kBodyTitleTextStyle.copyWith(
+                                    color: kGreyColor),
+                              ),
+                            )
+                          : PieChart(
+                              curve: Curves.easeInOutSine,
+                              duration: Duration(seconds: 1),
+                              PieChartData(
+                                sections: state.metrics
+                                    .mapIndexed(
+                                      (i, e) => PieChartSectionData(
+                                        value: (e.y).toDouble(),
+                                        color: getColorFromIndex(i),
+                                        title:
+                                            '${OverviewRepo().getMetricPercentage(e.y, state.metrics.map((e) => e.y).toList()).toStringAsFixed(1)} %',
+                                        radius: 50,
+                                        showTitle: true,
+                                        titleStyle: kBodyTextStyle.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ),
                 ),
                 Column(
                   spacing: 10,

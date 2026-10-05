@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:icons_plus/icons_plus.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:pulse/features/sessions/cubit/sessions_cubit.dart';
 import 'package:pulse/features/sessions/widget/session_card.dart';
 import 'package:pulse/features/websites/models/website.dart';
+import 'package:pulse/utils/text.dart';
 import 'package:pulse/widgets/loading_indicator.dart';
 import 'package:pulse/widgets/loading_shimmer.dart';
 
@@ -110,7 +111,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
                               start: range?.start,
                             );
                       },
-                      icon: Iconsax.timer_1_bold,
+                      icon: Iconsax.timer_1,
                       title: range == null
                           ? 'Last 24 hours'
                           : 'From ${DateFormat('EEE, MMM dd, yyyy').format(range!.start)} - ${DateFormat('EEE, MMM dd, yyyy').format(range!.end)}',

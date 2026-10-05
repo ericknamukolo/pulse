@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:pulse/features/overview/repo/overview_repo.dart';
 import 'package:pulse/utils/text.dart';
 import 'package:intl/intl.dart';
@@ -62,8 +62,8 @@ class StatCard extends StatelessWidget {
                     visible: percentage != 0,
                     child: Icon(
                       percentage.isNegative
-                          ? Bootstrap.arrow_down_left_circle_fill
-                          : Bootstrap.arrow_up_right_circle_fill,
+                          ? BootstrapIcons.arrow_down_left_circle_fill
+                          : BootstrapIcons.arrow_up_right_circle_fill,
                       color:
                           percentage.isNegative ? kErrorColor : kSuccessColor,
                       size: 18,
