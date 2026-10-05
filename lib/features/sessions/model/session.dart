@@ -11,8 +11,8 @@ class Session {
   String screen;
   String country;
   String language;
-  String region;
-  String city;
+  String? region;
+  String? city;
   int visits;
   int views;
   int? totaltime;
@@ -25,12 +25,12 @@ class Session {
     required this.browser,
     required this.websiteId,
     this.createdAt,
-    required this.city,
+    this.city,
     required this.country,
     required this.device,
     required this.id,
     required this.os,
-    required this.region,
+    this.region,
     required this.screen,
     required this.visits,
     required this.views,

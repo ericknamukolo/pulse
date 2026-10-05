@@ -57,7 +57,7 @@ class SessionCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '${CountryCodes.name(locale: Locale(session.language, session.country))}, ${session.city} -- ${session.os}',
+                  '${CountryCodes.name(locale: Locale(session.language, session.country))}, ${session.city ?? 'Unknown'} -- ${session.os}',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,

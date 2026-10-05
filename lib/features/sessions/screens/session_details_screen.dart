@@ -172,7 +172,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                   size: 18,
                 ),
                 des:
-                    '${CountryCodes.name(locale: Locale(widget.session.language, widget.session.country))}, ${widget.session.city}',
+                    '${CountryCodes.name(locale: Locale(widget.session.language, widget.session.country))}, ${widget.session.city ?? 'Unknown'}',
               ),
               getData(
                 title: 'Device',
